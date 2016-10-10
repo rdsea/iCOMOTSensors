@@ -1,1 +1,0 @@
-java -cp "bootstrap_container-0.0.1-SNAPSHOT-jar-with-dependencies.jar;*" container.Main

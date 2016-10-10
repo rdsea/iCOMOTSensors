@@ -1,5 +1,0 @@
-This folder contains the examples of building GPS sensors.
-
- - generateGPSSensor.sh : a short script show how to use iCOMOT to build custom sensors
- - gps1279.csv          : extract 10 lines from big data sets of the GPS dataset
- - sensors-distribution : the sensors after built

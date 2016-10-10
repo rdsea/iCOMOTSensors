@@ -1,5 +1,0 @@
-/jars/*
-/target/*
-*.classpath
-*.project
-.settings/*

@@ -1,0 +1,5 @@
+This folder contains the examples of building sensors of the chiller.
+
+ - generateChillerSensor.sh : a short script show how to use iCOMOT to build custom sensors
+ - *.csv                    : extract 10 lines from big data sets of the chiller
+ - sensors-distribution     : the sensors after built

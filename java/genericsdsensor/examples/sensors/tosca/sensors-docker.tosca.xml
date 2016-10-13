@@ -46,19 +46,19 @@
     <ns2:ArtifactTemplate id="Artifact_17be547e-74ce-4918-aee1-01b93a366ef5" type="misc">
         <ns2:Properties/>
         <ns2:ArtifactReferences>
-            <ns2:ArtifactReference reference="file:///home/hungld/test/iCOMOT/iCOMOT-sensor-11-10-2016/tosca/sensor-artifacts.tar.gz"/>
+            <ns2:ArtifactReference reference="file:///path/to/your/artifacts/sensor-artifacts.tar.gz"/>
         </ns2:ArtifactReferences>
     </ns2:ArtifactTemplate>
     <ns2:ArtifactTemplate id="dockerFileArtifact" type="dockerfile">
         <ns2:Properties/>
         <ns2:ArtifactReferences>
-            <ns2:ArtifactReference reference="file:///home/hungld/test/iCOMOT/iCOMOT-sensor-11-10-2016/tosca/Dockerfile"/>
+            <ns2:ArtifactReference reference="file:///path/to/your/artifacts/Dockerfile"/>
         </ns2:ArtifactReferences>
     </ns2:ArtifactTemplate>
     <ns2:ArtifactTemplate id="Artifact_ff4be584-8ade-4c4d-ad46-7400a6f7a1e4" type="misc">
         <ns2:Properties/>
         <ns2:ArtifactReferences>
-            <ns2:ArtifactReference reference="file:///home/hungld/test/iCOMOT/iCOMOT-sensor-11-10-2016/tosca/runsensor.sh"/>
+            <ns2:ArtifactReference reference="file:///path/to/your/artifacts/runsensor.sh"/>
         </ns2:ArtifactReferences>
     </ns2:ArtifactTemplate>
 </ns2:Definitions>

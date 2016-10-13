@@ -44,19 +44,19 @@
     <ns2:ArtifactTemplate id="Artifact_e9ced96f-f847-48e5-bb39-404df01b2068" type="misc">
         <ns2:Properties/>
         <ns2:ArtifactReferences>
-            <ns2:ArtifactReference reference="file:///home/hungld/test/iCOMOT/iCOMOT-sensor-11-10-2016/tosca/sensor-artifacts.tar.gz"/>
+            <ns2:ArtifactReference reference="file:///path/to/your/artifacts/sensor-artifacts.tar.gz"/>
         </ns2:ArtifactReferences>
     </ns2:ArtifactTemplate>
     <ns2:ArtifactTemplate id="Artifact_d4096a96-b866-4476-baf7-8b90efeaaa1d" type="misc">
         <ns2:Properties/>
         <ns2:ArtifactReferences>
-            <ns2:ArtifactReference reference="file:///home/hungld/test/iCOMOT/iCOMOT-sensor-11-10-2016/tosca/runsensor.sh"/>
+            <ns2:ArtifactReference reference="file:///path/to/your/artifacts/runsensor.sh"/>
         </ns2:ArtifactReferences>
     </ns2:ArtifactTemplate>
     <ns2:ArtifactTemplate id="Artifact_d0d67cb5-cd99-4e3f-9816-b2e5856afb90" type="misc">
         <ns2:Properties/>
         <ns2:ArtifactReferences>
-            <ns2:ArtifactReference reference="file:///home/hungld/test/iCOMOT/iCOMOT-sensor-11-10-2016/tosca/Vagrantfile"/>
+            <ns2:ArtifactReference reference="file:///path/to/your/artifacts/Vagrantfile"/>
         </ns2:ArtifactReferences>
     </ns2:ArtifactTemplate>
 </ns2:Definitions>

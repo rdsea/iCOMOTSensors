@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns2:Definitions id="IoTSensors" name="IoTSensors" xmlns:ns2="http://docs.oasis-open.org/tosca/ns/2011/12">
+    <ns2:ServiceTemplate id="SensorTopology">
+        <ns2:TopologyTemplate>
+            <ns2:RelationshipTemplate id="sensorOnMachine" type="HOSTON">
+                <ns2:SourceElement ref="vagrant"/>
+                <ns2:TargetElement ref="PersonalMachine"/>
+            </ns2:RelationshipTemplate>
+            <ns2:NodeTemplate minInstances="1" maxInstances="2147483647" id="PersonalMachine" type="os">
+                <ns2:Properties>
+                    <MappingProperties>
+                        <MappingProperty type="os">
+                            <property name="provider">localhost</property>
+                            <property name="instanceType"/>
+                            <property name="baseImage"/>
+                            <property name="packages"></property>
+                        </MappingProperty>
+                    </MappingProperties>
+                </ns2:Properties>
+                <ns2:Requirements/>
+                <ns2:Capabilities/>
+                <ns2:Policies/>
+            </ns2:NodeTemplate>
+            <ns2:NodeTemplate minInstances="1" maxInstances="50" id="vagrant" type="software">
+                <ns2:Properties>
+                    <MappingProperties>
+                        <MappingProperty type="action">
+                            <property name="undeploy">/usr/bin/vagrant destroy</property>
+                            <property name="deploy">/usr/bin/vagrant up</property>
+                        </MappingProperty>
+                    </MappingProperties>
+                </ns2:Properties>
+                <ns2:Requirements/>
+                <ns2:Capabilities/>
+                <ns2:Policies/>
+                <ns2:DeploymentArtifacts>
+                    <ns2:DeploymentArtifact name="Artifact_e9ced96f-f847-48e5-bb39-404df01b2068" artifactType="salsa:misc" artifactRef="Artifact_e9ced96f-f847-48e5-bb39-404df01b2068" xmlns:salsa="https://github.com/tuwiendsg/SALSA"/>
+                    <ns2:DeploymentArtifact name="Artifact_d4096a96-b866-4476-baf7-8b90efeaaa1d" artifactType="salsa:misc" artifactRef="Artifact_d4096a96-b866-4476-baf7-8b90efeaaa1d" xmlns:salsa="https://github.com/tuwiendsg/SALSA"/>
+                    <ns2:DeploymentArtifact name="Artifact_d0d67cb5-cd99-4e3f-9816-b2e5856afb90" artifactType="salsa:misc" artifactRef="Artifact_d0d67cb5-cd99-4e3f-9816-b2e5856afb90" xmlns:salsa="https://github.com/tuwiendsg/SALSA"/>
+                </ns2:DeploymentArtifacts>
+            </ns2:NodeTemplate>
+        </ns2:TopologyTemplate>
+    </ns2:ServiceTemplate>
+    <ns2:ArtifactTemplate id="Artifact_e9ced96f-f847-48e5-bb39-404df01b2068" type="misc">
+        <ns2:Properties/>
+        <ns2:ArtifactReferences>
+            <ns2:ArtifactReference reference="file:///home/hungld/test/iCOMOT/iCOMOT-sensor-11-10-2016/tosca/sensor-artifacts.tar.gz"/>
+        </ns2:ArtifactReferences>
+    </ns2:ArtifactTemplate>
+    <ns2:ArtifactTemplate id="Artifact_d4096a96-b866-4476-baf7-8b90efeaaa1d" type="misc">
+        <ns2:Properties/>
+        <ns2:ArtifactReferences>
+            <ns2:ArtifactReference reference="file:///home/hungld/test/iCOMOT/iCOMOT-sensor-11-10-2016/tosca/runsensor.sh"/>
+        </ns2:ArtifactReferences>
+    </ns2:ArtifactTemplate>
+    <ns2:ArtifactTemplate id="Artifact_d0d67cb5-cd99-4e3f-9816-b2e5856afb90" type="misc">
+        <ns2:Properties/>
+        <ns2:ArtifactReferences>
+            <ns2:ArtifactReference reference="file:///home/hungld/test/iCOMOT/iCOMOT-sensor-11-10-2016/tosca/Vagrantfile"/>
+        </ns2:ArtifactReferences>
+    </ns2:ArtifactTemplate>
+</ns2:Definitions>

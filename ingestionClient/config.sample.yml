@@ -1,0 +1,14 @@
+host: null
+    path: null
+    protocol: null
+    port: null
+    clientId: null
+    username: null
+    password: null
+    topic: null
+    # last will and testament specified in mqtt
+    will:
+        topic: null # topic to publish disconnect msg
+        payload: null # payload disconnect msg
+        qos: null # qos required from broker
+        retain: null # should the state of the topic be stored

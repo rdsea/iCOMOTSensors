@@ -1,6 +1,7 @@
 import mqtt from 'mqtt'
 import yaml from 'js-yaml'
 import fs from 'fs'
+import mqttFactory from './mqttFactory'
 
 let config = null;
 try{
@@ -13,33 +14,28 @@ try{
     process.exit(1);
 }
 
-let client = mqtt.connect(config);
+let clients = [];
+for(let i=0;i<config.brokers.length;i++){
+    clients.push(mqttFactory.createMqttClient(config.brokers[i]));
+}
 
-client.on('connect', () => {
-    client.subscribe(config.topic);
-    console.log(`client ${config.clientId} is now ingesting from ${config.topic}`);
-});
+// gracefully handle interruption and exit
+function clean(){
+    for(let i=0;i<clients.length;i++){
+        clients[i].end();
+    }
+    process.exit();
+}
 
-client.on('message', (topic, message) => {
-    // the message is a bugger
-    console.log(message.toString());
-});
-
-client.on('error', function(err) {
-    console.log(err);
-    process.exit(0);
-});
-
-// gracefully handle interruption
 process.on('SIGINT', () => {
     console.log('terminating client...');
-    client.end();
+    clean();
 })
 
 // gracefully handle exit
 process.on('exit', () => {
     console.log('terminating client...');
-    client.end();
+    clean();
 })
 
 

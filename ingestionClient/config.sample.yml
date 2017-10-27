@@ -1,14 +1,24 @@
-host: null
-    path: null
-    protocol: null
-    port: null
-    clientId: null
-    username: null
-    password: null
-    topic: null
-    # last will and testament specified in mqtt
-    will:
-        topic: null # topic to publish disconnect msg
-        payload: null # payload disconnect msg
-        qos: null # qos required from broker
-        retain: null # should the state of the topic be stored
+brokers:
+    - host: m21.cloudmqtt.com
+      port: 18663
+      clientId: testclient1
+      username: fzofpyze
+      password: K3pBZXtF3nM0
+      topic: test1 # topic to subscribe
+      # last will and testament specified in mqtt
+      # will:
+      #    topic: <topic> # topic to publish disconnect msg
+      #    payload: <disconnect message> # payload disconnect msg
+      #    qos: <qos> # qos required from broker
+      #    retain: <retain flag> # should the state of the topic be stored
+
+    - host: test.mosquitto.org
+      port: 1883
+      clientId: testclient2
+      topic: test2 # topic to subscribe
+      # last will and testament specified in mqtt
+      # will:
+      #    topic: <topic> # topic to publish disconnect msg
+      #    payload: <disconnect message> # payload disconnect msg
+      #    qos: <qos> # qos required from broker
+      #    retain: <retain flag> # should the state of the topic be stored

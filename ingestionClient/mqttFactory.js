@@ -5,12 +5,14 @@ function createMqttClient(config){
     let client = mqtt.connect(config);
     
     client.on('connect', () => {
-        client.subscribe(config.topic);
-        console.log(`client ${config.clientId} is now ingesting from ${config.topic}`);
+        for(let i=0;i<config.topics.length;i++){
+            client.subscribe(config.topics[i]);
+            console.log(`client ${config.clientId} is now ingesting from ${config.topics[i]}`);
+        }
     });
     
     client.on('message', (topic, message) => {
-        console.log(message.toString(), config.clientId);
+        console.log(message.toString(),`topic: ${topic}` ,`client: ${config.clientId}`);
     });
     
     client.on('error', function(err) {

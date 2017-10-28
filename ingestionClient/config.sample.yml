@@ -4,7 +4,9 @@ brokers:
       clientId: testclient1
       username: fzofpyze
       password: K3pBZXtF3nM0
-      topic: test1 # topic to subscribe
+      topics: 
+        - test1 # topic to subscribe
+        - test2
       # last will and testament specified in mqtt
       # will:
       #    topic: <topic> # topic to publish disconnect msg
@@ -15,7 +17,9 @@ brokers:
     - host: test.mosquitto.org
       port: 1883
       clientId: testclient2
-      topic: test2 # topic to subscribe
+      topics: 
+        - test3 # topic to subscribe
+        - test4
       # last will and testament specified in mqtt
       # will:
       #    topic: <topic> # topic to publish disconnect msg

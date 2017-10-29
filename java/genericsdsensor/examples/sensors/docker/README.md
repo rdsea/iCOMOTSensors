@@ -5,10 +5,8 @@ To use the Dockerfile, following steps need to be done:
 1. Build the sensor source code.
 2. Copy the following files into the same folder with the Dockerfile:
   1. src/sdsensor/target/sdsensor-0.0.1-SNAPSHOT-jar-with-dependencies.jar
-  2. src/sdcommon/target/sdcommon-0.0.1-SNAPSHOT.jar
-  3. src/sdcloudconnectivity/target/cloud-connectivity-0.0.1-SNAPSHOT-jar-with-dependencies.jar
-  4. src/sdsensor/conf/mqttcloud.json (must be edited to match with your MQTT broker)
-  5. src/sdsensor/datasample/data.csv (optional: replace with your data file)
+  2. src/sdsensor/conf/mqttcloud.json (must be edited to match with your MQTT broker)
+  3. src/sdsensor/datasample/data.csv (optional: replace with your data file)
 3. Run following command:
 ```
 docker build -t yourImageName .

@@ -1,7 +1,7 @@
 import mqtt from 'mqtt'
 import fs from 'fs'
 
-function createMqttClient(config){
+function createMqttClient(config, dataPlugin){
     let client = mqtt.connect(config);
     
     client.on('connect', () => {
@@ -12,7 +12,10 @@ function createMqttClient(config){
     });
     
     client.on('message', (topic, message) => {
+        // TODO integrate cloud data services here
         console.log(message.toString(),`topic: ${topic}` ,`client: ${config.clientId}`);
+        let data = JSON.parse(message.toString());
+        dataPlugin.insert(topic, data);
     });
     
     client.on('error', function(err) {

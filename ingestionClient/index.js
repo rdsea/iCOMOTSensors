@@ -1,7 +1,9 @@
 import mqtt from 'mqtt'
 import yaml from 'js-yaml'
 import fs from 'fs'
+
 import mqttFactory from './mqttFactory'
+import influxPlugin from './dataPlugins/influxPlugin'
 
 let config = null;
 try{
@@ -15,9 +17,14 @@ try{
 }
 
 let clients = [];
-for(let i=0;i<config.brokers.length;i++){
-    clients.push(mqttFactory.createMqttClient(config.brokers[i]));
-}
+
+// instantiate the clients once db connection has been made
+// TODO integrate the option to run several db providers (i.e. BigQuery)
+influxPlugin.init(config.database).then(() => {
+    for(let i=0;i<config.brokers.length;i++){
+        clients.push(mqttFactory.createMqttClient(config.brokers[i], influxPlugin));
+    }    
+});
 
 // gracefully handle interruption and exit
 function clean(){
@@ -27,13 +34,15 @@ function clean(){
     process.exit();
 }
 
+// WARNING this might not work on windows as signals are a unix thig
 process.on('SIGINT', () => {
     console.log('terminating client...');
     clean();
 })
 
 // gracefully handle exit
-process.on('exit', () => {
+process.on('uncaughtException', (err) => {
+    console.log(err);
     console.log('terminating client...');
     clean();
 })

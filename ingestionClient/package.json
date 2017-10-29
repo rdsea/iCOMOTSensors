@@ -1,0 +1,33 @@
+{
+  "name": "ingestion_client",
+  "version": "1.0.0",
+  "description": "an ingestion client for iCOMOT sensors",
+  "main": "index.js",
+  "scripts": {
+    "start": "babel-node index.js --presets es2015,stage-1",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rdsea/IoTCloudSamples.git"
+  },
+  "author": "lingfangao@hotmail.com",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rdsea/IoTCloudSamples/issues"
+  },
+  "homepage": "https://github.com/rdsea/IoTCloudSamples#readme",
+  "dependencies": {
+    "influx": "^5.0.7",
+    "js-yaml": "^3.10.0",
+    "mqtt": "^2.13.1"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-stage-1": "^6.24.1",
+    "webpack": "^3.8.1"
+  }
+}

@@ -2,8 +2,8 @@ brokers:
     - host: m21.cloudmqtt.com
       port: 18663
       clientId: testclient1
-      username: fzofpyze
-      password: K3pBZXtF3nM0
+      username: #enter yours
+      password: #enter yours
       topics: 
         - test1 # topic to subscribe
         - test2

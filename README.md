@@ -1,4 +1,4 @@
-# iCOMOTSensors
+# IoT Cloud Samples
 This collection includes different types of sensors for different purposes
 - emulated sensors and real sensors
 - sensors using Things-specific APIs to monitor Things
@@ -9,4 +9,4 @@ This collection includes different types of sensors for different purposes
 - sensors running within a topology (creating a network of sensors)
 
 Code is currently updated and uploaded.
-Contact Hong-Linh Truong (truong@dsg.tuwien.ac.at) for further information
+Contact Hong-Linh Truong (hong-linh.truong@tuwien.ac.at) for further information

@@ -1,12 +1,23 @@
 var Influx = require('influx');
+import yaml from 'js-yaml'
+import fs from 'fs'
 
 let config = null;
 let influx = null;
 
+try{
+    config = yaml.safeLoad(fs.readFileSync(path.join(__dirname, 'config.yml'), 'utf8'));
+    console.log('configuration accepted');
+    console.log(config);
+}catch(err){
+    console.log(err);
+    console.log('no valid configuration received, exiting...');
+    process.exit(1);
+}
+
 // function to initialize the data connection
 // should be used for setup operations i.e. creating the databases/tables
-function init(conf){
-    config = conf;
+function init(){
     influx = new Influx.InfluxDB({
         host: config.host,
         database: config.name,
@@ -32,10 +43,10 @@ function insert(topic, data){
     ]);
 }
 
-let influxPlugin = {
+let dataPlugin = {
     init,
     insert,
 };
 
-export default influxPlugin;
+export default dataPlugin;
 

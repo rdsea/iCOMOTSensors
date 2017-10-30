@@ -1,0 +1,37 @@
+name: myDataset
+tables:
+  - id: testTable1 # should be the same as the topic name
+    # https://cloud.google.com/bigquery/docs/schemas for all BigQuery datatypes and schema definition
+    schema:
+      - description: description of field
+        mode: REQUIRED
+        name: id
+        type: STRING
+
+      - description: description of field
+        mode: REQUIRED
+        name: value
+        type: FLOAT
+      
+      - description: description of field
+        mode: REQUIRED
+        name: reading_time
+        type: TIMESTAMP
+  
+  - id: testTable2 # should be the same as the topic name
+    # https://cloud.google.com/bigquery/docs/schemas for all BigQuery datatypes and schema definition
+    schema:
+      - description: description of field
+        mode: REQUIRED
+        name: id
+        type: STRING
+
+      - description: description of field
+        mode: REQUIRED
+        name: value
+        type: FLOAT
+      
+      - description: description of field
+        mode: REQUIRED
+        name: reading_time
+        type: TIMESTAMP

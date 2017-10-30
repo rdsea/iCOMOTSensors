@@ -5,8 +5,8 @@ brokers:
     - host: localhost
       port: 1883
       clientId: testclient1
-      username: xxxxxxxxxx
-      password: xxxxxxxxxx
+      username: #enter yours
+      password: #enter yours
       topics: 
         - test1 # topic to subscribe
         - test2

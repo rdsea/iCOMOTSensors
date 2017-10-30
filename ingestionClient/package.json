@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/rdsea/IoTCloudSamples#readme",
   "dependencies": {
+    "@google-cloud/bigquery": "^0.10.0",
     "influx": "^5.0.7",
     "js-yaml": "^3.10.0",
     "mqtt": "^2.13.1"

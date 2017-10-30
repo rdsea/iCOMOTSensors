@@ -1,6 +1,9 @@
+# choice of data service
+# name should reflect the corresponding plugin in ./dataPlugins
+data: bigQuery
 brokers:
-    - host: m21.cloudmqtt.com
-      port: 18663
+    - host: localhost
+      port: 1883
       clientId: testclient1
       username: #enter yours
       password: #enter yours
@@ -14,7 +17,7 @@ brokers:
       #    qos: <qos> # qos required from broker
       #    retain: <retain flag> # should the state of the topic be stored
 
-    - host: test.mosquitto.org
+    - host: localhost
       port: 1883
       clientId: testclient2
       topics: 

@@ -1,0 +1,10 @@
+
+	 {
+		"server": "mosquitto",
+		"username":	"xxx",
+		"password": 	"xxx",
+		"port": 	1883,
+		"topic":	"params",
+		"clientId": "client1"
+	}
+

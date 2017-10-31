@@ -58,7 +58,9 @@ public class MQProducer implements Producer {
 			password = (String)jsonObject.get("password");
 			Long port     = (Long)jsonObject.get("port");
 			String topic    =(String)jsonObject.get("topic");
+			String clientId = (String)jsonObject.get("clientId");
 			this.topic = topic;
+			this.clientID = clientId;
 			this.broker ="tcp://"+server+":"+port;
 		}
 		catch (Exception e) {

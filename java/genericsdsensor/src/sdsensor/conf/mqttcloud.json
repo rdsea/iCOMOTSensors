@@ -3,7 +3,8 @@
 		"server": "...",
 		"username":	"...",
 		"password": 	"...",
-		"port": 	...,
-		"topic":	"..."
+		"port": 	"...",
+		"topic":	"...",
+		"clientId": "..."
 	}
 

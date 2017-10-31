@@ -1,0 +1,18 @@
+# choice of data service
+# name should reflect the corresponding plugin in ./dataPlugins
+data: bigQuery
+brokers:
+    - host: mosquitto
+      port: 1883
+      clientId: testClient
+      username: #enter yours
+      password: #enter yours
+      topics: 
+        - params # topic to subscribe
+        - alarms
+      # last will and testament specified in mqtt
+      # will:
+      #    topic: <topic> # topic to publish disconnect msg
+      #    payload: <disconnect message> # payload disconnect msg
+      #    qos: <qos> # qos required from broker
+      #    retain: <retain flag> # should the state of the topic be stored

@@ -23,6 +23,7 @@ public class GenericDataInstance {
 			json.append("\""+r.getKey()+"\":\"" + r.getValue() + "\",");
 
 		}
+		json.deleteCharAt(json.length()-1);
 		json.append("}");
 
 		return json.toString();

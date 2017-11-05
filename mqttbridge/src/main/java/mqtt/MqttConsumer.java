@@ -16,7 +16,7 @@ public class MqttConsumer implements MqttCallback{
     }
 
     public void connectionLost(Throwable throwable) {
-        System.out.println("Lost connection to MQTT broker");
+        logger.info("Lost connection to MQTT broker");
     }
 
     public void messageArrived(String topic, MqttMessage mqttMessage) throws Exception {

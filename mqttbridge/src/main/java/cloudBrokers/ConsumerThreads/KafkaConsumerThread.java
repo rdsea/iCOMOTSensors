@@ -1,33 +1,24 @@
 package cloudBrokers.ConsumerThreads;
 
 import org.apache.kafka.clients.consumer.*;
-import org.apache.kafka.common.serialization.StringDeserializer;
+import org.eclipse.paho.client.mqttv3.MqttAsyncClient;
+import org.eclipse.paho.client.mqttv3.MqttException;
+import org.eclipse.paho.client.mqttv3.MqttMessage;
 
-import java.util.AbstractMap;
-import java.util.AbstractMap.SimpleEntry;
 import java.util.Arrays;
-import java.util.Collections;
-import java.util.Map.Entry;
 import java.util.Properties;
-import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class KafkaConsumerThread implements Runnable{
-    private ConcurrentLinkedQueue<Entry<String, String>> queue;
     private Consumer<String, String> consumer;
+    private MqttAsyncClient mqtt;
 
     private boolean running;
     private Thread t;
     private String threadName;
 
-    public KafkaConsumerThread(Properties props, ConcurrentLinkedQueue<Entry<String, String>> queue, String[] topics,String name){
-        /*Properties props = new Properties();
-        props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, boostrapServers);
-        props.put(ConsumerConfig.GROUP_ID_CONFIG, "mqttBridge");
-        props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
-        props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());*/
-
+    public KafkaConsumerThread(Properties props, MqttAsyncClient mqtt, String[] topics,String name){
         this.running = false;
-        this.queue = queue;
+        this.mqtt = mqtt;
         this.consumer = new KafkaConsumer<String, String>(props);
         this.consumer.subscribe(Arrays.asList(topics));
         this.threadName = name;
@@ -35,12 +26,19 @@ public class KafkaConsumerThread implements Runnable{
 
     public void run() {
         this.running = true;
+        int count = 0;
         while(running){
             ConsumerRecords<String, String> consumerRecords = this.consumer.poll(100);
             for(ConsumerRecord<String, String> consumerRecord : consumerRecords){
-                Entry entry = new SimpleEntry(consumerRecord.key(), consumerRecord.value());
-                queue.add(entry);
+                MqttMessage message = new MqttMessage(consumerRecord.value().getBytes());
+                try {
+                    mqtt.publish(consumerRecord.topic(),message);
+                } catch (MqttException e) {
+                    e.printStackTrace();
+                }
+
             }
+            this.consumer.commitSync();
         }
     }
 
@@ -52,6 +50,15 @@ public class KafkaConsumerThread implements Runnable{
     }
 
     public void stop(){
-        this.running = false;
+        if(t == null) return;
+
+        try {
+            this.running = false;
+            t.join();
+            System.out.println("kafka consumer stopped");
+        } catch (InterruptedException e) {
+            System.out.println("error stopping kafka consumer");
+            e.printStackTrace();
+        }
     }
 }

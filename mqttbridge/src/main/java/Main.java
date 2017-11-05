@@ -9,7 +9,7 @@ public class Main {
         options.addOption(help);
 
         Option mqttURI = new Option("m","mqtt", true, "MQTT server URI, defaults to 'tcp://localhost:1883'");
-        Option mqttTopics = new Option("t","mqtt-topics", true, "A comma separated list of topics, defaults to '#'" );
+        Option mqttTopics = new Option("t","mqtt-topics", true, "A comma separated list of topics" );
         Option mqttClientId = new Option("i","id", true, "MQTT client ID");
         mqttClientId.setRequired(true);
 
@@ -41,7 +41,11 @@ public class Main {
             return;
         }
 
-        String[] mTopics = cmd.getOptionValue("mqtt-topics", "#").split(",");
+        String[] mTopics = new String[0];
+        if(cmd.hasOption("kafka-topics")){
+            mTopics = cmd.getOptionValue("mqtt-topics").split(",");
+        }
+
         String[] kTopics = new String[0];
         if(cmd.hasOption("kafka-topics")){
             kTopics = cmd.getOptionValue("kafka-topics").split(",");

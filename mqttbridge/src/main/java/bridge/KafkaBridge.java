@@ -3,12 +3,12 @@ package bridge;
 import cloudBrokers.ConsumerThreads.KafkaConsumerThread;
 import cloudBrokers.Producers.KafkaProducerThread;
 import mqtt.MqttConsumer;
-import org.apache.kafka.clients.consumer.KafkaConsumer;
+import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.producer.ProducerConfig;
+import org.apache.kafka.common.serialization.StringDeserializer;
 import org.apache.kafka.common.serialization.StringSerializer;
 import org.eclipse.paho.client.mqttv3.IMqttToken;
 import org.eclipse.paho.client.mqttv3.MqttAsyncClient;
-import org.eclipse.paho.client.mqttv3.MqttCallback;
 import org.eclipse.paho.client.mqttv3.MqttException;
 
 import java.util.Properties;
@@ -29,15 +29,23 @@ public class KafkaBridge extends AbstractBridge {
         token.waitForCompletion();
     }
 
-    public void connectKafka(String bootstrapServers){
-        Properties props = new Properties();
-        props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
-        props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG,
+    public void connectKafka(String bootstrapServers, String[] topics){
+        Properties producerProps = new Properties();
+        producerProps.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
+        producerProps.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG,
                 StringSerializer.class.getName());
-        props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG,
+        producerProps.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG,
                 StringSerializer.class.getName());
-        this.kafkaProducerThread = new KafkaProducerThread(props, cloudQueue, "kafkaProducer");
+        this.kafkaProducerThread = new KafkaProducerThread(producerProps, cloudQueue, "kafkaProducer");
         this.kafkaProducerThread.start();
+
+        Properties consumerProps = new Properties();
+        consumerProps.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
+        consumerProps.put(ConsumerConfig.GROUP_ID_CONFIG, "mqttBridge");
+        consumerProps.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
+        consumerProps.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
+        this.kafkaConsumerThread = new KafkaConsumerThread(consumerProps, this.client, topics, "kafkaConsumer");
+        this.kafkaConsumerThread.start();
     }
 
     @Override
@@ -47,5 +55,21 @@ public class KafkaBridge extends AbstractBridge {
             qos[i] = 0;
         }
         this.client.subscribe(topics, qos);
+    }
+
+    @Override
+    public void stop() {
+        System.out.println("stopping bridge");
+        this.kafkaConsumerThread.stop();
+        this.kafkaProducerThread.stop();
+        
+        try {
+            this.client.disconnect();
+            this.client.close();
+        } catch (MqttException e) {
+            System.out.println("error closing mqtt client");
+            e.printStackTrace();
+        }
+
     }
 }

@@ -1,6 +1,0 @@
-cloudBrokers/ConsumerThreads/KafkaConsumerThread.class
-Main.class
-bridge/KafkaBridge.class
-cloudBrokers/Producers/KafkaProducerThread.class
-mqtt/MqttConsumer.class
-bridge/AbstractBridge.class

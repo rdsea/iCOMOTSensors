@@ -1,6 +1,0 @@
-/home/ling/projects/IoTCloudSamples/mqttbridge/src/main/java/cloudBrokers/Producers/KafkaProducerThread.java
-/home/ling/projects/IoTCloudSamples/mqttbridge/src/main/java/cloudBrokers/ConsumerThreads/KafkaConsumerThread.java
-/home/ling/projects/IoTCloudSamples/mqttbridge/src/main/java/bridge/AbstractBridge.java
-/home/ling/projects/IoTCloudSamples/mqttbridge/src/main/java/mqtt/MqttConsumer.java
-/home/ling/projects/IoTCloudSamples/mqttbridge/src/main/java/bridge/KafkaBridge.java
-/home/ling/projects/IoTCloudSamples/mqttbridge/src/main/java/Main.java

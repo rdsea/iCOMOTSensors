@@ -8,7 +8,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class MqttConsumer implements MqttCallback{
-    final static Logger logger = Logger.getLogger(MqttConsumer.class);
+    final static Logger logger = Logger.getLogger(MqttConsuvim .mer.class);
     ConcurrentLinkedQueue<Map.Entry<String, String>> queue;
 
     public MqttConsumer(ConcurrentLinkedQueue<Map.Entry<String, String>> queue){

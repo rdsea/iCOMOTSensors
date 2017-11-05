@@ -3,11 +3,15 @@ package cloudBrokers.Producers;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerRecord;
+import org.apache.log4j.Logger;
+
 import java.util.Map.Entry;
 import java.util.Properties;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class KafkaProducerThread implements Runnable{
+    final static Logger logger = Logger.getLogger(KafkaProducerThread.class);
+
     private boolean running;
     private Thread t;
     private String threadName;
@@ -28,6 +32,7 @@ public class KafkaProducerThread implements Runnable{
             Entry<String, String> entry = this.queue.poll();
             if(entry != null){
                 ProducerRecord<String, String> producerRecord = new ProducerRecord<>(entry.getKey(), entry.getKey(), entry.getValue());
+                logger.info("sending new message to kafka topic "+entry.getKey());
                 this.producer.send(producerRecord);
             }
         }
@@ -35,6 +40,7 @@ public class KafkaProducerThread implements Runnable{
 
     public void start(){
         if(t == null){
+            logger.info("starting kafka producer");
             t = new Thread(this, this.threadName);
             t.start();
         }
@@ -46,9 +52,9 @@ public class KafkaProducerThread implements Runnable{
         try {
             this.running = false;
             t.join();
-            System.out.println("kafka producer stopped");
+            logger.info("kafka producer stopped");
         } catch (InterruptedException e) {
-            System.out.println("error stopping kafka producer");
+            logger.warn("error stopping kafka producer");
             e.printStackTrace();
         }
     }

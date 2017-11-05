@@ -1,6 +1,7 @@
 package cloudBrokers.ConsumerThreads;
 
 import org.apache.kafka.clients.consumer.*;
+import org.apache.log4j.Logger;
 import org.eclipse.paho.client.mqttv3.MqttAsyncClient;
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
@@ -9,6 +10,8 @@ import java.util.Arrays;
 import java.util.Properties;
 
 public class KafkaConsumerThread implements Runnable{
+    final static Logger logger = Logger.getLogger(KafkaConsumerThread.class);
+
     private Consumer<String, String> consumer;
     private MqttAsyncClient mqtt;
 
@@ -26,9 +29,10 @@ public class KafkaConsumerThread implements Runnable{
 
     public void run() {
         this.running = true;
-        int count = 0;
         while(running){
             ConsumerRecords<String, String> consumerRecords = this.consumer.poll(100);
+            if(consumerRecords.count() == 0) continue;
+
             for(ConsumerRecord<String, String> consumerRecord : consumerRecords){
                 MqttMessage message = new MqttMessage(consumerRecord.value().getBytes());
                 try {
@@ -38,12 +42,14 @@ public class KafkaConsumerThread implements Runnable{
                 }
 
             }
+            logger.info("kafka consumer processed "+consumerRecords.count()+" messages");
             this.consumer.commitSync();
         }
     }
 
     public void start(){
         if(t == null){
+            logger.info("starting kafka consumer");
             t = new Thread(this, this.threadName);
             t.start();
         }
@@ -55,9 +61,9 @@ public class KafkaConsumerThread implements Runnable{
         try {
             this.running = false;
             t.join();
-            System.out.println("kafka consumer stopped");
+            logger.info("kafka consumer stopped");
         } catch (InterruptedException e) {
-            System.out.println("error stopping kafka consumer");
+            logger.warn("error stopping kafka consumer");
             e.printStackTrace();
         }
     }

@@ -12,3 +12,4 @@ various sensors from different stations. For example:
      - using param*.csv: you emulate various stations, in which various sensors measuing different parameters
 
 
+Data is provided by BachPhu, a company developing IoT solution in Vietnam

@@ -1,46 +1,27 @@
 brokers:
-  - sensors:
-      nb: 5
-      idColumn: station_id
-    ingestionClients:
-      nb: 1
+  - broker1
+  - broker2
 
-  - sensors:
-      nb: 5
-      idColumn: station_id
-    ingestionClients:
-      nb: 1
+sensors:
+  - topic: topic1
+    nb: 3
+    broker: broker1
+  - topic: topic2
+    nb: 3
+    broker: broker2
+
+ingestionClients:
+  - brokers:
+      - brokerId: broker1
+        topics: 
+          - topic1
+    
+  - brokers:
+      - brokerId: broker2
+        topics: 
+          - topic2
+   
 
 
-# The big query table definition
-bigQuery:
-  name: myDataset
-  tables:
-    - id: params # should be the same as the topic name
-      # https://cloud.google.com/bigquery/docs/schemas for all BigQuery datatypes and schema definition
-      schema:
-        - description: description of field
-          mode: REQUIRED
-          name: id
-          type: INTEGER
 
-        - description: description of field
-          mode: REQUIRED
-          name: value
-          type: INTEGER
-      
-        - description: description of field
-          mode: REQUIRED
-          name: reading_time
-          type: TIMESTAMP
 
-        - description: description of field
-          mode: REQUIRED
-          name: station_id
-          type: INTEGER
-
-        - description: description of field
-          mode: REQUIRED
-          name: parameter_id
-          type: INTEGER
- 

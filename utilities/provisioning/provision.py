@@ -50,11 +50,11 @@ def writeConfigFiles(sensors, ingestionClients):
         if e.errno != errno.EEXIST:
             raise
     for sensor in sensors:
-        with open('sensorConfigs/'+sensor['clientId']+'.json','w') as outfile:
+        with open('sensors/'+sensor['clientId']+'.json','w') as outfile:
             json.dump(sensor, outfile)
     
     for i in range(len(ingestionClients)):
-        with open('ingestionConfigs/ingestionClient_'+str(i)+'.yml', 'w') as outfile:
+        with open('ingestionClients/ingestionClient_'+str(i)+'.yml', 'w') as outfile:
             yaml.dump(ingestionClients[i], outfile)
 
 

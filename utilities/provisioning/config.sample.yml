@@ -21,7 +21,9 @@ ingestionClients:
         topics: 
           - topic2
    
-
+data:
+  path: './data.csv'
+  sensorId: 'station_id'
 
 
 

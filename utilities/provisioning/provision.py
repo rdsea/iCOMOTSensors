@@ -1,31 +1,6 @@
 import yaml
 import json
-
-BROKER_ID = 'mqtt'
-SENSOR_ID = 'sensor'
-INGESTION_ID = 'ingestion'
-
-BROKER_COUNT = 0
-SENSOR_COUNT = 0
-INGESTION_COUNT = 0
-
-def getNextSensor():
-    global SENSOR_COUNT
-    next = SENSOR_COUNT
-    SENSOR_COUNT += 1
-    return next
-
-def getNextBroker():
-    global BROKER_COUNT
-    next = BROKER_COUNT
-    BROKER_COUNT += 1
-    return next
-
-def getNextIngestion():
-    global INGESTION_COUNT
-    next = INGESTION_COUNT
-    INGESTION_COUNT += 1
-    return next
+import os, errno
 
 # read yaml file and set config obj
 def loadConfig(path):
@@ -35,35 +10,71 @@ def loadConfig(path):
     return config
 
 
-def createSensorConfigs(brokerId, count):
+def createSensorConfigs(topicSensors):
     sensors = []
-    
-    for i in range(count):
+    count = 0
+
+    for i in range(topicSensors['nb']):
         config = {}
-        config['server'] = brokerId
+        config['server'] = topicSensors['broker']
         config['username'] = 'xxx'
         config['password'] = 'xxx'
         config['port'] = 1883
-        config['clientId'] = SENSOR_ID +'_'+ str(getNextSensor())
-        config['topic'] = 'test/'+config['clientId']
+        config['clientId'] = 'sensor_' + topicSensors['topic'] + '_' +str(count)
+        config['topic'] = topicSensors['topic']
         sensors.append(config)
+        count += 1
     return sensors
 
-def createIngestionClientConfigs(sensors, count):
-    pass    
+def createIngestionClientConfigs(ingestionConfigs):
+    config = {}
+    config['brokers'] = []
+    count = 0
+    for broker in ingestionConfigs['brokers']:
+        brokerConfig = {}
+        brokerConfig['username'] = 'xxx'
+        brokerConfig['password'] = 'xxx'
+        brokerConfig['clientId'] = broker['brokerId']+'_'+str(count) 
+        brokerConfig['host'] = broker['brokerId']
+        brokerConfig['port'] = 1883
+        brokerConfig['topics'] = broker['topics'][:]
+        config['brokers'].append(brokerConfig)
+        count += 1
+    return config
+        
+def writeConfigFiles(sensors, ingestionClients):
+    try:
+        os.makedirs('sensors')
+        os.makedirs('ingestionClients')
+    except OSError as e:
+        if e.errno != errno.EEXIST:
+            raise
+    for sensor in sensors:
+        with open('sensorConfigs/'+sensor['clientId']+'.json','w') as outfile:
+            json.dump(sensor, outfile)
+    
+    for i in range(len(ingestionClients)):
+        with open('ingestionConfigs/ingestionClient_'+str(i)+'.yml', 'w') as outfile:
+            yaml.dump(ingestionClients[i], outfile)
+
 
 def main(path):
+   
     config = loadConfig(path)
     brokers = []
     sensors = []
     ingestionClients = []
     for broker in config['brokers']:
-        brokerId = BROKER_ID+'_'+str(getNextBroker())
-        brokers.append(brokerId)
-        sensors.extend((createSensorConfigs(brokerId, broker['sensors']['nb'])))
+        brokers.append(broker)
 
-
-
+    for topicSensors in config['sensors']:
+        sensors.extend(createSensorConfigs(topicSensors))
+    
+    for ingestionConfigs in config['ingestionClients']:
+        ingestionClients.append(createIngestionClientConfigs(ingestionConfigs))
+    
+    writeConfigFiles(sensors, ingestionClients)
+    
 
 
 if __name__ == "__main__":

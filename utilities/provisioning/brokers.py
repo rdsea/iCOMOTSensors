@@ -1,5 +1,11 @@
 import yaml
 
+def get_next_port():
+    port = 9001
+    while(True):
+        yield port
+        port += 1
+
 # read yaml file and set config obj
 def load_config(path):
     config = None
@@ -17,13 +23,19 @@ def provision(config):
     docker_compose['version'] = '3'
 
     services = {}
+    g = get_next_port()
     for broker in brokers:
+        ports = []
+        ports.append(str(next(g))+':1883')
         brokerService = {}
         brokerService['image'] = 'eclipse-mosquitto'
+        brokerService['ports'] = ports
         services[broker] = brokerService
+        
     docker_compose['services'] = services
     write_compose(docker_compose)
    
 
 
-
+config = load_config('config.sample.yml')
+provision(config)

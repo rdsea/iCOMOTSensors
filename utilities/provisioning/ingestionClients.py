@@ -11,6 +11,7 @@ def load_config(path):
 def createIngestionClientConfigs(ingestionConfigs):
     config = {}
     config['brokers'] = []
+    config['data'] = 'default'
     count = 0
     for broker in ingestionConfigs['brokers']:
         brokerConfig = {}

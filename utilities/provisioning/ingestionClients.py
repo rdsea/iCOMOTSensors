@@ -1,0 +1,70 @@
+import yaml
+import os, errno
+import json
+
+def load_config(path):
+    config = None
+    with open(path, 'r') as config_file:
+        config = yaml.load(config_file)
+    return config
+
+def createIngestionClientConfigs(ingestionConfigs):
+    config = {}
+    config['brokers'] = []
+    count = 0
+    for broker in ingestionConfigs['brokers']:
+        brokerConfig = {}
+        brokerConfig['username'] = 'xxx'
+        brokerConfig['password'] = 'xxx'
+        brokerConfig['clientId'] = broker['brokerId']+'_'+str(count) 
+        brokerConfig['host'] = broker['brokerId']
+        brokerConfig['port'] = 1883
+        brokerConfig['topics'] = broker['topics'][:]
+        config['brokers'].append(brokerConfig)
+        count += 1
+    return config
+
+def write_config_files(ingestionClients):
+    try:
+        os.makedirs('ingestionClients')
+    except OSError as e:
+        if e.errno != errno.EEXIST:
+            raise
+
+    for i in range(len(ingestionClients)):
+        with open('ingestionClients/ingestionClient_'+str(i)+'.yml', 'w') as outfile:
+            yaml.dump(ingestionClients[i], outfile)
+
+
+def write_compose(ingestionClients):
+    docker_compose = {}
+    docker_compose['version'] = '3'
+    command_base = ['npm', 'start']
+    
+    services = {}
+    for i in range(len(ingestionClients)):
+        service = {}
+        command = command_base[:]
+        name = 'ingestionClient_'+str(i)
+        command.insert(0, 'CONFIG='+name+'.yml')
+        
+        service['command'] = command
+        service['build'] = './ingestionClients'
+        services[name] = service
+    docker_compose['services'] = services
+    with open('docker-compose.ingestionClients.yml', 'w') as outfile:
+        yaml.dump(docker_compose, outfile)
+
+
+
+
+def provision (config):
+    ingestionClients = []
+    for ingestionConfigs in config['ingestionClients']:
+        ingestionClients.append(createIngestionClientConfigs(ingestionConfigs))
+    
+    write_config_files(ingestionClients)
+    write_compose(ingestionClients)
+
+config = load_config('config.sample.yml')
+provision(config)

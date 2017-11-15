@@ -1,8 +1,12 @@
-# Ingestion client demo
+# Simple BTS demo
+This demo demonstrates how we monitor equipment in a BTS (Base Transceiver Station) using some real data. For the description of the BTS (simplified), check our paper: 
+
+Hong-Linh Truong, Luca Berardinelli, Ivan Pavkovic and Georgiana Copil, Modeling and Provisioning IoT Cloud Systems for Testing Uncertainties, <http://www.infosys.tuwien.ac.at/staff/truong/publications/2017/truong-mobiquitous2017.pdf>, 14th EAI International Conference on Mobile and Ubiquitous Systems: Computing, Networking and Services (MobiQuitous 2017), November 7–10, 2017,Melbourne, Australia. 
+
 This sub-project will launch:
 
-* 1 iCOMOT param snsor
-* 1 iCOMOT alarm sensor
+* 1 IoT param snsor
+* 1 IoT alarm sensor
 * 1 mosquitto mqttbroker
 * 1 ingestion client
 

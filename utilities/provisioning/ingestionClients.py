@@ -38,10 +38,7 @@ def write_config_files(ingestionClients):
 
 
 def write_compose(ingestionClients):
-    docker_compose = {}
-    docker_compose['version'] = '3'
     command_base = ['npm', 'start']
-    
     services = {}
     for i in range(len(ingestionClients)):
         service = {}
@@ -52,10 +49,7 @@ def write_compose(ingestionClients):
         service['command'] = command
         service['build'] = './ingestionClients'
         services[name] = service
-    docker_compose['services'] = services
-    with open('docker-compose.ingestionClients.yml', 'w') as outfile:
-        yaml.dump(docker_compose, outfile)
-
+    return services
 
 
 
@@ -65,7 +59,4 @@ def provision (config):
         ingestionClients.append(createIngestionClientConfigs(ingestionConfigs))
     
     write_config_files(ingestionClients)
-    write_compose(ingestionClients)
-
-config = load_config('config.sample.yml')
-provision(config)
+    return write_compose(ingestionClients)

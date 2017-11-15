@@ -40,7 +40,7 @@ def write_config_files(sensors):
 def write_compose(sensors):
     docker_compose = {}
     docker_compose['version'] = '3'
-    command_base = ['java', 'jar', './sdsensor-0.0.1-SNAPSHOT-jar-with-dependencies.jar']
+    command_base = ['java', '-jar', './sdsensor-0.0.1-SNAPSHOT-jar-with-dependencies.jar']
 
     services = {}
     for sensor in sensors:

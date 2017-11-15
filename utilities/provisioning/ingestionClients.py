@@ -33,7 +33,7 @@ def write_config_files(ingestionClients):
             raise
 
     for i in range(len(ingestionClients)):
-        with open('ingestionClients/ingestionClient_'+str(i)+'.yml', 'w') as outfile:
+        with open('ingestionClients/ingestionclient_'+str(i)+'.yml', 'w') as outfile:
             yaml.dump(ingestionClients[i], outfile)
 
 
@@ -46,9 +46,9 @@ def write_compose(ingestionClients):
     for i in range(len(ingestionClients)):
         service = {}
         command = command_base[:]
-        name = 'ingestionClient_'+str(i)
-        command.insert(0, 'CONFIG='+name+'.yml')
+        name = 'ingestionclient_'+str(i)
         
+        service['environment'] = ['CONFIG='+name+'.yml']
         service['command'] = command
         service['build'] = './ingestionClients'
         services[name] = service

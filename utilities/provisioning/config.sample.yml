@@ -1,7 +1,9 @@
+# a list of distinct broker names
 brokers:
   - broker1
   - broker2
 
+# a list of topics that declare how many sensors push to it
 sensors:
   - topic: topic1
     nb: 3
@@ -10,6 +12,7 @@ sensors:
     nb: 3
     broker: broker2
 
+# a list of ingestion clients that read from selected brokers and their topics
 ingestionClients:
   - brokers:
       - brokerId: broker1
@@ -20,7 +23,9 @@ ingestionClients:
       - brokerId: broker2
         topics: 
           - topic2
-   
+
+# the location of the data file as a .csv
+# also specifies which of the columns corresponds to the ID of the sensor
 data:
   path: './data.csv'
   sensorId: 'station_id'

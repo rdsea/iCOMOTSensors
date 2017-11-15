@@ -38,8 +38,6 @@ def write_config_files(sensors):
             json.dump(sensor, outfile)
 
 def write_compose(sensors):
-    docker_compose = {}
-    docker_compose['version'] = '3'
     command_base = ['java', '-jar', './sdsensor-0.0.1-SNAPSHOT-jar-with-dependencies.jar']
 
     services = {}
@@ -52,12 +50,7 @@ def write_compose(sensors):
         service['command'] = command
         service['build'] = './sensors'
         services[sensor['clientId']] = service
-    docker_compose['services'] = services
-    with open('docker-compose.sensors.yml', 'w') as outfile:
-        yaml.dump(docker_compose, outfile)
-
-
-
+    return services
 
 def provision(config):
     try:
@@ -70,12 +63,5 @@ def provision(config):
     for topicSensors in config['sensors']:
         sensors.extend(createSensorConfigs(topicSensors))
     write_config_files(sensors)
-    write_compose(sensors)
-
-
-config = load_config('config.sample.yml')
-provision(config)
-    
-
-
+    return write_compose(sensors)
 

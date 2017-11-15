@@ -13,15 +13,9 @@ def load_config(path):
         config = yaml.load(config_file)
     return config
 
-def write_compose(docker_compose):
-    with open('docker-compose.brokers.yml', 'w') as outfile:
-        yaml.dump(docker_compose, outfile)
-
+# returns the docker compose services
 def provision(config):
-    docker_compose = {} 
     brokers = config['brokers']
-    docker_compose['version'] = '3'
-
     services = {}
     g = get_next_port()
     for broker in brokers:
@@ -31,11 +25,5 @@ def provision(config):
         brokerService['image'] = 'eclipse-mosquitto'
         brokerService['ports'] = ports
         services[broker] = brokerService
-        
-    docker_compose['services'] = services
-    write_compose(docker_compose)
-   
-
-
-config = load_config('config.sample.yml')
-provision(config)
+       
+    return services

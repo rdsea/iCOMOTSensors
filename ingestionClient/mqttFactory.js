@@ -14,7 +14,12 @@ function createMqttClient(config, dataPlugin){
     client.on('message', (topic, message) => {
         // TODO integrate cloud data services here
         console.log(message.toString(),`topic: ${topic}` ,`client: ${config.clientId}`);
-        let data = JSON.parse(message.toString());
+		let data = message.toString();
+		try{
+			data = JSON.parse(data);
+		}catch(err){
+			console.log('message received is not JSON');
+		}
         dataPlugin.insert(topic, data);
     });
     

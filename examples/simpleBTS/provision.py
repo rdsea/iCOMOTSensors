@@ -1,7 +1,4 @@
-import sensors
-import brokers
-import ingestionClients
-import data
+from units import brokers, sensors, data, ingestionClients
 import sys
 import yaml
 import os
@@ -30,7 +27,7 @@ def main(path):
         yaml.dump(docker_compose, outfile)
 
     # start the system
-    os.system('docker-compose up')
+    #os.system('docker-compose up')
 
 
 if __name__ == "__main__":

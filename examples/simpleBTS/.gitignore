@@ -5,3 +5,4 @@ sensors/*.csv
 sensors/*.json
 sensors/*.jar
 ingestionClients/src
+__pycache__/

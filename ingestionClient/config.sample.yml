@@ -1,6 +1,6 @@
 # choice of data service
 # name should reflect the corresponding plugin in ./dataPlugins
-data: bigQuery
+data: default
 brokers:
     - host: localhost
       port: 1883

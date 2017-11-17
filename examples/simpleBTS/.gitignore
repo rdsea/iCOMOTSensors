@@ -6,5 +6,5 @@ sensors/*.csv
 sensors/*.json
 sensors/*.jar
 ingestionClients/src
-ingestionCLients/*.json
+ingestionClients/*.json
 __pycache__/

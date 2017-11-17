@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "iotcloudexamples",
+  "private_key_id": "252f6910ed3b3583eff068fb3b4cb40dfb7438c7",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDUmOML6xC7MMfX\ne12dncxHFQGGpB1gUYAAd1ltmBCSyejDn0i1sWEu7K+fonqg66aQj39vgySWHqyR\nqZP9Jv/OpSX5CiW6POX0yZEo/YaH1Yhm07PGnr40CYOpbaGEOk196nWRovLJ2JRz\nUMxjv+ay6pkUDu4YP8CHnQzDOF6fH8N7MU8MfwG21xPLkXzQX/yCi3PUEH0bJwMW\n8riMqI+Ka6SNFlk+ATx7eSENWOhS7A2gYBUsy6gsChDDTtk+hkp8onPWdRIU43KM\n1QLjKeELP2fOKbwSCUG5yYBIxLk+h8R+V1pOQKoUkc1plaSxTfGETzUmsb3IpEG3\nPW31M40HAgMBAAECggEAZ+ItT+2VR2MWw9ysahBpeXJyRHB9SkuI2LF5KWxc7N1s\nt+plhSMf8eYGC2NBuNBtm8YC52KVxiVG/gZ3IgSkiz13yLGErfSECZFVNUptKoLV\nHCnmdu+q0ZK0m13OxuYWZ6jhukB9ktQZ9h9NQJDNEjBAjOSew4qjcaD0U5B/7BCd\nXV4d50YlOoPWppBq3E80WM8fRaZUizgs2u2gdc0NvHiSYvnAuC2ce5dzmpUaByUa\nc7Og6OBc6qNtnfL13FRqS7V9xOoQLJwMmu66h0q/99+veMc4NJH3674+XM+A1WBC\n024X+5fxrCNmUkbIzvw8+rxAIUZVQ6AR/oVTHvSzAQKBgQDqlxIV+mNmPOx3VUCp\nnirbclPsbhpAZq0KAJTvgbj8vxVFc4DOeCfnVm00piBk9ojWoyfxQMbCFdb2v0I5\nlnwy21ttPsUWmK0uQbNbffrxT+w85NescMxtf4MvUiKiUnOEh2U7nOfdFRwHXk8A\nEJtvYwikcTUnBQVV9OxYlFMuMQKBgQDn//orJmmHY9gvBWJFwqifDHrep5iHpPZb\n7rI9Jvd5piF+BjzPoj2zNWMIVYAaQPWGOCJseLQUv2n4bhPBfiH1GEs8GeUmV/s6\ntXUA8aTOU+rNmgfODHfBw4fJS/ZVTOTLu/mC1AJsZc6E9Z6NblOiwPQ8cJ9j+Hdq\n6C6JSgwItwKBgHL3cn+e5FPYi7K37yaxQyOk1ghKtUbWivsZ6eOu2W/UXaJZxshp\nDnVLX92rhLi2Mb2u3AZZzo6TkXP/q375hwiNhDL3zjMSw9ylijbOeMsGdioppKD3\n7tfC5BGu2RZf/gj3Kd+bN+6bR888os7PVL2z9SpR6NCkn0bO731Bw7ohAoGBAOLT\nD3lerfB0OuoGHoXMAua14e+M9oEwVLmfT16gmXazaa14Vb4/homPGcsNJRkGB8b5\nXRamkJJ0bxw4K1KTionB/dS+EJ+Dh5pnzQRmPVaJD1mDTjwzTmcAT+MMRMQzUMKs\nfw9dTx1CED9IkYL/qf/HHUN2bS/lvoOki9MotUlTAoGAWHBIn0TwPs1uMOlyFphX\nSBBwmO/5Y3Xnd8EtSxsssiQGApNAAvVOj39Q0vcBOubhkxievtPEGv7M61ayj8Dg\neMVMEKwSazJxMhAtKz51/ZAqLFbq6Vx3mm9lYrkRZewZzDKXgS7CMIyPvsECI0Z7\n3bP1UQ0jHgHHoMoMDkU+e+Y=\n-----END PRIVATE KEY-----\n",
+  "client_email": "bigqueryiotcloudclient@iotcloudexamples.iam.gserviceaccount.com",
+  "client_id": "107785089497963115858",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://accounts.google.com/o/oauth2/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/bigqueryiotcloudclient%40iotcloudexamples.iam.gserviceaccount.com"
+}

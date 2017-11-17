@@ -18,15 +18,38 @@ ingestionClients:
       - brokerId: broker1
         topics: 
           - topic1
+    data: default # data plugin to use for ingestionClient
     
   - brokers:
       - brokerId: broker2
         topics: 
           - topic2
+    data: default
 
 # the location of the data file as a .csv
 # also specifies which of the columns corresponds to the ID of the sensor
 data:
   path: './data.csv'
   sensorId: 'station_id'
+
+
+# configuration for the bigQuery dataplugin, check the ingestion client
+bigQuery:
+  name: myDataset
+  tables:
+    - id: testTable1
+      topics: # the topics that contain information to be stored on this table
+        - topic1
+        - topic2
+      # https://cloud.google.com/bigquery/docs/schemas for all BigQuery datatypes and schema definition
+      schema:
+        - description: description of field
+          mode: REQUIRED
+          name: id
+          type: STRING
+
+        - description: description of field
+          mode: REQUIRED
+          name: value
+          type: FLOAT
 

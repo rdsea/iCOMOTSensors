@@ -11,7 +11,7 @@ def load_config(path):
 def createIngestionClientConfigs(ingestionConfigs):
     config = {}
     config['brokers'] = []
-    config['data'] = 'default'
+    config['data'] = ingestionConfigs['data']
     count = 0
     for broker in ingestionConfigs['brokers']:
         brokerConfig = {}
@@ -36,6 +36,12 @@ def write_config_files(ingestionClients):
         with open('ingestionClients/ingestionclient_'+str(i)+'.yml', 'w') as outfile:
             yaml.dump(ingestionClients[i], outfile)
 
+def write_big_query_config(config, topics):
+    for table in config['tables']:
+        table['topics'] = list(topics)
+    with open('ingestionClients/config.bigQuery.yml', 'w') as outfile:
+        yaml.dump(config, outfile)
+
 
 def write_compose(ingestionClients):
     command_base = ['npm', 'start']
@@ -55,8 +61,14 @@ def write_compose(ingestionClients):
 
 def provision (config):
     ingestionClients = []
+    topics = set()
+
     for ingestionConfigs in config['ingestionClients']:
         ingestionClients.append(createIngestionClientConfigs(ingestionConfigs))
+        for broker in ingestionConfigs['brokers']:
+            topics.update(broker['topics'][:])
+
+    write_big_query_config(config['bigQuery'], topics)
     
     write_config_files(ingestionClients)
     return write_compose(ingestionClients)

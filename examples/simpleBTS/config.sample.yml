@@ -30,5 +30,3 @@ data:
   path: './data.csv'
   sensorId: 'station_id'
 
-
-

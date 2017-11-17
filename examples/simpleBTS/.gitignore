@@ -1,8 +1,10 @@
 data.csv
+config.yml
 docker-compose.*
 ingestionClients/*.yml
 sensors/*.csv
 sensors/*.json
 sensors/*.jar
 ingestionClients/src
+ingestionCLients/*.json
 __pycache__/

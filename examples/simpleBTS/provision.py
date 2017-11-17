@@ -27,7 +27,7 @@ def main(path):
         yaml.dump(docker_compose, outfile)
 
     # start the system
-    os.system('docker-compose up')
+    os.system('docker-compose up --build')
 
 
 if __name__ == "__main__":

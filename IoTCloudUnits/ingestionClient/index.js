@@ -27,6 +27,15 @@ try{
 
 let clients = [];
 
+if(config.test){
+    try{
+        dataPlugin.setTestMode();
+        console.log("test mode activated");
+    }catch(e){
+        console.log(e);
+    }
+}
+
 // instantiate the clients once db connection has been made
 dataPlugin.init().then(() => {
     for(let i=0;i<config.brokers.length;i++){

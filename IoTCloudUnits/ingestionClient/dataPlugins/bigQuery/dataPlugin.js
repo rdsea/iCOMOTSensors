@@ -2,11 +2,13 @@ var BigQuery = require('@google-cloud/bigquery');
 import yaml from 'js-yaml'
 import fs from 'fs'
 import path from 'path'
+import moment from 'moment'
 
 let config = null;
 let dataset = null;
 let tables = {};
 let topics = {};
+let test = false;
 
 try{
     config = yaml.safeLoad(fs.readFileSync(path.join(__dirname, 'config.yml'), 'utf8'));
@@ -17,18 +19,40 @@ try{
     process.exit(1);
 }
 
+function setTestMode(){
+    test = true
+}
+
 function init(){
     const bigQuery = BigQuery({
         projectId: config.projectId,
         keyFilename: path.join(__dirname, 'keyfile.json'),
     });
 
-	// match topics to table names
+    // match topics to table names
 	for(let table of config.tables){
 		for(let topic of table.topics){
 			topics[topic] = table.id;
 		}
-	}
+    }
+    
+    // test mode
+    // add departure and arrival columns
+    if(test){
+        for(let table of config.tables){
+            table.schema.push({
+                description: "message departure time",
+                name: "departure",
+                type: "TIMESTAMP",
+            });
+
+            table.schema.push({
+                description: "message arrival time",
+                name: "arrival",
+                type: "TIMESTAMP",
+            });
+        }
+    }
 
     return bigQuery.getDatasets().then((datasets) => {      
         for(let set of datasets[0]){
@@ -65,6 +89,9 @@ function init(){
 
 function insert(topic, data){
     if(topics[topic]){
+        if(test){
+            data.arrival = moment(new Date()).format("YYYY-MM-DD hh:mm:ss");
+        }
 		return tables[topics[topic]].insert(data);
     }else{
         // topic not declared!
@@ -75,6 +102,7 @@ function insert(topic, data){
 let dataPlugin = {
     init,
     insert,
+    setTestMode,
 }
 
 export default dataPlugin;

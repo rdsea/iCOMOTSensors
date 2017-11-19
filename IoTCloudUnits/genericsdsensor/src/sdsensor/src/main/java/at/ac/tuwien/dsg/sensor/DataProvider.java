@@ -20,6 +20,7 @@ public class DataProvider implements Runnable {
     private static final Object lock = new Object();
     private static Logger LOGGER = Logger.getLogger(DataProvider.class);
     private static String dataFile;
+    private static boolean testMode = false;
 
     static {
         provider = new DataProvider();
@@ -37,6 +38,11 @@ public class DataProvider implements Runnable {
       dataFile = file;
       return provider;
     }
+
+    public static void setTestMode(boolean test){
+        testMode = test;
+    }
+
     private Stack<GenericDataInstance> dataInstances = new Stack<GenericDataInstance>();
 
     public void run() {
@@ -59,6 +65,10 @@ public class DataProvider implements Runnable {
                     }
 
                     GenericDataInstance ginst = new GenericDataInstance(split[0], records);
+                    if(testMode){
+                        ginst = new GenericDataInstance(split[0], records, true);
+                    }
+
 
                     dataInstances.push(ginst);
                 }

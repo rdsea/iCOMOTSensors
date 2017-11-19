@@ -1,5 +1,9 @@
 package at.ac.tuwien.dsg.sensor;
 
+import org.json.simple.JSONObject;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 public class GenericDataInstance {
@@ -7,26 +11,32 @@ public class GenericDataInstance {
 	private String sensorId;
 	private List<Record> records;
 
-	public GenericDataInstance(String id, List records){
+	private boolean testMode;
+
+	public GenericDataInstance(String id, List records, boolean testMode){
 		this.sensorId = id;
 		this.records = records;
-
+		this.testMode = testMode;
 	}
 
-	public String getJSON() {
+	public GenericDataInstance(String id, List records){
+	    this(id, records, false);
+    }
 
-		StringBuilder json = new StringBuilder();
-		json.append("{");
-		json.append("\"id\":\"" + this.sensorId + "\",");
+	public String getJSON() {
+		JSONObject object = new JSONObject();
 
 		for (Record r : this.records){
-			json.append("\""+r.getKey()+"\":\"" + r.getValue() + "\",");
-
+			object.put(r.key, r.value);
 		}
-		json.deleteCharAt(json.length()-1);
-		json.append("}");
 
-		return json.toString();
+		object.put("id", sensorId);
+
+		if(this.testMode){
+		    object.put("departure", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()).toString());
+        }
+
+		return object.toJSONString();
 	}
 
 	public static class Record{

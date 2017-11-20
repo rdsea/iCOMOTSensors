@@ -38,17 +38,15 @@ def write_config_files(sensors):
             json.dump(sensor, outfile)
 
 def write_compose(sensors):
-    command_base = ['java', '-jar', './sdsensor-0.0.1-SNAPSHOT-jar-with-dependencies.jar']
-
     services = {}
     for sensor in sensors:
         service = {}
-        command = command_base[:]
-        command.append('./'+sensor['clientId']+'.json')
-        command.append('./'+sensor['clientId']+'.csv')
+        volumes = [] 
+        volumes.append('./sensors/'+sensor['clientId']+'.json'+":/sensor/config.json:")
+        volumes.append('./sensors/'+sensor['clientId']+'.csv'+":/sensor/data.csv:")
 
-        service['command'] = command
-        service['build'] = './sensors'
+        service['volumes'] = volumes
+        service['image'] = 'rdsea/sensor'
         services[sensor['clientId']] = service
     return services
 

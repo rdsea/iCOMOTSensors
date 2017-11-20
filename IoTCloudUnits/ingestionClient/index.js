@@ -7,7 +7,7 @@ import mqttFactory from './mqttFactory'
 // load config
 let config = null;
 try{
-    config = yaml.safeLoad(fs.readFileSync(process.env.CONFIG, 'utf8'));
+    config = yaml.safeLoad(fs.readFileSync('config.yml'));
     console.log('configuration accepted');
 }catch(err){
     console.log(err);

@@ -20,7 +20,7 @@ function createMqttClient(config, dataPlugin){
 		}catch(err){
 			console.log('message received is not JSON');
 		}
-        dataPlugin.insert(topic, data);
+        dataPlugin.insert(topic, data).catch((err) => console.log(err));
     });
     
     client.on('error', function(err) {

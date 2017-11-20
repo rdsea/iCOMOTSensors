@@ -8,6 +8,7 @@ function init(){
 // function used to insert the data (i.e. contents of a message) into your chosed data provider
 function insert(topic, data){
 	console.log(topic, data)
+	return new Promise((resolve, reject) => resolve(true));
 }
 
 let dataPlugin = {

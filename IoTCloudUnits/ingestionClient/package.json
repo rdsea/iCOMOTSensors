@@ -23,7 +23,8 @@
     "influx": "^5.0.7",
     "js-yaml": "^3.10.0",
     "moment": "^2.19.2",
-    "mqtt": "^2.13.1"
+    "mqtt": "^2.13.1",
+    "winston": "^3.0.0-rc1"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",

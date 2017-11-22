@@ -1,5 +1,6 @@
 import mqtt from 'mqtt'
 import fs from 'fs'
+import logger from './logger'
 
 function createMqttClient(config, dataPlugin){
     let client = mqtt.connect(config);
@@ -7,25 +8,25 @@ function createMqttClient(config, dataPlugin){
     client.on('connect', () => {
         for(let i=0;i<config.topics.length;i++){
             client.subscribe(config.topics[i]);
-            console.log(`client ${config.clientId} is now ingesting from ${config.topics[i]}`);
+            logger.info(`client ${config.clientId} is now ingesting from ${config.topics[i]}`);
         }
     });
     
     client.on('message', (topic, message) => {
         // TODO integrate cloud data services here
-        console.log(message.toString(),`topic: ${topic}` ,`client: ${config.clientId}`);
+        logger.info(`${message.toString()} received from topic: ${topic} client: ${config.clientId}`);
 		let data = message.toString();
 		try{
 			data = JSON.parse(data);
 		}catch(err){
-			console.log('message received is not JSON');
+			logger.warning(`${message.toString()} received from ${config.clientId} is not valid JSON!`);
 		}
         dataPlugin.insert(topic, data).catch((err) => console.log(err));
     });
     
     client.on('error', function(err) {
-        console.error(`error occured in client ${client.clientId}`);
-        console.log(err);
+        logger.error(`error occurred in client ${client.clientId}`);
+        logger.error(err);
     });
 
     return client;

@@ -3,6 +3,7 @@ import yaml from 'js-yaml'
 import fs from 'fs'
 import path from 'path'
 import moment from 'moment'
+import logger from '../../logger'
 
 let config = null;
 let dataset = null;
@@ -12,10 +13,10 @@ let test = false;
 
 try{
     config = yaml.safeLoad(fs.readFileSync(path.join(__dirname, 'config.yml'), 'utf8'));
-    console.log('configuration accepted');
+    logger.info('bigQuery configuration accepted');
 }catch(err){
-    console.log(err);
-    console.log('no valid configuration received, exiting...');
+    logger.error(err);
+    logger.error('no valid bigQuery configuration received, exiting...');
     process.exit(1);
 }
 
@@ -60,8 +61,10 @@ function init(){
                 dataset = set;
         }
         if(dataset){
+            logger.info(`dataset ${config.name} already exists, connecting to it...`);
             return dataset;
         }else{
+            logger.info(`dataset ${config.name} does not yet exist, creating...`);
             return bigQuery.createDataset(config.name);
         }
     }).then((dataset) => {        
@@ -73,8 +76,12 @@ function init(){
         
         let newTables = []
         for(let table of config.tables){
-            if(tables[table.id]) continue;
+            if(tables[table.id]){
+                logger.info(`table ${table.id} already exists`);
+                continue;
+            }
             // create a new table
+            logger.info(`creating table ${table.id}`);
             newTables.push(dataset.createTable(table.id, {schema: table.schema}));
         }
         return Promise.all(newTables);
@@ -83,7 +90,7 @@ function init(){
             let table = result[0];
             tables[table.id] = table;
         }
-        console.log('tables successfully created');
+        logger.info('tables successfully created');
     });
 }
 
@@ -92,10 +99,10 @@ function insert(topic, data){
         if(test){
             data.arrival = moment(new Date()).format("YYYY-MM-DD hh:mm:ss");
         }
-		return tables[topics[topic]].insert(data);
-    }else{
-        // topic not declared!
-        console.log(`failure inserting into ${topic}, table not defined in config! object: ${JSON.stringify(data)}`);
+		return tables[topics[topic]].insert(data).catch((err) => {
+            logger.error(`failure inserting into bigQuery object: ${JSON.stringify(data)}`);            
+            logger.error(err);
+        });
     }
 }
 

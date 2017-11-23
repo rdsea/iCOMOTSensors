@@ -4,7 +4,6 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-import javafx.scene.chart.PieChart;
 import org.apache.log4j.Logger;
 
 import at.ac.tuwien.dsg.common.sdapi.Bootstrapable;

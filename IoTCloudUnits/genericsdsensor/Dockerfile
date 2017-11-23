@@ -7,6 +7,9 @@ WORKDIR /sensor/src/sdcommon
 RUN mvn clean && mvn install
 WORKDIR /sensor/src/sdcloudconnectivity
 RUN mvn clean && mvn install
+WORKDIR /sensor/src/log4jmqtt
+RUN mvn clean && mvn install
+
 WORKDIR /sensor/src/sdsensor
 RUN mvn clean && mvn install
 

@@ -44,16 +44,17 @@ def write_big_query_config(config, topics):
 
 
 def write_compose(ingestionClients):
-    command_base = ['npm', 'start']
     services = {}
     for i in range(len(ingestionClients)):
         service = {}
-        command = command_base[:]
+        volumes = []
         name = 'ingestionclient_'+str(i)
-        
-        service['environment'] = ['CONFIG='+name+'.yml']
-        service['command'] = command
-        service['build'] = './ingestionClients'
+        volumes.append('./ingestionClients/'+name+'.yml:/ingestionClient/config.yml')
+        volumes.append('./ingestionClients/config.bigQuery.yml:/ingestionClient/dataPlugins/bigQuery/config.yml')
+        volumes.append('./ingestionClients/keyfile.json:/ingestionClient/dataPlugins/bigQuery/keyfile.json')
+
+        service['volumes'] = volumes
+        service['image'] = 'rdsea/ingestion'
         services[name] = service
     return services
 

@@ -23,6 +23,12 @@ def createSensorConfigs(topicSensors):
         config['clientId'] = 'sensor_' + topicSensors['topic'] + '_' +str(count)
         config['topic'] = topicSensors['topic']
         sensors.append(config)
+        if 'remoteLoggingBroker' in topicSensors:
+            remoteLoggingConfig = {}
+            remoteLoggingConfig['broker'] = 'tcp://'+topicSensors['remoteLoggingBroker']['host']+':'+str(topicSensors['remoteLoggingBroker']['port'])
+            remoteLoggingConfig['topic'] = topicSensors['remoteLoggingBroker']['topic']
+            config['remoteLoggingBroker'] = remoteLoggingConfig
+            config['remoteLogging'] = True
         count += 1
     return sensors
 

@@ -52,6 +52,7 @@ def write_compose(ingestionClients):
         volumes.append('./ingestionClients/'+name+'.yml:/ingestionClient/config.yml')
         volumes.append('./ingestionClients/config.bigQuery.yml:/ingestionClient/dataPlugins/bigQuery/config.yml')
         volumes.append('./ingestionClients/keyfile.json:/ingestionClient/dataPlugins/bigQuery/keyfile.json')
+        volumes.append('/tmp/'+name+':/tmp')
 
         service['volumes'] = volumes
         service['image'] = 'rdsea/ingestion'

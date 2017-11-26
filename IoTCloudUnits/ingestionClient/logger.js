@@ -1,6 +1,6 @@
 import winston from 'winston';
 
-const LOG_FILE = '/var/log/ingestion.log'
+const LOG_FILE = '/tmp/ingestion.log'
 
 const logger = winston.createLogger({
     transports: [

@@ -20,7 +20,12 @@ corresponding projects. Make sure you have an understanding of how each unit beh
 
 1. Follow the build process of the sensor and put the resulting .jar file in the folder `sensors/`
 2. Create the folders `ingestionClients/` and `sensors/`
-3. You will need a keyfile.json in the directory
+3. You will need a keyfile.json (google json credentials file) in the directory `ingestionClients`
 
 ## Warning
 It is up to the user to make sure that the configuration file is well defined (e.g. topic names match between ingestionClients and sensors)
+
+# Logs
+If you want to retrieve log information, it is recommended to use telegraf, which supports many types of output as plugins. There is a sample configuration provided in the test utilities.
+
+All log files that are generated are mounted in the /tmp directory. You can find out the exact location by looking at the generate docker-compose.yml file

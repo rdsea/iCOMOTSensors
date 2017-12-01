@@ -23,10 +23,10 @@ import ac.at.tuwien.dsg.functions.StandardDeviationFunction;
 import ac.at.tuwien.dsg.functions.TimestampAndWatermarkGenerator;
 import ac.at.tuwien.dsg.models.BTSParam;
 import ac.at.tuwien.dsg.models.UnstableParam;
+import org.apache.flink.streaming.api.TimeCharacteristic;
 import org.apache.flink.streaming.api.datastream.DataStream;
+import org.apache.flink.streaming.api.environment.LocalStreamEnvironment;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
-import org.apache.flink.streaming.api.functions.timestamps.AscendingTimestampExtractor;
-import org.apache.flink.streaming.api.windowing.assigners.SlidingEventTimeWindows;
 import org.apache.flink.streaming.api.windowing.time.Time;
 
 
@@ -35,18 +35,20 @@ import java.util.LinkedList;
 public class StreamingJob {
 
 	public static void main(String[] args) throws Exception {
+	    SimpleCommandLineParser cmd = new SimpleCommandLineParser();
+        cmd.parseArgs(args);
+
 		// set up the streaming execution environment
-		final StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
+		//final StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
+		final StreamExecutionEnvironment env = LocalStreamEnvironment.getExecutionEnvironment();
+        env.setStreamTimeCharacteristic(TimeCharacteristic.EventTime);
 
 
-		LinkedList<String> topics = new LinkedList<>();
-		topics.add("test");
-
-		MqttSource source = new MqttSource("tcp://localhost:1883", "test", topics.toArray(new String[topics.size()]));
+		MqttSource source = new MqttSource(cmd.getUri(), cmd.getClientId(), cmd.getTopics());
 		DataStream<String> mqttStream = env.addSource(source);
 
         StandardDeviationFunction function = new StandardDeviationFunction();
-        function.setPercentage(5);
+        function.setPercentage(cmd.getDeviation());
 
         JSONMapper jsonMapper = new JSONMapper();
 		// convert the json string to POJO
@@ -59,12 +61,11 @@ public class StreamingJob {
         // set a sliding window with offset of half the window size
 		DataStream<UnstableParam> unstableParamDataStream =  paramStream
                 .keyBy("parameterId")
-                .timeWindow(Time.seconds(1))
-                // .window(SlidingEventTimeWindows.of(Time.seconds(2), Time.seconds(1)))
+				.timeWindow(Time.seconds(5), Time.seconds(2))
                 .apply(function);
 
 		unstableParamDataStream.print();
 		// execute program
-		env.execute("Flink Streaming Java API Skeleton");
+		env.execute("BTS paramter stability streaming job");
 	}
 }

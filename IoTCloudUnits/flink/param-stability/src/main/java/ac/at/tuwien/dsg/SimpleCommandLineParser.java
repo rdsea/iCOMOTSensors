@@ -11,11 +11,16 @@ public class SimpleCommandLineParser {
         Option help = new Option("h","help", false, "print usage");
         this.options.addOption(help);
 
-        Option mqttURI = new Option("m","mqtt", true, "MQTT server URI, defaults to 'tcp://localhost:1883'");
-        Option mqttTopics = new Option("t","topics", true, "A comma separated list of topics" );
-        Option mqttClientId = new Option("i","id", true, "MQTT client ID");
+        Option mqttURI = new Option("m","mqtt", true,
+                "MQTT server URI, defaults to 'tcp://localhost:1883'");
+        Option mqttTopics = new Option("t","topics", true,
+                "A comma separated list of topics" );
+        Option mqttClientId = new Option("i","id", true,
+                "MQTT client ID");
         Option deviation = new Option("d", "deviation", true,
                 "a number between 1-99 representing acceptable deviation of parameter value");
+        Option window = new Option("w","window", true,
+                "Time window in seconds for paramater stability, defaults to 5 minutes");
 
         mqttClientId.setRequired(true);
         mqttTopics.setRequired(true);
@@ -24,6 +29,7 @@ public class SimpleCommandLineParser {
         this.options.addOption(mqttTopics);
         this.options.addOption(mqttURI);
         this.options.addOption(deviation);
+        this.options.addOption(window);
 
         this.cmd = null;
     }
@@ -62,6 +68,10 @@ public class SimpleCommandLineParser {
 
     public int getDeviation(){
         return Integer.parseInt(cmd.getOptionValue("deviation"));
+    }
+
+    public int getWindow(){
+        return Integer.parseInt(cmd.getOptionValue("window", "300"));
     }
 
 

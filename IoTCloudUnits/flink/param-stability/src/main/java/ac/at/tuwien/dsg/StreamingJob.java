@@ -61,7 +61,7 @@ public class StreamingJob {
         // set a sliding window with offset of half the window size
 		DataStream<UnstableParam> unstableParamDataStream =  paramStream
                 .keyBy("parameterId")
-				.timeWindow(Time.seconds(5), Time.seconds(2))
+				.timeWindow(Time.seconds(cmd.getWindow()), Time.seconds(cmd.getWindow()/2))
                 .apply(function);
 
 		unstableParamDataStream.print();

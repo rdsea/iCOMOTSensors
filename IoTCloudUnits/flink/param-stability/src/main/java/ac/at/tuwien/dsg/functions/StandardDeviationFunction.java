@@ -31,7 +31,8 @@ public class StandardDeviationFunction  implements WindowFunction<BTSParam, Unst
 
         unstableParam.setDeviation(deviation);
         unstableParam.setParameterId(key.getField(0));
-        unstableParam.setTimestamp(window.getStart());
+        unstableParam.setStart(window.getStart());
+        unstableParam.setEnd(window.getEnd());
 
         if(deviation > (mean/100)*this.percentage){
             logger.warn("unstable param found "+key.getField(0));

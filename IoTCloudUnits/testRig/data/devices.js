@@ -74,6 +74,17 @@ export default class Device{
         device2.lon = device2.lon - (unitVector.y.magnitude);        
     }
 
+    static getDistanceBetween(device1, device2){
+        let x1 = device1.lat;
+        let x2 = device2.lat;
+        let y1 = device1.lon;
+        let y2 = device2.lon;
+        let a = x2 - x1;
+        let b = y2 - y1;
+        let dist = Math.sqrt(a*a + b*b);
+        return dist;
+    }
+
     isMoving(){
         if(this.moves.length > 0){
             let latest = this.moves[this.moves.length - 1];

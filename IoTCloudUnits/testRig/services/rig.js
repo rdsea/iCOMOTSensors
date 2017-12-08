@@ -46,12 +46,12 @@ export function initAllDevices(){
     })
 }
 
-export function getDistanceOptions(id){
+export function getDistanceOptions(id, api){
     let res = {};
     let devices = dao.findAll();
     devices.forEach((device) => {
         if(device.device === id) return;         
-        res[device.device] = `http://framework-utest.nordicmedtest.se/rig/${id}/distance/${device.device}`;
+        res[device.device] = `http://framework-utest.nordicmedtest.se/${api}/${id}/distance/${device.device}`;
     });
     return res;
 }
@@ -66,6 +66,12 @@ export function setDistanceBetween(deviceId1, deviceId2, distance){
     dao.saveDevice(device1);
     dao.saveDevice(device2);
     return { distance };
+}
+
+export function getDistanceBetween(deviceId1, deviceId2){
+    let device1 = dao.find(deviceId1);
+    let device2 = dao.find(deviceId2);
+    return Device.getDistanceBetween(device1, device2);
 }
 
 function movingErrorHandler (err, req, res, next) {

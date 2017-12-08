@@ -101,7 +101,7 @@ router.put('/:device/move', (req, res) => {
 });
 
 router.get('/:device/distance', (req, res) => {
-    res.json(rigService.getDistanceOptions(req.params.device));
+    res.json(rigService.getDistanceOptions(req.params.device, 'rig'));
 });
 
 router.put('/:device/distance/:otherDevice', (req, res) => {

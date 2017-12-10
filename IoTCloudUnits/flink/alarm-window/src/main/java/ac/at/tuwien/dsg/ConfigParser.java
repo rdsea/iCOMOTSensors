@@ -11,7 +11,6 @@ public class ConfigParser {
     public String mqttUri = "tcp://localhost:1883";
     public String[] mqttTopics;
     public String mqttClientId;
-    public int deviation;
     public int window;
     public String rabbitHost;
     public int rabbitPort;
@@ -32,7 +31,6 @@ public class ConfigParser {
 
             this.mqttUri = (String) obj.get("mqttUri");
             this.mqttClientId = (String) obj.get("mqttClientId");
-            this.deviation = ((Long)obj.get("deviation")).intValue();
             this.window = ((Long)obj.get("window")).intValue();
             this.rabbitHost = (String) obj.get("rabbitHost");
             this.rabbitPort = ((Long)obj.get("rabbitPort")).intValue();

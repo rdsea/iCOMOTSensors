@@ -18,23 +18,22 @@ package ac.at.tuwien.dsg;
  * limitations under the License.
  */
 
+import ac.at.tuwien.dsg.functions.AggregatorFunction;
 import ac.at.tuwien.dsg.functions.JSONMapper;
-import ac.at.tuwien.dsg.functions.StandardDeviationFunction;
 import ac.at.tuwien.dsg.functions.TimestampAndWatermarkGenerator;
-import ac.at.tuwien.dsg.models.UnstableParamSerializer;
-import ac.at.tuwien.dsg.models.BTSParam;
-import ac.at.tuwien.dsg.models.UnstableParam;
-import org.apache.flink.streaming.api.TimeCharacteristic;
+import ac.at.tuwien.dsg.models.AlarmWindow;
+import ac.at.tuwien.dsg.models.AlarmWindowSerializer;
+import ac.at.tuwien.dsg.models.BTSAlarm;
 import org.apache.flink.streaming.api.datastream.DataStream;
-import org.apache.flink.streaming.api.environment.LocalStreamEnvironment;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 import org.apache.flink.streaming.api.windowing.time.Time;
 import org.apache.flink.streaming.connectors.rabbitmq.RMQSink;
 import org.apache.flink.streaming.connectors.rabbitmq.common.RMQConnectionConfig;
 
+
 public class StreamingJob {
 
-    public static void main(String[] args) throws Exception {
+	public static void main(String[] args) throws Exception {
         ConfigParser config = new ConfigParser(args[0]);
 
         final RMQConnectionConfig connectionConfig = new RMQConnectionConfig.Builder()
@@ -45,33 +44,26 @@ public class StreamingJob {
                 .setPort(config.rabbitPort)
                 .build();
 
-        // set up the streaming execution environment
-        final StreamExecutionEnvironment env = LocalStreamEnvironment.getExecutionEnvironment();
-        env.setStreamTimeCharacteristic(TimeCharacteristic.EventTime);
+		// set up the streaming execution environment
+		final StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
 
-
-        MqttSource source = new MqttSource(config.mqttUri, config.mqttClientId, config.mqttTopics);
+		MqttSource source = new MqttSource(config.mqttUri, config.mqttClientId, config.mqttTopics);
         DataStream<String> mqttStream = env.addSource(source);
-
-        StandardDeviationFunction function = new StandardDeviationFunction();
-        function.setPercentage(config.deviation);
 
         JSONMapper jsonMapper = new JSONMapper();
         // convert the json string to POJO
         // use the reading time as a watermark
-        DataStream<BTSParam> paramStream = mqttStream
+        DataStream<BTSAlarm> alarmStream = mqttStream
                 .flatMap(jsonMapper)
                 .assignTimestampsAndWatermarks(new TimestampAndWatermarkGenerator());
 
-        // key the stream by parameter
-        // set a sliding window with offset of half the window size
-        DataStream<UnstableParam> unstableParamDataStream = paramStream
-                .keyBy("parameterId")
-                .timeWindow(Time.seconds(config.window), Time.seconds(config.window / 2))
-                .apply(function);
+        DataStream<AlarmWindow> alarmWindowStream = alarmStream
+                .timeWindowAll(Time.seconds(config.window), Time.seconds(config.window/2))
+                .apply(new AggregatorFunction());
 
-        unstableParamDataStream.addSink(new RMQSink<>(connectionConfig, config.rabbitTopic, new UnstableParamSerializer()));
-        // execute program
-        env.execute("BTS paramter stability streaming job");
-    }
+        alarmWindowStream.addSink(new RMQSink<>(connectionConfig, config.rabbitTopic, new AlarmWindowSerializer()));
+
+		// execute program
+		env.execute("BTS alarm window streaming job");
+	}
 }

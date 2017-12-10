@@ -23,6 +23,7 @@ public class JSONMapper implements FlatMapFunction<String, BTSParam> {
             param.setStationId(Long.parseLong((String) jsonObject.get("station_id")));
             param.setValue(Double.parseDouble((String) jsonObject.get("value")));
             param.setReadingTimeFromString((String) jsonObject.get("reading_time"));
+            logger.info("successfully parsed BTS param");
         }catch(Exception e){
             logger.error("could not parse received json: "+value);
             logger.error(e.getMessage());

@@ -1,4 +1,4 @@
-package ac.at.tuwien.dsg.functions;
+package ac.at.tuwien.dsg.models;
 
 import ac.at.tuwien.dsg.models.UnstableParam;
 import org.apache.flink.streaming.util.serialization.SerializationSchema;

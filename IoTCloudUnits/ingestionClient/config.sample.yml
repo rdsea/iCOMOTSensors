@@ -1,0 +1,32 @@
+# choice of data service
+# name should reflect the corresponding plugin in ./dataPlugins
+data: default
+test: false # activate test mode
+brokers:
+    - host: localhost
+      port: 1883
+      clientId: testclient1
+      username: #enter yours
+      password: #enter yours
+      topics: 
+        - test1 # topic to subscribe
+        - test2
+      # last will and testament specified in mqtt
+      # will:
+      #    topic: <topic> # topic to publish disconnect msg
+      #    payload: <disconnect message> # payload disconnect msg
+      #    qos: <qos> # qos required from broker
+      #    retain: <retain flag> # should the state of the topic be stored
+
+    - host: localhost
+      port: 1883
+      clientId: testclient2
+      topics: 
+        - test3 # topic to subscribe
+        - test4
+      # last will and testament specified in mqtt
+      # will:
+      #    topic: <topic> # topic to publish disconnect msg
+      #    payload: <disconnect message> # payload disconnect msg
+      #    qos: <qos> # qos required from broker
+      #    retain: <retain flag> # should the state of the topic be stored

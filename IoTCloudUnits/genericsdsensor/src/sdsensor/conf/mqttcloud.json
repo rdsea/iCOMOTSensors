@@ -1,0 +1,10 @@
+
+	 {
+		"server": "...",
+		"username":	"...",
+		"password": 	"...",
+		"port": 	"...",
+		"topic":	"...",
+		"clientId": "..."
+	}
+

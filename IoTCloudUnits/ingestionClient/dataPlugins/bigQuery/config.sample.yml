@@ -1,0 +1,17 @@
+name: myDataset
+tables:
+  - id: testTable1
+    topics: # the topics that contain information to be stored on this table
+      - topic1
+      - topic2
+    # https://cloud.google.com/bigquery/docs/schemas for all BigQuery datatypes and schema definition
+    schema:
+      - description: description of field
+        mode: REQUIRED
+        name: id
+        type: STRING
+
+      - description: description of field
+        mode: REQUIRED
+        name: value
+        type: FLOAT

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns2:Definitions id="IoTSensors" name="IoTSensors" xmlns:ns2="http://docs.oasis-open.org/tosca/ns/2011/12">
+    <ns2:ServiceTemplate id="SensorTopology">
+        <ns2:TopologyTemplate>
+            <ns2:RelationshipTemplate id="dockerOnVM" type="HOSTON">
+                <ns2:SourceElement ref="sensorDocker"/>
+                <ns2:TargetElement ref="PersonalMachine"/>
+            </ns2:RelationshipTemplate>
+            <ns2:NodeTemplate minInstances="1" maxInstances="2147483647" id="PersonalMachine" type="os">
+                <ns2:Properties>
+                    <MappingProperties>
+                        <MappingProperty type="os">
+                            <property name="provider">localhost</property>
+                            <property name="instanceType"/>
+                            <property name="baseImage"/>
+                            <property name="packages"></property>
+                        </MappingProperty>
+                    </MappingProperties>
+                </ns2:Properties>
+                <ns2:Requirements/>
+                <ns2:Capabilities/>
+                <ns2:Policies/>
+            </ns2:NodeTemplate>
+            <ns2:NodeTemplate minInstances="1" maxInstances="50" id="sensorDocker" type="docker">
+                <ns2:Properties>
+                    <MappingProperties>
+                        <MappingProperty type="os">
+                            <property name="provider">localhost</property>
+                            <property name="instanceType">000000512</property>
+                            <property name="baseImage">a82e054f-4f01-49f9-bc4c-77a98045739c</property>
+                            <property name="packages"></property>
+                        </MappingProperty>
+                    </MappingProperties>
+                </ns2:Properties>
+                <ns2:Requirements/>
+                <ns2:Capabilities/>
+                <ns2:Policies/>
+                <ns2:DeploymentArtifacts>
+                    <ns2:DeploymentArtifact name="Artifact_17be547e-74ce-4918-aee1-01b93a366ef5" artifactType="salsa:misc" artifactRef="Artifact_17be547e-74ce-4918-aee1-01b93a366ef5" xmlns:salsa="https://github.com/tuwiendsg/SALSA"/>
+                    <ns2:DeploymentArtifact name="dockerFileArtifact" artifactType="salsa:dockerfile" artifactRef="dockerFileArtifact" xmlns:salsa="https://github.com/tuwiendsg/SALSA"/>
+                    <ns2:DeploymentArtifact name="Artifact_ff4be584-8ade-4c4d-ad46-7400a6f7a1e4" artifactType="salsa:misc" artifactRef="Artifact_ff4be584-8ade-4c4d-ad46-7400a6f7a1e4" xmlns:salsa="https://github.com/tuwiendsg/SALSA"/>
+                </ns2:DeploymentArtifacts>
+            </ns2:NodeTemplate>
+        </ns2:TopologyTemplate>
+    </ns2:ServiceTemplate>
+    <ns2:ArtifactTemplate id="Artifact_17be547e-74ce-4918-aee1-01b93a366ef5" type="misc">
+        <ns2:Properties/>
+        <ns2:ArtifactReferences>
+            <ns2:ArtifactReference reference="file:///path/to/your/artifacts/sensor-artifacts.tar.gz"/>
+        </ns2:ArtifactReferences>
+    </ns2:ArtifactTemplate>
+    <ns2:ArtifactTemplate id="dockerFileArtifact" type="dockerfile">
+        <ns2:Properties/>
+        <ns2:ArtifactReferences>
+            <ns2:ArtifactReference reference="file:///path/to/your/artifacts/Dockerfile"/>
+        </ns2:ArtifactReferences>
+    </ns2:ArtifactTemplate>
+    <ns2:ArtifactTemplate id="Artifact_ff4be584-8ade-4c4d-ad46-7400a6f7a1e4" type="misc">
+        <ns2:Properties/>
+        <ns2:ArtifactReferences>
+            <ns2:ArtifactReference reference="file:///path/to/your/artifacts/runsensor.sh"/>
+        </ns2:ArtifactReferences>
+    </ns2:ArtifactTemplate>
+</ns2:Definitions>

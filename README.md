@@ -21,6 +21,8 @@ Contact Hong-Linh Truong (truong@dsg.tuwien.ac.at) for further information
 
 ## IoT Cloud example
 - BTS monitoring
+- TestRig
+- Camera
 ## Data
 - real data from monitoring real BTS
 ## Testing Scenarios

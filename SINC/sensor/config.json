@@ -1,1 +1,0 @@
-{"server": "104.155.95.53", "username": "xxx", "password": "xxx", "port": 1883, "clientId": "sensor_topic1_0", "topic": "topic1", "remoteLoggingBroker": {"broker": "tcp://logBroker:1883", "topic": "logging"}, "remoteLogging": false}

@@ -1,14 +1,14 @@
-var express = require('express'),
-  app = express(),
-  port = process.env.PORT || 3000,
-  bodyParser = require('body-parser');
+import express from 'express';
+import bodyParser from 'body-parser';
+import routes from './api/routes/routes';
 
+let app = express(),
+  port = process.env.PORT || 3000;
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 
-var routes = require('./api/routes/routes');
 routes(app);
 
 app.use(function(req, res) {

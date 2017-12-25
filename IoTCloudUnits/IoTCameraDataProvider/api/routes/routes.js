@@ -5,7 +5,7 @@
 * Email: anhvaut@gmail.com/vu.tran@vnuk.edu.vn
 */
 
-module.exports = function(app) {
+export default function(app) {
 	var cameraController = require('../controllers/camera-controller');
 
 	app.route('/camera/:datapoint/list/all')
@@ -13,5 +13,4 @@ module.exports = function(app) {
 
 	app.route('/camera/:datapoint/list/:time')
 		.get(cameraController.getVideoFrameByTime);
-
 };

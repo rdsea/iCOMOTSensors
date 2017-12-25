@@ -4,49 +4,50 @@
 * Email: anhvaut@gmail.com/vu.tran@vnuk.edu.vn
 */
 
-var dngGameraService = require('../services/dng-camera-service');
-var urlVideoChannel = 'http://2co2.vp9.tv/chn/';
+import * as dngCameraService from '../services/dng-camera-service';
 
 /**
  * loadVideoFrameFromUrl - load video frame from url of a camera from Danang public camera
  */
-exports.listAllVideoFrames = function(req, res) {
-  var datapoint = req.params.datapoint;
+export function listAllVideoFrames(req, res) {
+  let datapoint = req.params.datapoint;
   datapoint = formURLFromDatapoint(datapoint);
-  console.log(datapoint);
 
-  dngGameraService.loadVideoFrameFromUrl(datapoint);
-  var listOfVideoFrames = dngGameraService.getListOfVideoFrames();
-
-  res.json(listOfVideoFrames);
-
+  dngCameraService.loadVideoFrameFromUrl(datapoint).then((listOfVideoFrames) => {
+    res.json(listOfVideoFrames);
+  }).catch((err) => {
+    console.log(err);
+    res.status(500).json(err);
+  });
 };
 
 /**
  * getVideoFrameByTime - load video frame from url of a camera from Danang public camera
  */
-exports.getVideoFrameByTime = function(req, res) {
-  var time = req.params.time;
-  var datapoint = req.params.datapoint;
+export function getVideoFrameByTime(req, res) {
+  let time = req.params.time;
+  let datapoint = req.params.datapoint;
   datapoint = formURLFromDatapoint(datapoint);
-
-  console.log(datapoint);
-
-  dngGameraService.loadVideoFrameFromUrl(datapoint);
-
-  if (time === 'now'){
-    var videoFrame = dngGameraService.getLastestVideoFrame();
+  dngCameraService.loadVideoFrameFromUrl(datapoint).then((listOfVideoFrames) => {
+    let videoFrame = null;
+    if (time === 'now'){
+      videoFrame = dngCameraService.getLastestVideoFrame(listOfVideoFrames);
+    }else{
+      videoFrame = dngCameraService.getVideoFrameAt(listOfVideoFrames, time);
+    }
     res.json(videoFrame);
-  }
-  
+  }).catch((err) => {
+    console.log(err);
+    res.status(500).json(err);
+  });; 
 };
 
 /**
  * formURLFromDatapoint 
  * conver datapoint from  2co2.vp9.tv@DNG33 to http://2co2.vp9.tv/chn/DNG33/
  */
-var formURLFromDatapoint = function(datapoint){
-	var _datapoint = datapoint.replace("@","/");
+function formURLFromDatapoint(datapoint){
+	let _datapoint = datapoint.replace("@","/");
     _datapoint = _datapoint.replace("@","/");
 	_datapoint = "http://" + _datapoint;
 

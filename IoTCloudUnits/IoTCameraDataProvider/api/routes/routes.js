@@ -8,9 +8,20 @@
 export default function(app) {
 	var cameraController = require('../controllers/camera-controller');
 
-	app.route('/camera/:datapoint/list/all')
+	app.route('/camera/list')
+		.get(cameraController.listAllCameras);
+	
+	app.route('/camera/:cameraName')
+		.post(cameraController.exportVideo);
+	
+	app.route('/camera/:cameraName/:videoId')
+		.get(cameraController.getVideoById);
+
+	app.route('/camera/:cameraName/list/all')
 		.get(cameraController.listAllVideoFrames);
 
-	app.route('/camera/:datapoint/list/:time')
-		.get(cameraController.getVideoFrameByTime);
+	app.route('/camera/:cameraName/list/:time')
+		.get(cameraController.getVideoFrameByTime);	
+
+	
 };

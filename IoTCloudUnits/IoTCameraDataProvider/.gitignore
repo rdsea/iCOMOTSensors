@@ -1,6 +1,7 @@
 logs
 *.log
 npm-debug.log*
+keyfile.json
 node_modules
 .npm
 .DS_Store

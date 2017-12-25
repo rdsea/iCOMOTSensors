@@ -6,6 +6,7 @@
 import cheerio from 'cheerio';
 import axios from 'axios';
 import moment from 'moment';
+import Camera from '../../data/camera';
 
 /**
  * loadVideoFrameFromUrl - load video frame from url of a camera from Danang public camera
@@ -54,6 +55,29 @@ export function loadVideoFrameFromUrl(url){
   });      
 }
 
+export function downloadVideo(url){
+  return axios.get(url, { responseType:"arraybuffer" }).then((res) => {
+    return res.data;
+  }).catch((err) => {
+    if(err.response.status === 404){
+      throw new Error('cannot find requested video, perhaps it has expired');
+    }
+  });
+}
+
+export function getVideoById(listOfVideoFrames, videoId){
+  let videoFrame = null;
+  listOfVideoFrames.forEach(function(frame){
+    let tokens = frame.name.split("/")
+    let currentId = tokens[tokens.length-1];
+    console.log(currentId, videoId);
+    
+    if(currentId === videoId){
+        videoFrame = frame;
+    }                      
+  });
+  return videoFrame;
+}
 
 /**
  * getListOfVideoFrames - return the list of canmera
@@ -81,12 +105,9 @@ export function getVideoFrameAt(listOfVideoFrames, timestamp){
 
 
 /**
- * isFrameExisting - check if the frame is exist in the list
+ * findAll - finds all cameras
  */
-function isFrameExisting(listOfVideoFrames, name){
-  listOfVideoFrames.forEach(function(frame){
-      if(frame.name === name){
-            return true;
-      }                      
-  });
+
+export function findAll(){
+  return Camera.find({});
 }

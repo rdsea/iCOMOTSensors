@@ -1,8 +1,16 @@
 data.csv
+<<<<<<< HEAD
+=======
+config.yml
+>>>>>>> cf2a084da5f96bbcb85c514781a0e9c861775c32
 docker-compose.*
 ingestionClients/*.yml
 sensors/*.csv
 sensors/*.json
 sensors/*.jar
 ingestionClients/src
+<<<<<<< HEAD
+=======
+ingestionClients/*.json
+>>>>>>> cf2a084da5f96bbcb85c514781a0e9c861775c32
 __pycache__/

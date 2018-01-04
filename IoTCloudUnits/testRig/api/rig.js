@@ -29,7 +29,7 @@ router.use('/:device', (req, res, next) => {
 
 
 router.get('/', (req, res) => {
-    res.json(rigService.findAllDevices());
+    res.json(rigService.findAllDevices(req.headers.host));
 });
 
 router.get('/:device/voltage', (req, res) => {
@@ -89,7 +89,7 @@ router.put('/init_devices', (req, res) => {
 });
 
 router.get('/:device', (req, res) => {
-    res.json(rigService.findDevice(req.params.device));
+    res.json(rigService.findDevice(req.params.device, req.headers.host));
 });
 
 router.get('/:device/move', (req, res) => {
@@ -101,7 +101,7 @@ router.put('/:device/move', (req, res) => {
 });
 
 router.get('/:device/distance', (req, res) => {
-    res.json(rigService.getDistanceOptions(req.params.device, 'rig'));
+    res.json(rigService.getDistanceOptions(req.params.device, 'rig', req.headers.host));
 });
 
 router.put('/:device/distance/:otherDevice', (req, res) => {

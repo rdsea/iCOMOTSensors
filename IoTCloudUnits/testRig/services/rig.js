@@ -14,18 +14,18 @@ export function getDeviceField(id, field){
     return device[field];
 }
 
-export function findAllDevices(){
+export function findAllDevices(urlBase){
     let res = []
     let devices = dao.findAll();
 
     devices.forEach((device) => {
-        res.push(device.toJson());
+        res.push(device.toJson(urlBase));
     });
     return res;
 }
 
-export function findDevice(id){
-    return dao.find(id).toJson();
+export function findDevice(id, urlBase){
+    return dao.find(id).toJson(urlBase);
 }
 
 export function moveDevice(id, direction, speed, duration){
@@ -46,12 +46,12 @@ export function initAllDevices(){
     })
 }
 
-export function getDistanceOptions(id, api){
+export function getDistanceOptions(id, api, urlBase){
     let res = {};
     let devices = dao.findAll();
     devices.forEach((device) => {
         if(device.device === id) return;         
-        res[device.device] = `http://framework-utest.nordicmedtest.se/${api}/${id}/distance/${device.device}`;
+        res[device.device] = `http://${urlBase}/${api}/${id}/distance/${device.device}`;
     });
     return res;
 }

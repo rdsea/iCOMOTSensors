@@ -109,26 +109,26 @@ export default class Device{
         });
     }
 
-    toJson(){
+    toJson(urlBase){
         return{
             device_type: 'rig device',
             distance:{
-                url: `http://framework-utest.nordicmedtest.se/rig/${this.device}/distance/`,
+                url: `http://${urlBase}/rig/${this.device}/distance/`,
             },
             in_motion: this.isMoving(),
             heartrate: {
-                url: `http://framework-utest.nordicmedtest.se/rig/${this.device}/heartrate/`,
+                url: `http://${urlBase}/rig/${this.device}/heartrate/`,
             },
             id: this.device,
             move: {
-                url: `http://framework-utest.nordicmedtest.se/rig/${this.device}/move/`,
+                url: `http://${urlBase}/rig/${this.device}/move/`,
             },
             position: {
-                url: `http://framework-utest.nordicmedtest.se/rig/${this.device}/position`,
+                url: `http://${urlBase}/rig/${this.device}/position`,
             },
-            url: `http://framework-utest.nordicmedtest.se/rig/${this.device}/`,
+            url: `http://${urlBase}/rig/${this.device}/`,
             voltage:{
-                url: `http://framework-utest.nordicmedtest.se/rig/${this.device}/`,
+                url: `http://${urlBase}/rig/${this.device}/`,
             },
             
         }

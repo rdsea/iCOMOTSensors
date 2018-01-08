@@ -1,15 +1,19 @@
+/*
+  Deployment template for google container engine
+*/
+
 var template = {
     "apiVersion": "extensions/v1beta1",
     "kind": "Deployment",
     "metadata": {
-      "name": "sensor"
+      "name": "testrig"
     },
     "spec": {
       "replicas": 1,
       "template": {
         "metadata": {
           "labels": {
-            "app": "sensor",
+            "app": "testrig",
             "role": "iotcloudexamples",
             "tier": "iotcloudexamples"
           }
@@ -18,17 +22,20 @@ var template = {
           "volumes":[],
           "containers": [
             {
-              "name": "sensor",
-              "image": "rdsea/sensor",
-              "command":["java"],
-              "args": ["-jar", "sdsensor-0.0.1-SNAPSHOT-jar-with-dependencies.jar", "config/config.json", "data.csv", "test"],
+              "name": "testrig",
+              "image": "rdsea/testrig",
               "volumeMounts":[],
               "resources": {
                 "requests": {
                   "cpu": "100m",
                   "memory": "100Mi"
                 }
-              }
+              },
+              "ports": [
+                {
+                  "containerPort": 3000
+                }
+              ] 
             }
           ]
         }
@@ -36,4 +43,4 @@ var template = {
     }
   }
 
-  export default template;
+export default template;

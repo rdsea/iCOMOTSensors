@@ -13,10 +13,6 @@ various sensors from different stations. For example:
 
 
 <<<<<<< HEAD
-Data is provided by BachPhu, a company developing IoT solution in Vietnam
-=======
-<<<<<<< HEAD
 =======
 Data is provided by BachPhu, a company developing IoT solution in Vietnam
 >>>>>>> 5ae2b09e4e99f4d5fd27df70ce6bf316759a0122
->>>>>>> cf2a084da5f96bbcb85c514781a0e9c861775c32

@@ -2,17 +2,6 @@
 brokers:
   - broker1
   - broker2
-<<<<<<< HEAD
-
-# a list of topics that declare how many sensors push to it
-sensors:
-  - topic: topic1
-    nb: 3
-    broker: broker1
-  - topic: topic2
-    nb: 3
-    broker: broker2
-=======
   - logBroker
 
 # a list of topics that declare how many sensors push to it
@@ -38,7 +27,6 @@ sensors:
       username: xxx
       password: xxx
     
->>>>>>> cf2a084da5f96bbcb85c514781a0e9c861775c32
 
 # a list of ingestion clients that read from selected brokers and their topics
 ingestionClients:
@@ -46,19 +34,13 @@ ingestionClients:
       - brokerId: broker1
         topics: 
           - topic1
-<<<<<<< HEAD
-=======
     data: default # data plugin to use for ingestionClient
->>>>>>> cf2a084da5f96bbcb85c514781a0e9c861775c32
     
   - brokers:
       - brokerId: broker2
         topics: 
           - topic2
-<<<<<<< HEAD
-=======
     data: default
->>>>>>> cf2a084da5f96bbcb85c514781a0e9c861775c32
 
 # the location of the data file as a .csv
 # also specifies which of the columns corresponds to the ID of the sensor
@@ -67,8 +49,6 @@ data:
   sensorId: 'station_id'
 
 
-<<<<<<< HEAD
-=======
 # configuration for the bigQuery dataplugin, check the ingestion client
 bigQuery:
   name: myDataset
@@ -88,5 +68,4 @@ bigQuery:
           mode: REQUIRED
           name: value
           type: FLOAT
->>>>>>> cf2a084da5f96bbcb85c514781a0e9c861775c32
 

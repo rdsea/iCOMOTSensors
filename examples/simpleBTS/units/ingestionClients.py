@@ -11,11 +11,7 @@ def load_config(path):
 def createIngestionClientConfigs(ingestionConfigs):
     config = {}
     config['brokers'] = []
-<<<<<<< HEAD
-    config['data'] = 'default'
-=======
     config['data'] = ingestionConfigs['data']
->>>>>>> cf2a084da5f96bbcb85c514781a0e9c861775c32
     count = 0
     for broker in ingestionConfigs['brokers']:
         brokerConfig = {}
@@ -40,20 +36,6 @@ def write_config_files(ingestionClients):
         with open('ingestionClients/ingestionclient_'+str(i)+'.yml', 'w') as outfile:
             yaml.dump(ingestionClients[i], outfile)
 
-<<<<<<< HEAD
-
-def write_compose(ingestionClients):
-    command_base = ['npm', 'start']
-    services = {}
-    for i in range(len(ingestionClients)):
-        service = {}
-        command = command_base[:]
-        name = 'ingestionclient_'+str(i)
-        
-        service['environment'] = ['CONFIG='+name+'.yml']
-        service['command'] = command
-        service['build'] = './ingestionClients'
-=======
 def write_big_query_config(config, topics):
     for table in config['tables']:
         table['topics'] = list(topics)
@@ -74,7 +56,6 @@ def write_compose(ingestionClients):
 
         service['volumes'] = volumes
         service['image'] = 'rdsea/ingestion'
->>>>>>> cf2a084da5f96bbcb85c514781a0e9c861775c32
         services[name] = service
     return services
 
@@ -82,10 +63,6 @@ def write_compose(ingestionClients):
 
 def provision (config):
     ingestionClients = []
-<<<<<<< HEAD
-    for ingestionConfigs in config['ingestionClients']:
-        ingestionClients.append(createIngestionClientConfigs(ingestionConfigs))
-=======
     topics = set()
 
     for ingestionConfigs in config['ingestionClients']:
@@ -94,7 +71,6 @@ def provision (config):
             topics.update(broker['topics'][:])
 
     write_big_query_config(config['bigQuery'], topics)
->>>>>>> cf2a084da5f96bbcb85c514781a0e9c861775c32
     
     write_config_files(ingestionClients)
     return write_compose(ingestionClients)

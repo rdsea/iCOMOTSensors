@@ -22,6 +22,8 @@ public class GenericSensor implements Runnable, Bootstrapable {
 
 	private ScheduledExecutorService scheduler = null;
 	private String dataFileSource = null;
+
+	private boolean testMode = false;
 	// private int updates = 1;
 
 	private int updateRate = 5;// 5 seconds
@@ -29,6 +31,7 @@ public class GenericSensor implements Runnable, Bootstrapable {
 	public GenericSensor() {
 
 	}
+
 
 	// initi some information when called from the main method
 	// this function is called when you want to run the sensor by
@@ -53,6 +56,10 @@ public class GenericSensor implements Runnable, Bootstrapable {
 		scheduler = Executors.newScheduledThreadPool(1);
 		// scheduler.scheduleAtFixedRate(this, 0, this.updateRate,
 		// TimeUnit.SECONDS);
+
+		if(this.testMode){
+			DataProvider.setTestMode(this.testMode);
+		}
 		// FIXME: We should not read the data file multiple times
 		scheduler.scheduleAtFixedRate(DataProvider.getProvider(), 0, 5, TimeUnit.SECONDS);
 
@@ -92,6 +99,10 @@ public class GenericSensor implements Runnable, Bootstrapable {
 		}
 
 		schedulerDelegate.stop();
+	}
+
+	public void setTestMode(boolean testMode){
+		this.testMode = testMode;
 	}
 
 	public int getUpdateRate() {

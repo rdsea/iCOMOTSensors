@@ -1,8 +1,3 @@
-<<<<<<< HEAD
-# IoT Cloud Samples
-This collection includes different types of IoT units, samples of IoT Cloud Systems, data, and testing scenarios for different purposes
-## Sensors
-=======
 
 # IoT Cloud Samples
 ## Introduction
@@ -12,7 +7,6 @@ Our goal for this project is to provide open source samples that one can use for
 
 ## Sensors
 
->>>>>>> cf2a084da5f96bbcb85c514781a0e9c861775c32
 - emulated sensors and real sensors
 - sensors using Things-specific APIs to monitor Things
 - sensors using Software-defined Gateways API to monitor Things
@@ -20,20 +14,7 @@ Our goal for this project is to provide open source samples that one can use for
 - sensors running in different environments (bare OS, docker, vagrant, etc.)
 - sensors running in a single node (emulated or real)
 - sensors running within a topology (creating a network of sensors)
-## IoT Cloud example
-- BTS monitoring
-## Data
-- real data from monitoring real BTS
-## Testing Scenarios
-- for testing uncertainty
-- for testing incidents
-# Contributors
 
-<<<<<<< HEAD
-# Contact
-Code is currently updated and uploaded.
-Contact Hong-Linh Truong (hong-linh.truong@tuwien.ac.at) for further information
-=======
 
 Code is currently updated and uploaded.
 Contact Hong-Linh Truong (truong@dsg.tuwien.ac.at) for further information
@@ -57,4 +38,3 @@ If you use the samples, try to read the following papers where we describe sampl
 Code is currently updated and uploaded.
 Contact Hong-Linh Truong (hong-linh.truong@tuwien.ac.at) for further information
 
->>>>>>> cf2a084da5f96bbcb85c514781a0e9c861775c32

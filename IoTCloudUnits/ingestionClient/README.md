@@ -2,13 +2,7 @@
 
 ## Build
 * `$ npm i` to install dependencies
-<<<<<<< HEAD
-* `$ CONFIG=<config file> npm start` to start the ingestion client
-
-The CONFIG environment variable is necessary to tell the ingestion client where its configuration file is
-=======
 * `npm start` to start the ingestion client
->>>>>>> cf2a084da5f96bbcb85c514781a0e9c861775c32
 
 ## Configuration
 A sample configuration is included in the project `config.sample.yml`. You can declare multiple brokers that subscribe to multiple topics.

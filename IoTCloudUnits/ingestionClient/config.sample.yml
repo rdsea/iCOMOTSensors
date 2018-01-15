@@ -1,10 +1,7 @@
 # choice of data service
 # name should reflect the corresponding plugin in ./dataPlugins
 data: default
-<<<<<<< HEAD
-=======
 test: false # activate test mode
->>>>>>> cf2a084da5f96bbcb85c514781a0e9c861775c32
 brokers:
     - host: localhost
       port: 1883

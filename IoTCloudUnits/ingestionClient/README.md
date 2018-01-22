@@ -5,8 +5,20 @@
 * `npm start` to start the ingestion client
 
 ## Configuration
-A sample configuration is included in the project `config.sample.yml`. You can declare multiple brokers that subscribe to multiple topics.
-Currently this project supports BigQuery and InfluxDB, extra data providers can be added easily by simply creating a plugin, check out the README in the `dataPlugins` and look at the existing plugins.
+We assume that we consume valid JSON data from the mqtt broker
+
+
+A sample configuration is provided in the `config.sample.yml`. Data storage should be handled by a remote serivice through rest that exposes
+the endpoint `POST /insert` with the following object 
+
+```
+{
+    data: {
+        key: value,
+        key: value,
+    }
+}
+```
 
 ## Dependencies
 ### MQTT Broker

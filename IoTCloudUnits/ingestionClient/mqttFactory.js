@@ -36,6 +36,10 @@ function createMqttClient(config, remoteDataLocation){
         logger.error(err.message);
     });
 
+    client.on('close', () => {
+        logger.warn(`disconnected client no longer ingesting from ${config.topics}`);
+    })
+
     return client;
 }
 

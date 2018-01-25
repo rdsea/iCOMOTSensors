@@ -16,16 +16,6 @@ try{
     process.exit(1);
 }
 
-// load data plugin
-var dataPlugin = null;
-try{
-    // es6 default export is just a named export with default
-    dataPlugin = require(`./dataPlugins/${config.data}/dataPlugin`).default;    
-}catch(err){
-    logger.error('error lodaing data plugin');
-    loogger.error(err);
-}
-
 let clients = [];
 
 if(config.test){
@@ -38,11 +28,11 @@ if(config.test){
 }
 
 // instantiate the clients once db connection has been made
-dataPlugin.init().then(() => {
-    for(let i=0;i<config.brokers.length;i++){
-        clients.push(mqttFactory.createMqttClient(config.brokers[i], dataPlugin));
-    }    
-});
+for(let i=0;i<config.brokers.length;i++){
+    clients.push(mqttFactory.createMqttClient(config.brokers[i], config.remoteDataLocation));
+}    
+
+logger.info('ingest client listening for connections...')
 
 // gracefully handle interruption and exit
 function clean(){
@@ -60,7 +50,7 @@ process.on('SIGINT', () => {
 
 // gracefully handle exit
 process.on('uncaughtException', (err) => {
-    logger.error(err);
+    logger.error(err.message);
     logger.error('terminating client due to exception...');
     clean();
 })

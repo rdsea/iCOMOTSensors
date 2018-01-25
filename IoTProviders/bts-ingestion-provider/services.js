@@ -33,7 +33,7 @@ export function deleteIngestionClient(ingestionClientId){
     return IngestionClient.findOneAndRemove(ingestionClientId).then(() => {
         let execs = [];
         execs.push(exec(`kubectl delete deployments ${ingestionClientId}`).catch((err) => err));
-        execs.push(exec(`kubectl delete services ${ingestionClientId}`).catch((err) => err));
+        execs.push(exec(`kubectl delete configmaps config-${ingestionClientId}`).catch((err) => err));
         return Promise.all(execs);
     }).then((execs) => {
         execs.forEach((exec) => {
@@ -43,11 +43,10 @@ export function deleteIngestionClient(ingestionClientId){
     })
 }
 
-export function getIngestionClients(sliceId){
+export function getIngestionClient(ingestionClientId){
     let query = {
-        sliceId,
+        ingestionClientId,
     };
-    let ingestionClients = [];
     return IngestionClient.find(query).then((res) => {
         return res;
     });

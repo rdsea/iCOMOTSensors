@@ -1,5 +1,4 @@
 import Sensor from './data/models/sensor';
-import SensorInstance from './data/models/sensorInstance';
 
 import child_process from 'child_process';
 import fs from 'fs';
@@ -8,64 +7,75 @@ import deployTemplate from './configTemplates/sensorDeployTemplate';
 import configTemplate from './configTemplates/sensorConfigTemplate';
 import randomstring from 'randomstring';
 import { randomBytes } from 'crypto';
+import * as sensorTypes from './data/models/sensorTypes';
 
 const exec = promisify(child_process.exec);
 const writeFile = promisify(fs.writeFile);
 
-export function createSensorInstance(config){
-    return findExistingSensor(config).then((sensor) => {
-        if(sensor){
-            return sensor;
-        }else{
-            return createSensor(config);
-        }
-    }).then((sensor) => {
-        let sensorInstance = new SensorInstance({
-            type: config.type,
-            broker: config.broker,
-            topic: config.topic,
-            sliceId: config.sliceId,
-            sensorId: sensor._id,
-            createdAt: Math.floor((new Date()).getTime()/1000),
-        });
-        return sensorInstance.save();
-    });
+
+export function createParamSensor(config){
+    return createSensor(config, sensorTypes.PARAM);
 }
 
-function createSensor(config){
+export function createAlertSensor(config){
+    return createSensor(config, sensorTypes.ALERT);
+}
+
+export function getParamSensors(){
+    return findSensors(sensorTypes.PARAM);
+}
+
+export function getAlertSensors(){
+    return findSensors(sensorTypes.ALERT);
+}
+
+
+function createSensor(config, type){
+    let sensorId = `sensor${(new Date()).getTime()}`;
+    config.clientId = sensorId;
     return createSensorConfigMap(config).then((sensorConfig) => {
         return provisionSensor(sensorConfig);
     }).then((sensor) => {
         let dbSensor = new Sensor({
             type: config.type,
-            clientId: config.clientId,
+            clientId: sensorId,
             broker: config.broker,
             topic: config.topic,
             createdAt: Math.floor((new Date()).getTime()/1000),
+            type: type,
         });
         return dbSensor.save();
     });
 }
 
-function findExistingSensor(config){
+function findSensors(type){
     let query = {
-        type: config.type,
-        broker: config.broker,
-        topic: config.topic,
+        type,
     }
-    return Sensor.findOne(query).catch((err) => {
+    return Sensor.find(query).catch((err) => {
         console.log(err);
         return null;
     });
 }
 
+export function deleteSensor(sensorId){
+    return exec(`kubectl delete configmap config-${sensorId}`).then((res) => {
+        console.log(res.stdout);
+        console.log(res.stderr);
+        return exec(`kubectl delete deployment ${sensorId}`)
+    }).then((res) => {
+        console.log(res.stdout) ;
+        console.log(res.stdin);
+        return Sensor.remove({ clientId: sensorId });
+    })
+}
+
 function createSensorConfigMap(config){
-    let clientId = `${randomstring.generate(7).toLowerCase()}`;
     let sensorConfig = {
         ...configTemplate,
         server: config.broker,
         topic: config.topic,
-        clientId: clientId,
+        clientId: config.clientId,
     };
     return writeFile(`/tmp/config.json`, JSON.stringify(sensorConfig), 'utf8').then(() => {
         return exec(`kubectl create configmap config-${sensorConfig.clientId} --from-file=/tmp/config.json`);

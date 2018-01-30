@@ -11,6 +11,36 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 var router = express.Router();
 
+router.delete('/param/:sensorId', (req, res) => {
+    services.deleteSensor(req.params.sensorId).then(() => {
+        res.json({ message: 'sensor successfully removed!' });
+    }) 
+})
+
+router.post('/param', (req, res) => {
+    services.createParamSensor(req.body).then((sensor) => {
+        res.json(sensor);
+    })
+})
+
+router.post('/alert', (req, res) => {
+    services.createAlertSensor(req.body).then((sensor) => {
+        res.json(sensor);
+    })
+})
+
+router.get('/param', (req, res) => {
+    services.getParamSensors().then((sensors) => {
+        res.json(sensors);
+    })
+});
+
+router.get('/alert', (req, res) => {
+    services.getAlertSensors().then((sensors) => {
+        res.json(sensors);
+    })
+})
+
 router.get('/', (req, res) => {
     res.json({
         param: { 
@@ -18,50 +48,23 @@ router.get('/', (req, res) => {
             sampleConfiguration: {
                 broker: '127.0.0.1',
                 topic: 'myTopic',
-                sliceId: 'mySliceId',
-            }
+            },
+            communication:['mqtt'],
+            measurement: 'parameters',
+            unit: 'xxx',
         },
         alert: { 
             url:'/sensor/bts/alert',
             sampleConfiguration: {
                 broker: '127.0.0.1',
                 topic: 'myTopic',
-                sliceId: 'mySliceId',
-            }
+            },
+            measurement: 'alerts',
+            unit: 'yyy',
+            communication: ['mqtt'],
         },
     })
 });
-
-router.get('/param', (req, res) => {
-    res.json({
-        sampleConfiguration: {
-            broker: '127.0.0.1',
-            topic: 'myTopic',
-            sliceId: 'mySliceId',
-        }
-    });
-});
-
-router.get('/alert', (req, res) => {
-    res.json({
-        sampleConfiguration: {
-            broker: '127.0.0.1',
-            topic: 'myTopic',
-            sliceId: 'mySliceId',
-        }
-    });
-});
-
-router.post('/param', (req, res) => {
-    services.createSensorInstance(req.body).then((sensor) => {
-        res.json(sensor);
-    })
-})
-
-// TODO
-router.post('/alert', (req, res) => {
-    res.json({ message: 'TODO' });
-})
 
 app.use('/sensor/bts', router);
 app.listen(PORT, () => {

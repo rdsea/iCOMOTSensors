@@ -7,6 +7,7 @@
 import * as dngCameraService from '../services/dng-camera-service';
 import * as googleStorageService from '../services/google-storage-service';
 import { writeFileSync } from 'fs';
+import * as userService from '../services/user-service';
 
 /**
  * loadVideoFrameFromUrl - load video frame from url of a camera from Danang public camera
@@ -70,11 +71,24 @@ export function exportVideo(req, res){
   let storage = req.body.storage;
 
   dngCameraService.downloadVideo(url).then((video) => {
-    return googleStorageService.uploadVideo(req.params.cameraName, req.body.videoName, video);
-  }).then((downloadUrl) => {
-    res.json({ downloadUrl });
+    return googleStorageService.uploadVideo(req.params.cameraName, req.body.videoName, video, req.body.email);
+  }).then(() => {
+    return userService.getBucketName(req.body.email);
+  }).then((bucketName) => {
+    res.json({
+      storageLocation: `https://console.cloud.google.com/storage/browser/${bucketName}`,
+    });
   }).catch((err) => {
     console.log(err);
+    res.status(400).json({ error: err.message });
+  });
+}
+
+export function register(req, res){
+  let email = req.body.email;
+  userService.registerUser(email).then((user) => {
+    res.json(user);
+  }).catch((err) => {
     res.status(400).json({ error: err.message });
   });
 }

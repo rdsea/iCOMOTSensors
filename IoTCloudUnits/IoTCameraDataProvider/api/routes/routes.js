@@ -23,5 +23,8 @@ export default function(app) {
 	app.route('/camera/:cameraName/list/:time')
 		.get(cameraController.getVideoFrameByTime);	
 
+	app.route('/register')
+		.post(cameraController.register);
+
 	
 };

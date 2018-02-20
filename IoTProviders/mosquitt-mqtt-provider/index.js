@@ -15,7 +15,6 @@ router.get('/', (req, res) => {
     res.json({
         url:'/mosquittobroker/',
         sampleConfiguration: {
-            sliceId: 'mySliceId',
         }
     });
 });
@@ -26,14 +25,20 @@ router.post('/', (req, res) => {
     })
 });
 
-router.delete('/:sliceId', (req,res) => {
-    services.deleteBroker(req.params.sliceId).then(() => {
+router.get('/list', (req, res) => {
+    services.getBrokers().then((mosquittobrokers) => {
+        res.json(mosquittobrokers);
+    })
+})
+
+router.delete('/:brokerId', (req,res) => {
+    services.deleteBroker(req.params.brokerId).then(() => {
         res.json({ message: `${req.params.sliceId} successfully removed`});
     })
 })
 
-router.get('/:sliceId', (req, res) => {
-    services.getBrokers(req.params.sliceId).then((mosquittobrokers) => {
+router.get('/:brokerId', (req, res) => {
+    services.getBrokers(req.params.brokerId).then((mosquittobrokers) => {
         res.json(mosquittobrokers);
     })
 })

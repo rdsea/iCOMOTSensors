@@ -15,6 +15,7 @@ Furthermore, a cloud storage bucket `iotcamera` should exist !
 
 ## Run
 
+* npm run build
 * npm run start
 
 ## List all cameras

@@ -6,7 +6,7 @@ import moment from 'moment';
 import * as userService from './user-service';
 
 const storage = Storage({
-    keyFilename: path.join(__dirname, '../../keyfile.json'),
+    keyFilename: path.join(__dirname, '../../../keyfile.json'),
 });
 
 // videoName should include the filetype extension !

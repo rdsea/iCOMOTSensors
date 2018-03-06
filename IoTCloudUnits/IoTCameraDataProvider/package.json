@@ -5,7 +5,9 @@
   "main": "server.js",
   "author": "Tran The Vu",
   "scripts": {
-    "start": "nodemon server.js --exec babel-node --presets env,stage-2"
+    "start-dev": "nodemon ./src/server.js --exec babel-node --presets env,stage-2",
+    "build": "babel -d ./build ./src",
+    "start": "node ./build/server.js"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",

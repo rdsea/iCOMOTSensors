@@ -20,8 +20,6 @@ var template = {
             {
               "name": "sensor",
               "image": "rdsea/sensor",
-              "command":["java"],
-              "args": ["-jar", "sdsensor-0.0.1-SNAPSHOT-jar-with-dependencies.jar", "config/config.json", "data.csv", "test"],
               "volumeMounts":[],
               "resources": {
                 "requests": {

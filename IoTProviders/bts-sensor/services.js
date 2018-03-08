@@ -4,42 +4,48 @@ import child_process from 'child_process';
 import fs from 'fs';
 import { promisify } from 'util';
 import deployTemplate from './configTemplates/sensorDeployTemplate';
-import configTemplate from './configTemplates/sensorConfigTemplate';
 import randomstring from 'randomstring';
 import { randomBytes } from 'crypto';
 import * as sensorTypes from './data/models/sensorTypes';
+import * as configTemplates from './configTemplates/sensorConfigTemplate';
 
 const exec = promisify(child_process.exec);
 const writeFile = promisify(fs.writeFile);
 
 
-export function createParamSensor(config){
-    return createSensor(config, sensorTypes.PARAM);
+export function getSampleConfigs(){
+    let configs = {};
+    Object.keys(sensorTypes).forEach((sensorType) => {
+        let configTemplate = configTemplates[sensorType];
+        configs[sensorType] = { 
+            url:`/sensor/bts/${sensorType}`,
+            sampleConfiguration: {
+                uri: configTemplate.uri,
+                ...configTemplate.protocolOptions,
+            },
+            communication:configTemplate.protocol,
+            format: configTemplate.format,
+            measurement: configTemplate.measurement,
+            unit: configTemplate.unit,
+        }
+    });
+    return configs;
 }
 
-export function createAlertSensor(config){
-    return createSensor(config, sensorTypes.ALERT);
+export function provision(config, type){
+    return createSensor(config, type);
 }
-
-export function getParamSensors(){
-    return findSensors(sensorTypes.PARAM);
-}
-
-export function getAlertSensors(){
-    return findSensors(sensorTypes.ALERT);
-}
-
 
 function createSensor(config, type){
     let sensorId = `sensor${(new Date()).getTime()}`;
     config.clientId = sensorId;
-    return createSensorConfigMap(config).then((sensorConfig) => {
+    return createSensorConfigMap(config, type).then((sensorConfig) => {
         return provisionSensor(sensorConfig);
     }).then((sensor) => {
         let dbSensor = new Sensor({
             type: config.type,
             clientId: sensorId,
-            broker: config.broker,
+            uri: config.uri,
             topic: config.topic,
             createdAt: Math.floor((new Date()).getTime()/1000),
             type: type,
@@ -48,7 +54,7 @@ function createSensor(config, type){
     });
 }
 
-function findSensors(type){
+export function findSensors(type){
     let query = {
         type,
     }
@@ -70,13 +76,15 @@ export function deleteSensor(sensorId){
     })
 }
 
-function createSensorConfigMap(config){
+function createSensorConfigMap(config, type){
     let sensorConfig = {
-        ...configTemplate,
-        server: config.broker,
-        topic: config.topic,
+        ...configTemplates[type],
+        uri: config.uri,
+        protocolOptions:{ topic: config.topic },
         clientId: config.clientId,
     };
+    console.log(JSON.stringify(sensorConfig));
+    
     return writeFile(`/tmp/config.json`, JSON.stringify(sensorConfig), 'utf8').then(() => {
         return exec(`kubectl create configmap config-${sensorConfig.clientId} --from-file=/tmp/config.json`);
     }).then((res) => {
@@ -96,9 +104,12 @@ function provisionSensor(sensor){
 
     sensorDeploy.spec.template.spec.containers[0].volumeMounts.push({
         name: "config",
-        mountPath: "/sensor/config",
+        mountPath: "/sensor/config.json",
+        subPath: "config.json"
     });
 
+    sensorDeploy.spec.template.spec.containers[0].image = 'rdsea/'+sensor.name;
+    console.log(JSON.stringify(sensorDeploy));
     return writeFile(`/tmp/deploy-${sensor.clientId}.json`, JSON.stringify(sensorDeploy), 'utf8').then(() => {
         return exec(`kubectl create -f /tmp/deploy-${sensor.clientId}.json`);
     }).then((res) => {

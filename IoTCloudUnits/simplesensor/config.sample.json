@@ -1,0 +1,14 @@
+{
+    "protocol": "console",
+    "protocolOptions": {},
+    "format": "csv",
+    "fields": [
+        "id",
+        "reading_time",
+        "value",
+        "station_id",
+        "parameter_id"
+    ],
+    "uri": "http://localhost/datasink",
+    "file": "data.csv"
+}

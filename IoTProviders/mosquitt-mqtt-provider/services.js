@@ -16,7 +16,6 @@ export function createBroker(config){
         let broker = new Broker({
             location: 'creating...',
             createdAt: timestamp,
-            sliceId: config.sliceId,
             brokerId: `broker${timestamp}`,
         });
         return broker.save();
@@ -40,18 +39,17 @@ export function deleteBroker(brokerId){
     })
 }
 
-// returns all the test rigs for a sliceId
 // also updates the external ip by using kubectl 
 // TODO find a better way to check external ip than parsing stdout !
-export function getBrokers(sliceId){
-    let query = {
-        sliceId,
-    };
+export function getBrokers(brokerId){
+    let query = {};
+    if(brokerId) query.brokerId = brokerId;
     let brokers = [];
     return Broker.find(query).then((res) => {
         brokers = res;
         let kubectl = []; // promise executions of kubetcl;
         brokers.forEach((broker) => {
+            console.log(broker);
             kubectl.push(exec(`kubectl get services ${broker.brokerId}`).catch((err) => err)); // return error obj otherwise other promises won't resolve
         });
         return Promise.all(kubectl);

@@ -15,6 +15,7 @@ Furthermore, a cloud storage bucket `iotcamera` should exist !
 
 ## Run
 
+* npm run build
 * npm run start
 
 ## List all cameras
@@ -39,11 +40,20 @@ expects `videoName` in the body, should include the filetype extension
 
 also expects `email` in the body, which the requester registered with
 
+For example, curl -X POST -H "Content-Type: application/json" -d '{"videoName":"v206442.ts","email":"xyz@gmail.
+com"}' http://localhost:3000/camera/2co2.vp9.tv@chn@DNG25/
+
+would return the link for the video v206442.ts of the camera 2co2.vp9.tv@chn@DNG25 that you can download.
+
+Note that we currently only support Google Storage and google account. 
+You need to register the account using the next POST command. 
+
 ### POST register for usage
 http://localhost:3000/register/
 expects `email` in the body, should be a valid gmail account. Allows the user to export and download videos.
-Exported videos are stored in a google cloud storage bucket shared with the regisered user
+Exported videos are stored in a google cloud storage bucket shared with the regisered user. This call will return a google cloud storage download link that expires after 3 days.
 
-this call will return a google cloud storage download link that expires after 3 days.
+Example of registering a user:
+$curl -X POST -H "Content-Type: application/json" -d '{"email":"XYZ@gmail.com"}' http://localhost:3000/register
 
 

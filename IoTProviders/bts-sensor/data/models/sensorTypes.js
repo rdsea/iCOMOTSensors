@@ -1,2 +1,7 @@
-export const PARAM = 'PARAM';
-export const ALERT = 'ALERT';
+export let batteryCurrent = 'BATTERY_CURRENT'
+export let batteryVoltage = 'BATTERY_VOLTAGE'
+export let capacity = 'CAPACITY'
+export let generatorVoltage = 'GENERATOR_VOLTAGE'
+export let gridload = 'GRID_LOAD'
+export let humidity = 'HUMIDITY'
+export let temperature = 'TEMPERATURE'

@@ -5,3 +5,4 @@ keyfile.json
 node_modules
 .npm
 .DS_Store
+build

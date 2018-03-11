@@ -18,19 +18,15 @@ try{
 
 let clients = [];
 
-if(config.test){
-    try{
-        dataPlugin.setTestMode();
-        console.log("test mode activated");
-    }catch(e){
-        console.log(e);
-    }
-}
+logger.info(`loading ${config.data} data plugin`)
+let dataPlugin = require(`./dataPlugins/${config.data}/dataPlugin`).default;
 
-// instantiate the clients once db connection has been made
-for(let i=0;i<config.brokers.length;i++){
-    clients.push(mqttFactory.createMqttClient(config.brokers[i], config.remoteDataLocation));
-}    
+dataPlugin.init().then(() => {
+    config.brokers.forEach((broker) => {
+        clients.push(mqttFactory.createMqttClient(broker, dataPlugin.insert));
+    })
+})
+  
 
 logger.info('ingest client listening for connections...')
 

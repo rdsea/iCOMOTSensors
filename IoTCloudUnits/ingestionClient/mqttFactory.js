@@ -1,9 +1,8 @@
 import mqtt from 'mqtt'
 import fs from 'fs'
 import logger from './logger'
-import axios from 'axios';
 
-function createMqttClient(config, remoteDataLocation){
+function createMqttClient(config, insert){
     let client = mqtt.connect(config);
     
     client.on('connect', () => {
@@ -22,7 +21,7 @@ function createMqttClient(config, remoteDataLocation){
 		}catch(err){
 			logger.warn(`${message.toString()} received from ${config.clientId} is not valid JSON!`);
         }
-        axios.post(`http://${remoteDataLocation}/insert`, { data }).then(() => {
+        insert(topic, data).then(() => {
             logger.info('message successfully saved');
         }).catch((err) => {
             console.log(remoteDataLocation)

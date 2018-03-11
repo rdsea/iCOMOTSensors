@@ -3,7 +3,7 @@ import bodyParser from 'body-parser';
 import * as services from './services';
 import * as sensorTypes from './data/models/sensorTypes';
 
-const PORT = 3000;
+const PORT = 3001;
 var app = express();
 
 // middleware declaration

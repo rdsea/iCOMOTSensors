@@ -55,6 +55,8 @@ function insert(topic, data){
             logger.error(err);
         });
     }
+    logger.warn(`topic ${topic} is not configured to a bigQuery table!`);
+    return new Promise((reject, resolve) => resolve());
 }
 
 let dataPlugin = {

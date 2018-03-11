@@ -24,7 +24,6 @@ function createMqttClient(config, insert){
         insert(topic, data).then(() => {
             logger.info('message successfully saved');
         }).catch((err) => {
-            console.log(remoteDataLocation)
             logger.warn('failed to save message due to external data service')
             logger.error(err.message)
         });

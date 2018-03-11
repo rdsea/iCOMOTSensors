@@ -14,6 +14,8 @@ export function createIngestionClient(config){
     let timestamp = (new Date()).getTime();
     let ingestionClientId = `ingestionclient${timestamp}`;
     return createConfigMap(config, ingestionClientId).then(() => {
+        return createBigQueryConfigMap(config, ingestionClientId);
+    }).then(() => {
         return provisionIngestionClient(config, ingestionClientId)
     }).then(() => {
         let ingestionClient = new IngestionClient({
@@ -34,6 +36,7 @@ export function deleteIngestionClient(ingestionClientId){
         let execs = [];
         execs.push(exec(`kubectl delete deployments ${ingestionClientId}`).catch((err) => err));
         execs.push(exec(`kubectl delete configmaps config-${ingestionClientId}`).catch((err) => err));
+        execs.push(exec(`kubectl delete configmaps config-bigquery-${ingestionClientId}`).catch((err) => err));
         return Promise.all(execs);
     }).then((execs) => {
         execs.forEach((exec) => {
@@ -70,6 +73,28 @@ function provisionIngestionClient(config, ingestionClientId){
         subPath: "config.yml",
     });
 
+    ingestionDeploy.spec.template.spec.volumes.push({
+        name: "config-bigquery",
+        configMap: { name: `config-bigquery-${ingestionClientId}`}
+    });
+
+    ingestionDeploy.spec.template.spec.containers[0].volumeMounts.push({
+        name: "config-bigquery",
+        mountPath: "/ingestionClient/dataPlugins/bigQuery/config.yml",
+        subPath: "config.yml",
+    });
+
+    ingestionDeploy.spec.template.spec.volumes.push({
+        name: "keyfile",
+        secret: { secretName: `bigquery-key`}
+    });
+
+    ingestionDeploy.spec.template.spec.containers[0].volumeMounts.push({
+        name: "keyfile",
+        mountPath: "/ingestionClient/dataPlugins/bigQuery/keyfile.json",
+        subPath: "keyfile.json",
+    });
+
     return writeFile(`/tmp/deploy-${ingestionClientId}.json`, JSON.stringify(ingestionDeploy), 'utf8').then(() => {
         return exec(`kubectl create -f /tmp/deploy-${ingestionClientId}.json`);
     }).then((res) => {
@@ -86,6 +111,24 @@ function createConfigMap(config, ingestionClientId){
         return exec(`kubectl create configmap config-${ingestionClientId} --from-file=/tmp/config.yml`);
     }).then((res) => {
         if(res.stderr) throw new Error('error occurred creating ingestion client config');
+        console.log(res.stdout);
+        return config;
+    });
+}
+
+function createBigQueryConfigMap(config, ingestionClientId){
+    return writeFile(`/tmp/config.bigquery.yml`, JSON.stringify(config.bigQuery), 'utf8').then(() => {
+        return exec(`kubectl create configmap config-bigquery-${ingestionClientId} --from-file=config.yml=/tmp/config.bigquery.yml`);
+    }).then((res) => {
+        if(res.stderr) throw new Error('error occurred creating ingestion client bigquery config');
+        console.log(res.stdout);
+        return config;
+    });
+}
+
+export function createGoogleServiceAccountSecret(ingestionClientId){
+    return exec(`kubectl create secret generic bigquery-key --from-file=keyfile.json=keyfile.json`).then((res) => {
+        if(res.stderr) throw new Error('error occurred creating ingestion client bigquery secret key');
         console.log(res.stdout);
         return config;
     });

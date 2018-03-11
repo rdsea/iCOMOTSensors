@@ -1,7 +1,7 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import * as services from './services';
-import configTemplate from './configTemplates/ingestionConfigTemplate';
+import configTemplate, { bigQueryTemplate } from './configTemplates/ingestionConfigTemplate';
 
 const PORT = 3000;
 var app = express();
@@ -17,7 +17,8 @@ router.get('/', (req, res) => {
         url:'/ingestionClient/',
         sampleConfiguration: {
             ...configTemplate,
-        }
+            bigQuery: {...bigQueryTemplate},
+        },
     });
 });
 

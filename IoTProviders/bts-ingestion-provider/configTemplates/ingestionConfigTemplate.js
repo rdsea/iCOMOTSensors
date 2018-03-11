@@ -1,5 +1,5 @@
 var template =  {
-  "remoteDataLocation": "localhost:8080",
+  "data": 'bigQuery',
   "brokers": [
     {
       "host": "localhost",
@@ -19,6 +19,19 @@ var template =  {
       "topics": [
         "test3",
         "test4"
+      ]
+    }
+  ]
+}
+
+export var bigQueryTemplate = {
+  dataset: 'datasetId',
+  tables: [
+    {
+      id: 'tableId',
+      topics: [
+        'topic1',
+        'topic2',
       ]
     }
   ]

@@ -14,10 +14,11 @@ const writeFile = promisify(fs.writeFile);
 
 
 export function getSampleConfigs(){
-    let configs = {};
+    let configs = [];
     Object.keys(sensorTypes).forEach((sensorType) => {
         let configTemplate = configTemplates[sensorType];
-        configs[sensorType] = { 
+        let config  = {
+            name: sensorType,
             url:`/sensor/bts/${sensorType}`,
             sampleConfiguration: {
                 uri: configTemplate.uri,
@@ -28,6 +29,7 @@ export function getSampleConfigs(){
             measurement: configTemplate.measurement,
             unit: configTemplate.unit,
         }
+        configs.push(config);
     });
     return configs;
 }

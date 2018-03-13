@@ -28,10 +28,10 @@ export function createTables(datasetId, tableConfigs){
     return Promise.all(newTables).then(() => {
         console.log(`successfully created ${newTables.length} for dataset ${datasetId}`);
         console.log(tableConfigs)
-        return db.update({ datasetId }, { $push:{ tables: tableConfigs }});
+        return db.update({ datasetId }, { $push:{ tables: {$each: tableConfigs} }});
     }).then((res) => {
         return { datasetId, tables: tableConfigs };
-    }).catch((err) => {
+    }).catch((err) => { 
         return null;
     });
 }

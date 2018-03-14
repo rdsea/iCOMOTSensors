@@ -5,7 +5,7 @@ import { promisify } from 'util';
 import deployTemplate from './configTemplates/deployTemplate';
 import randomstring from 'randomstring';
 import { randomBytes } from 'crypto';
-import IngestionClient from './data/models/ingestionClient';
+import * as db from './data/db';
 
 const exec = promisify(child_process.exec);
 const writeFile = promisify(fs.writeFile);
@@ -18,12 +18,11 @@ export function createIngestionClient(config){
     }).then(() => {
         return provisionIngestionClient(config, ingestionClientId)
     }).then(() => {
-        let ingestionClient = new IngestionClient({
+        db.insert({
             createdAt: timestamp,
             ingestionClientId: ingestionClientId,
             ...config,
-        })        
-        return ingestionClient.save();
+        });
     })
 
 }
@@ -32,8 +31,9 @@ export function deleteIngestionClient(ingestionClientId){
     let query = {
         ingestionClientId,
     };
-    return IngestionClient.findOneAndRemove(ingestionClientId).then(() => {
+    return db.remove(query, {}).then(() => {
         let execs = [];
+        console.log('deleting kubectl deployments and config maps')
         execs.push(exec(`kubectl delete deployments ${ingestionClientId}`).catch((err) => err));
         execs.push(exec(`kubectl delete configmaps config-${ingestionClientId}`).catch((err) => err));
         execs.push(exec(`kubectl delete configmaps config-bigquery-${ingestionClientId}`).catch((err) => err));
@@ -50,7 +50,10 @@ export function getIngestionClient(ingestionClientId){
     let query = {
         ingestionClientId,
     };
-    return IngestionClient.find(query).then((res) => {
+
+    if(!(ingestionClientId)) delete query.ingestionClientId;
+ 
+    return db.find(query).then((res) => {
         return res;
     });
 }

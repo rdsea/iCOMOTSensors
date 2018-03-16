@@ -22,6 +22,12 @@ router.get('/', (req, res) => {
     });
 });
 
+router.get('/list', (req, res) => {
+    services.getIngestionClient().then((ingestionClients) => {
+        res.json(ingestionClients);
+    })
+});
+
 router.post('/', (req, res) => {
     services.createIngestionClient(req.body).then((ingestionClient) => {
         res.json(ingestionClient.toJSON());

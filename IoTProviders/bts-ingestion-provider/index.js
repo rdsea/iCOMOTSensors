@@ -30,7 +30,7 @@ router.get('/list', (req, res) => {
 
 router.post('/', (req, res) => {
     services.createIngestionClient(req.body).then((ingestionClient) => {
-        res.json(ingestionClient.toJSON());
+        res.json(ingestionClient);
     })
 });
 

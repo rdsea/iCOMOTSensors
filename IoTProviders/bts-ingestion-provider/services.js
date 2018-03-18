@@ -18,7 +18,7 @@ export function createIngestionClient(config){
     }).then(() => {
         return provisionIngestionClient(config, ingestionClientId)
     }).then(() => {
-        db.insert({
+        return db.insert({
             createdAt: timestamp,
             ingestionClientId: ingestionClientId,
             ...config,

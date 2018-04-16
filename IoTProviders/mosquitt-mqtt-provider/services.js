@@ -72,9 +72,14 @@ export function getBrokers(brokerId){
 
 // TODO try to get rid of this way of obtaining external IP
 function extractExternalIpKubectlGetServicesOutput(stdout){
-    let lines = stdout.split(/\r?\n/);
-    let tokens = lines[1].split(/\s+/);
-    return tokens[3];
+    try{
+        let lines = stdout.split(/\r?\n/);
+        let tokens = lines[1].split(/\s+/);
+        return tokens[3];
+    }catch(err){
+        return 'N/A';
+    }
+    
 }
 
 // provisions testrig and returns timestamp it was provisioned

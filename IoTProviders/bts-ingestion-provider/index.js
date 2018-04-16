@@ -3,7 +3,7 @@ import bodyParser from 'body-parser';
 import * as services from './services';
 import configTemplate, { bigQueryTemplate } from './configTemplates/ingestionConfigTemplate';
 
-const PORT = 3000;
+const PORT = 3003;
 var app = express();
 
 // middleware declaration

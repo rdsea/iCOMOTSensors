@@ -11,6 +11,6 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use('/rig', rig);
 app.use('/sut', sut);
 
-app.listen(3000, () => {
+app.listen(3001, () => {
     console.log('server listening on port 3000');
 })

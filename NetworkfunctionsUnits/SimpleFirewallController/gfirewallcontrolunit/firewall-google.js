@@ -93,6 +93,28 @@ router.get('/systems/:systemId', (req, res) => {
 })
 //for firewall rules
 router.post('/systems/:systemId/rules', (req, res) => {
+  var selectedsystem = selectsystem(req.params.systemId);
+  if (selectedsystem ==null) {
+    res.json({message: 'No system with '+req.params.systemId+" found"});
+    return;
+  }
+  authorize(function(authClient) {
+    var request = {
+      project: selectedsystem.google_project,
+      keyFilename: global_dir+"/"+selectedsystem.google_project+"-"+selectedsystem.google_service_credential,
+      resource: req.body.resource,
+      auth: authClient,
+    };
+
+    compute.firewalls.insert(request, function(err, response) {
+      if (err) {
+        console.error(err);
+        return;
+      }
+      console.log(response.selfLink);
+      res.json({selfLink:response.selfLink});
+    });
+  });
 
   res.json({ message: `successfully add new rules for `+req.params.systemId});
 });

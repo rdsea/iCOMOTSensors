@@ -61,6 +61,28 @@ $curl --header "Content-Type: application/json"  \
 --request POST \
 --data '{"system_id":"123","google_project":"xyz","google_service_credential":"aaaa"}' \
   http://localhost:3002/firewallresource/systems
+  $curl --header "Content-Type: application/json"  \
+  --request POST \
+  --data '
+  "resource": {
+      "id": "linhtest",
+      "creationTimestamp": string,
+      "name": string,
+      "description": string,
+      "network": string,
+      "priority": 1000,
+      "sourceRanges": string,
+      "destinationRanges": string,
+      "sourceTags": string,
+      "targetTags": string,
+      "sourceServiceAccounts": string,
+      "targetServiceAccounts": string,
+      "allowed": ,
+      "denied": ,
+      "direction": enum,
+      "selfLink": string,
+      "kind": string
+    }'
 
 Get all list of firewalls from system test1:
 

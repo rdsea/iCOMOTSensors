@@ -65,6 +65,11 @@ $curl --header "Content-Type: application/json"  \
 Get all list of firewalls from system test1:
 
 $curl -X GET --url http://localhost:3002/firewallresource/systems/test1/rules/list
+
+Remove a firewall "linhtest" from the system "test1":
+
+$curl -X DELETE --url http://localhost:3002/firewallresource/systems/test1/rules/linhtest
+
 ## Authors
 
 Hong-Linh Truong

@@ -23,6 +23,7 @@ authorize(function(authClient) {
 
     var itemsPage = response['items'];
     if (!itemsPage) {
+      console.log("no result");
       return;
     }
     for (var i = 0; i < itemsPage.length; i++) {

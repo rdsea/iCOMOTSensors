@@ -96,6 +96,7 @@ router.post('/systems/:systemId/rules', (req, res) => {
 
   res.json({ message: `successfully add new rules for `+req.params.systemId});
 });
+
 router.get('/systems/:systemId/rules/list', (req, res) => {
 
   authorize(function(authClient) {
@@ -109,32 +110,15 @@ router.get('/systems/:systemId/rules/list', (req, res) => {
       keyFilename: global_dir+"/"+selectedsystem.google_project+"-"+selectedsystem.google_service_credential,
       auth: authClient,
     };
-
-    var handlePage = function(err, response) {
-      if (err) {
-        console.error(err);
-        return;
-      }
-
-      var itemsPage = response['items'];
-      if (!itemsPage) {
-        console.log("no result");
-        return;
-      }
-      for (var i = 0; i < itemsPage.length; i++) {
-        console.log(JSON.stringify(itemsPage[i], null, 2));
-      }
-
-      if (response.nextPageToken) {
-        request.pageToken = response.nextPageToken;
-        compute.firewalls.list(request, handlePage);
-      }
-    };
-
-  compute.firewalls.list(request, handlePage);
-  res.json({ message: `here is the list of rules for `+req.params.systemId});
+  compute.firewalls.list(request, function(err, response) {
+    if (err) {
+      console.error(err);
+      return;
+    }
+    console.log(response.data);
+    res.json(response.data);
   });
-
+});
 });
 
 //delete a rule from the firewall
@@ -145,6 +129,7 @@ router.delete('/systems/:systemId/rules/:ruleId', (req, res) => {
     return;
   }
   var selectedrule = req.params.ruleId;
+  authorize(function(authClient) {
   var del_request = {
     firewall: selectedrule,
     project: selectedsystem.google_project,
@@ -157,13 +142,37 @@ router.delete('/systems/:systemId/rules/:ruleId', (req, res) => {
       console.error(err);
       res.json({message:'error in delete rule '+selectedrule});
     }
-    console.log(JSON.stringify(response));
+    console.log(response);
+    res.json({ message: `successfully remove the rule `+req.params.ruleId+' from the system'+req.params.systemId});
   });
-  res.json({ message: `successfully remove the rule `+req.params.ruleId+' from the system'+req.params.systemId});
 });
+});
+
 //get a specific rule. need to implement it
 router.get('/systems/:systemId/rules/:ruleId', (req, res) => {
-  res.json({ message: `successfully get the rule `+req.params.ruleId+' from the system'+req.params.systemId});
+  var selectedsystem = selectsystem(req.params.systemId);
+  if (selectedsystem ==null) {
+    res.json({message: 'No system with '+req.params.systemId+" found"});
+    return;
+  }
+  var selectedrule = req.params.ruleId;
+  authorize(function(authClient) {
+  var request = {
+    firewall: selectedrule,
+    project: selectedsystem.google_project,
+    keyFilename: global_dir+"/"+selectedsystem.google_project+"-"+selectedsystem.google_service_credential,
+    auth: authClient
+  };
+  compute.firewalls.get(request, function(err, response) {
+    if (err) {
+      console.error(err);
+      res.json({message: 'cannot get '+selectedrule +' from '+req.params.systemId});
+      return;
+    }
+    console.log(response.data);
+    res.json(response.data);
+  });
+  });
 });
 
 app.use('/firewallresource', router);

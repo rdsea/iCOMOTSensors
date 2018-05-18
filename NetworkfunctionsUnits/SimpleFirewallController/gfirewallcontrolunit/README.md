@@ -62,6 +62,9 @@ $curl --header "Content-Type: application/json"  \
 --data '{"system_id":"123","google_project":"xyz","google_service_credential":"aaaa"}' \
   http://localhost:3002/firewallresource/systems
 
+Get all list of firewalls from system test1:
+
+$curl -X GET --url http://localhost:3002/firewallresource/systems/test1/rules/list
 ## Authors
 
 Hong-Linh Truong

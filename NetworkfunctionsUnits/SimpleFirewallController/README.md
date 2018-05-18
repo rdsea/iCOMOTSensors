@@ -1,20 +1,17 @@
-# A simple firewall as a network function
+# A simple firewall provider as a network function
 
-In this case, we build a simple firewall service atop
-Google to control firewall of Google resources.
-The idea is that we assume that various resources as
-services running in a virtual environment (by Google VMs). We have a firewall as network function that we can dynamically control.
+In this case, we build a simple firewall service provider.
 
-When running outside Google, this service can interface
-to a real firewall backend.
+Work is in progress. 
 
-## Configuration
+## Architecture
 
-Make sure you set the project and credential information. The project id is set
-via the config file and the credential can be set using the environment variable.
+Each provider will have a set of resources. A resource is a firewall control unit (e.g. built for Google cloud).
 
-$GOOGLE_APPLICATION_CREDENTIALS=[servicekey]
-$GCLOUD_PROJECT
-## Some samples
 
-curl -X GET https://www.googleapis.com/compute/v1/projects/bigdatawithbigquery/global/firewalls
+## Some samples of usage
+
+
+## Authors
+
+Hong-Linh Truong

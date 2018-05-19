@@ -6,6 +6,8 @@ For such a case, a function is wrapped into a unit which will be run as a proces
 
 This provider will support this kind of units in a generic way.
 
+Note: the code has not been fully tested and there are some known bugs. 
+
 ## Prepare the function
 
 The function can be written in Java, python, etc. or a Docker. But the function must be provided by scripts with actions, such as

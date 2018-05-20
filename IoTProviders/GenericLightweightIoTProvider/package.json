@@ -11,6 +11,8 @@
   "author": "linhsolar@gmail.com",
   "license": "ISC",
   "devDependencies": {
+    "chai": "*",
+    "mocha": "*",
     "babel-cli": "^6.26.0",
     "babel-preset-env": "^1.6.1",
     "babel-preset-stage-2": "^6.24.1"

@@ -1,6 +1,7 @@
 
 import child_process from 'child_process';
 import fs from 'fs';
+import os from 'os';
 import { promisify } from 'util';
 import deployTemplate from './configTemplates/deployTemplate';
 import randomstring from 'randomstring';
@@ -29,7 +30,7 @@ export function createGLIoTFunction(config){
   if (gliotDeploy == null) {
     let timestamp = (new Date()).getTime();
     let gliotfunction = new GLIoTFunction({
-        location: 'creating...',
+        location: os.hostname(),
         createdAt: timestamp,
         local_pid: -1,
         gliotId: "NONE",
@@ -92,7 +93,11 @@ function extractExternalIpKubectlGetServicesOutput(stdout){
 function provisionGLIoTFunction(gliotDeploy){
     let timestamp = (new Date()).getTime();
     let gliotId = `gliot${timestamp}`;
-
+    /* More work is needed to fix the type of scripts and
+      also the way to execute scripts.
+    */
+    // this is only for direct script. if a script is in a file, then
+    // we can just check if the file is available or not.
     return writeFile(`/tmp/deploy-${gliotId}.sh`, gliotDeploy.start_script, 'utf8').then(() => {
         console.log("Execute: "+`/tmp/deploy-${gliotId}.sh`)
         return exec(`/bin/sh /tmp/deploy-${gliotId}.sh`,{shell:true});
@@ -105,7 +110,7 @@ function provisionGLIoTFunction(gliotDeploy){
         }
         console.log(res.stdout);
         let gliotfunction = new GLIoTFunction({
-            location: 'creating...',
+            location: os.hostname(),
             createdAt: timestamp,
             local_pid: res.pid,
             gliotId: gliotId,

@@ -6,7 +6,7 @@ For such a case, a function is wrapped into a unit which will be run as a proces
 
 This provider will support this kind of units in a generic way.
 
-Note: the code has not been fully tested and there are some known bugs. 
+Note: the code has not been fully tested and there are some known bugs.
 
 ## Prepare the function
 
@@ -18,7 +18,7 @@ The function can be written in Java, python, etc. or a Docker. But the function 
 
 * restart_script: for restart the function
 
-In our current design, we just support start_script. Other features will be added later.
+In our current design, we just support start_script. Currently, start_script is just a "direct" command. Other features will be added later.
 
 Currently, each function will have a name and start_script. The information will be specified in configTemplates/deployTemplate.js
 
@@ -64,5 +64,6 @@ $curl -X GET --url   http://localhost:3002/gliot/list
 
 ## Authors
 
-Hong-Linh Truong
-Lingfan Gao
+* Hong-Linh Truong
+
+* Lingfan Gao

@@ -6,7 +6,7 @@ import deployTemplate from './configTemplates/deployTemplate';
 import serviceTemplate from './configTemplates/serviceTemplate';
 import randomstring from 'randomstring';
 import { randomBytes } from 'crypto';
-import Broker from './data/models/datatransformer';
+import DataTransformer from './data/models/datatransformer';
 
 const exec = promisify(child_process.exec);
 const writeFile = promisify(fs.writeFile);
@@ -86,7 +86,7 @@ function extractExternalIpKubectlGetServicesOutput(stdout){
 function provisionDataTransformer(){
     let timestamp = (new Date()).getTime();
     let datatransformerId = `datatransformer${timestamp}`
-    let datatransformerDeploy = JSON.parse(JSON.stringify(deployTemplate));
+    let datatransformerDeploy = JSON.parse(JSON.stringify(deployTemplate, null, 2));
     datatransformerDeploy.metadata.name = datatransformerId;
     datatransformerDeploy.spec.template.metadata.labels.app = datatransformerId;
 

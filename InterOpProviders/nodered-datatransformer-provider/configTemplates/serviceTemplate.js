@@ -14,11 +14,11 @@ var template = {
       }
     },
     "spec": {
-      "type": "DataTransformer",
+      "type": "LoadBalancer",
       "ports": [
         {
-          "port": 81234,
-          "targetPort": 81234
+          "port": 1880,
+          "targetPort": 1880
         }
       ],
       "selector": {

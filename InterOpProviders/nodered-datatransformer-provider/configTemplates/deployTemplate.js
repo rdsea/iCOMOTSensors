@@ -23,7 +23,7 @@ var template = {
           "containers": [
             {
               "name": "nodereddatatranformer",
-              "image": "noderedtransformerimage",
+              "image": "nodered/node-red-docker",
               "volumeMounts":[],
               "resources": {
                 "requests": {
@@ -33,7 +33,7 @@ var template = {
               },
               "ports": [
                 {
-                  "containerPort": 8123
+                  "containerPort": 1880
                 }
               ]
             }

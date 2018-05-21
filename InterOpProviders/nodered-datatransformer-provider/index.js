@@ -2,7 +2,7 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import * as services from './services';
 
-const PORT = 3002;
+const PORT = 3004;
 var app = express();
 
 // middleware declaration
@@ -13,7 +13,7 @@ var router = express.Router();
 
 router.get('/', (req, res) => {
     res.json({
-        url:'/nodereddatatransformer/',
+        url:'/',
         sampleConfiguration: {
         }
     });

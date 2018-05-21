@@ -8,9 +8,12 @@ import randomstring from 'randomstring';
 import { randomBytes } from 'crypto';
 import GLIoTFunction from './data/models/gliotfunction';
 
-const exec = promisify(child_process.exec);
+const exec = child_process.exec;
+const execSync = child_process.execSync;
 const execFile = child_process.execFile;
-const spawn = child_process.spawn;
+const spawn = promisify(child_process.spawn);
+const spawnSync = child_process.spawnSync;
+
 const writeFile = promisify(fs.writeFile);
 const HashMap = require('hashmap');
 var gliotmap = new HashMap();
@@ -51,18 +54,20 @@ export function deleteGLIoTFunction(gliotId){
     };
     return GLIoTFunction.findOneAndRemove(gliotId).then(() => {
         let execs = [];
-        local_pid = gliotmap.get(gliotId);
-        console.log("Local pid is "+local_pid);
-        execs.push(exec(`kill -9 ${local_pid}`).catch((err) => err));
+        let subprocess = gliotmap.get(gliotId);
+        return;
+        console.log("Local pid is "+subprocess.pid);
+        subprocess.kill();
+        execSync(`kill -9 ${subprocess.pid}`);
         gliotmap.delete(gliotId);
         //execs.push(exec(`kubectl delete services ${brokerId}`).catch((err) => err));
-        return Promise.all(execs);
-    }).then((execs) => {
-        execs.forEach((exec) => {
-            console.log(exec.stdout);
-            console.log(exec.stderr);
-        });
-    })
+        //return Promise.all(execs);
+    //}).then((execs) => {
+    //    execs.forEach((exec) => {
+    //        console.log(exec.stdout);
+    //        console.log(exec.stderr);
+    //    });
+  });
 }
 
 // also updates the external ip by using kubectl
@@ -98,26 +103,38 @@ function provisionGLIoTFunction(gliotDeploy){
     */
     // this is only for direct script. if a script is in a file, then
     // we can just check if the file is available or not.
-    return writeFile(`/tmp/deploy-${gliotId}.sh`, gliotDeploy.start_script, 'utf8').then(() => {
-        console.log("Execute: "+`/tmp/deploy-${gliotId}.sh`)
-        return exec(`/bin/sh /tmp/deploy-${gliotId}.sh`,{shell:true});
+    let output_script_file = "/tmp/deploy-"+gliotId+".sh";
+    return writeFile(output_script_file, gliotDeploy.start_script, 'utf8').then (() => {
+        console.log("Execute: "+output_script_file);
+        console.log("Call spawn to create new process "+gliotDeploy.start_script);
+        let args =[output_script_file];
+        console.log("Run /bin/sh " + args);
+        return  spawn("/bin/sh",args,{detached:true,shell:false,stdio: 'ignore'});
+        //subprocess.on('exit', function(exit_code) {
+        //  if (exit_code != 0) {
+        //    console.log("The subprocess of "+gliotDeploy.start_script+"has been failed");
+        //  }
+        //});
+        //subprocess.unref();
+        //return subprocess;
+        //.exec(`/bin/sh /tmp/deploy-${gliotId}.sh`,{shell:false,detached:true});
         //var args=[`/tmp/deploy-${gliotId}.sh`]
         //return exec('/bin/sh',args);
-    }).then((res) => {
-        if(res.stderr) {
-            console.log(res.stderr);
+     }).then((subprocess) => {
+        if(subprocess.stderr) {
+            console.log(subprocess.stderr);
             throw new Error('error occurred provisioning gliot');
         }
-        console.log(res.stdout);
+        //console.log(subprocess.stdout);
         let gliotfunction = new GLIoTFunction({
             location: os.hostname(),
             createdAt: timestamp,
-            local_pid: res.pid,
+            local_pid: subprocess.pid,
             gliotId: gliotId,
             status:"RUNNING"
         });
-        gliotmap.set(gliotId,res.pid);
+        gliotmap.set(gliotId,subprocess);
         //here we need to save it into the table.
         return gliotfunction;
-    })
+    });
   }

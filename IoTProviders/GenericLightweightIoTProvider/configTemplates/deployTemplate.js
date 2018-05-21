@@ -18,12 +18,17 @@ var template = {
         },
         {
           "functionname":"simplepython",
-          "start_script": "/usr/bin/python &",
+          "start_script": "nohup /usr/bin/python >/dev/null 2>&1 & ",
           "script_model": "direct"
         },
         {
           "functionname":"simpledocker",
-          "start_script": "docker run hello-world",
+          "start_script": "nohup docker run hello-world",
+          "script_model": "direct"
+        },
+        {
+          "functionname":"simplescala",
+          "start_script": "/usr/bin/scala   &",
           "script_model": "direct"
         }
       ]

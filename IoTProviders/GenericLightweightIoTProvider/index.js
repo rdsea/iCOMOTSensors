@@ -34,7 +34,7 @@ router.get('/list', (req, res) => {
 
 router.delete('/:gliotId', (req,res) => {
     services.deleteGLIoTFunction(req.params.gliotId).then(() => {
-        res.json({ message: `${req.params.gliotId} successfully removed`});
+        res.json({ message: `${req.params.gliotId} successfully removed or cannot be found`});
     })
 })
 

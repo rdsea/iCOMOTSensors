@@ -7,7 +7,7 @@ import deployTemplate from './configTemplates/deployTemplate';
 import randomstring from 'randomstring';
 import { randomBytes } from 'crypto';
 import GLIoTFunction from './data/models/gliotfunction';
-
+var cmd=require('node-cmd');
 const exec = child_process.exec;
 const execSync = child_process.execSync;
 const execFile = child_process.execFile;
@@ -43,9 +43,9 @@ export function createGLIoTFunction(config){
     return gliotfunction.save();
   }
   console.log(gliotDeploy);
-  return provisionGLIoTFunction(gliotDeploy).then((gliotfunction) => {
+  let gliotfunction = provisionGLIoTFunction(gliotDeploy);//.then((gliotfunction) => {
         return gliotfunction.save();
-    });
+    //});
 }
 
 export function deleteGLIoTFunction(gliotId){
@@ -54,8 +54,11 @@ export function deleteGLIoTFunction(gliotId){
     };
     return GLIoTFunction.findOneAndRemove(gliotId).then(() => {
         let execs = [];
+        //currently we just kill the project.
+        //it would be better to call the stop_script and run it.
         let subprocess = gliotmap.get(gliotId);
-        return;
+        if (subprocess == null)
+          return;
         console.log("Local pid is "+subprocess.pid);
         subprocess.kill();
         execSync(`kill -9 ${subprocess.pid}`);
@@ -103,13 +106,14 @@ function provisionGLIoTFunction(gliotDeploy){
     */
     // this is only for direct script. if a script is in a file, then
     // we can just check if the file is available or not.
-    let output_script_file = "/tmp/deploy-"+gliotId+".sh";
-    return writeFile(output_script_file, gliotDeploy.start_script, 'utf8').then (() => {
-        console.log("Execute: "+output_script_file);
+    //let output_script_file = "/tmp/deploy-"+gliotId+".sh";
+    //return writeFile(output_script_file, gliotDeploy.start_script, 'utf8').then (() => {
+        //console.log("Execute: "+output_script_file);
         console.log("Call spawn to create new process "+gliotDeploy.start_script);
-        let args =[output_script_file];
-        console.log("Run /bin/sh " + args);
-        return  spawn("/bin/sh",args,{detached:true,shell:false,stdio: 'ignore'});
+        //let args =[output_script_file];
+        //console.log("Run /bin/sh " + args);
+        //return  spawn("/bin/sh",args,{detached:true,shell:false,stdio: 'ignore'});
+        let subprocess =cmd.run(gliotDeploy.start_script);
         //subprocess.on('exit', function(exit_code) {
         //  if (exit_code != 0) {
         //    console.log("The subprocess of "+gliotDeploy.start_script+"has been failed");
@@ -120,10 +124,10 @@ function provisionGLIoTFunction(gliotDeploy){
         //.exec(`/bin/sh /tmp/deploy-${gliotId}.sh`,{shell:false,detached:true});
         //var args=[`/tmp/deploy-${gliotId}.sh`]
         //return exec('/bin/sh',args);
-     }).then((subprocess) => {
+     //}).then((subprocess) => {
         if(subprocess.stderr) {
             console.log(subprocess.stderr);
-            throw new Error('error occurred provisioning gliot');
+            //throw new Error('error occurred provisioning gliot');
         }
         //console.log(subprocess.stdout);
         let gliotfunction = new GLIoTFunction({
@@ -136,5 +140,5 @@ function provisionGLIoTFunction(gliotDeploy){
         gliotmap.set(gliotId,subprocess);
         //here we need to save it into the table.
         return gliotfunction;
-    });
+    //});
   }

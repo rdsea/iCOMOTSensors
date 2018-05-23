@@ -18,7 +18,10 @@ var template = {
         },
         {
           "functionname":"simplepython",
-          "start_script": "nohup /usr/bin/python >/dev/null 2>&1 & ",
+          /* make sure the absolute path and execution mode */
+          "start_script": "configTemplates/deploy-python.sh",
+          /* must be implemented. Currently we have not supported it yet */
+          "stop_script": "ls",
           "script_model": "direct"
         },
         {
@@ -28,7 +31,9 @@ var template = {
         },
         {
           "functionname":"simplescala",
-          "start_script": "/usr/bin/scala   &",
+          "start_script": "configTemplates/deploy-scala.sh",
+          /* must be implemented */
+          "stop_script" : "ls",
           "script_model": "direct"
         }
       ]

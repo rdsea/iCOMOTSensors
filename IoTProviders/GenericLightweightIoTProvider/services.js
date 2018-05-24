@@ -55,6 +55,7 @@ export function deleteGLIoTFunction(gliotId){
     return GLIoTFunction.findOneAndRemove(gliotId).then(() => {
         let execs = [];
         //currently we just kill the project.
+        //this is the default of direct mode
         //it would be better to call the stop_script and run it.
         let subprocess = gliotmap.get(gliotId);
         if (subprocess == null)
@@ -63,18 +64,10 @@ export function deleteGLIoTFunction(gliotId){
         subprocess.kill();
         execSync(`kill -9 ${subprocess.pid}`);
         gliotmap.delete(gliotId);
-        //execs.push(exec(`kubectl delete services ${brokerId}`).catch((err) => err));
-        //return Promise.all(execs);
-    //}).then((execs) => {
-    //    execs.forEach((exec) => {
-    //        console.log(exec.stdout);
-    //        console.log(exec.stderr);
-    //    });
   });
 }
 
-// also updates the external ip by using kubectl
-// TODO find a better way to check external ip than parsing stdout !
+
 export function getGLIoTFunctions(gliotId){
     let query = {};
     if(gliotId) query.gliotId = gliotId;
@@ -110,21 +103,7 @@ function provisionGLIoTFunction(gliotDeploy){
     //return writeFile(output_script_file, gliotDeploy.start_script, 'utf8').then (() => {
         //console.log("Execute: "+output_script_file);
         console.log("Call spawn to create new process "+gliotDeploy.start_script);
-        //let args =[output_script_file];
-        //console.log("Run /bin/sh " + args);
-        //return  spawn("/bin/sh",args,{detached:true,shell:false,stdio: 'ignore'});
         let subprocess =cmd.run(gliotDeploy.start_script);
-        //subprocess.on('exit', function(exit_code) {
-        //  if (exit_code != 0) {
-        //    console.log("The subprocess of "+gliotDeploy.start_script+"has been failed");
-        //  }
-        //});
-        //subprocess.unref();
-        //return subprocess;
-        //.exec(`/bin/sh /tmp/deploy-${gliotId}.sh`,{shell:false,detached:true});
-        //var args=[`/tmp/deploy-${gliotId}.sh`]
-        //return exec('/bin/sh',args);
-     //}).then((subprocess) => {
         if(subprocess.stderr) {
             console.log(subprocess.stderr);
             //throw new Error('error occurred provisioning gliot');

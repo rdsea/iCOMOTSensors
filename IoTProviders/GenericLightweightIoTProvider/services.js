@@ -55,18 +55,10 @@ export function deleteGLIoTFunction(gliotId){
     return GLIoTFunction.findOneAndRemove(gliotId).then(() => {
         let execs = [];
         let subprocess = gliotmap.get(gliotId);
-        return;
         console.log("Local pid is "+subprocess.pid);
         subprocess.kill();
         execSync(`kill -9 ${subprocess.pid}`);
         gliotmap.delete(gliotId);
-        //execs.push(exec(`kubectl delete services ${brokerId}`).catch((err) => err));
-        //return Promise.all(execs);
-    //}).then((execs) => {
-    //    execs.forEach((exec) => {
-    //        console.log(exec.stdout);
-    //        console.log(exec.stderr);
-    //    });
   });
 }
 
@@ -109,17 +101,10 @@ function provisionGLIoTFunction(gliotDeploy){
         console.log("Call spawn to create new process "+gliotDeploy.start_script);
         let args =[output_script_file];
         console.log("Run /bin/sh " + args);
-        return  spawn("/bin/sh",args,{detached:true,shell:false,stdio: 'ignore'});
-        //subprocess.on('exit', function(exit_code) {
-        //  if (exit_code != 0) {
-        //    console.log("The subprocess of "+gliotDeploy.start_script+"has been failed");
-        //  }
-        //});
-        //subprocess.unref();
-        //return subprocess;
-        //.exec(`/bin/sh /tmp/deploy-${gliotId}.sh`,{shell:false,detached:true});
-        //var args=[`/tmp/deploy-${gliotId}.sh`]
-        //return exec('/bin/sh',args);
+        return child_process.spawn(`${output_script_file}`,[],{detached:true,stdio: 'ignore'}).on('exit', function(code) {
+            console.log("EXIT: CODE: " + code);
+          });
+
      }).then((subprocess) => {
         if(subprocess.stderr) {
             console.log(subprocess.stderr);

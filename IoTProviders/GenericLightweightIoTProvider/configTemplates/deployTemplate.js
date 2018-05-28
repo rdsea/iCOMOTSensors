@@ -18,7 +18,7 @@ var template = {
         },
         {
           "functionname":"simplepython",
-          "start_script": "nohup /usr/bin/python >/dev/null 2>&1 & ",
+          "start_script": "/usr/bin/python ",
           "script_model": "direct"
         },
         {
@@ -30,7 +30,12 @@ var template = {
           "functionname":"simplescala",
           "start_script": "/usr/bin/scala   &",
           "script_model": "direct"
-        }
+        },
+        {
+          "functionname":"simplesleep",
+          "start_script": "sleep 1000",
+          "script_model": "direct"
+        },
       ]
     }
 export default template;

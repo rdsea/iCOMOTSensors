@@ -32,17 +32,15 @@ Currently, each function will have a name and start_script. The information will
 
 ### Example with Python
 
- Define a python script name with a functiona name:
+ Define a python script name with a functionaame:
 
- "functions": [
-     {
-       "functionname":"simplels",
-       "start_script": "ls -al"
-     },
-     {
-       "functionname":"simplepython",
-       "start_script": "/usr/bin/python &"
-     }
+ {
+   "functionname":"simplepython",
+   "start_script": "configTemplates/deploy-python.sh",
+    "script_model": "direct"
+ },
+
+see the deploy-python.sh for an example. Make sure you set execution mode for the script. 
 
 ## APIs
 

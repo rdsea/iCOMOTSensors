@@ -13,22 +13,29 @@ var template = {
           "functionname":"simplels",
           /* the script here is a direct commandline */
           "start_script": "ls -al",
-          /* can be "direct" or file */
+          /* can be "direct" or service style
+           for service style we need stop_script to kill the function
+          */
           "script_model": "direct"
         },
         {
           "functionname":"simplepython",
-          "start_script": "/usr/bin/python ",
+          /* make sure the absolute path and execution mode */
+          "start_script": "configTemplates/deploy-python.sh",
+          /* must be implemented. Currently we have not supported it yet */
+          "stop_script": "ls",
           "script_model": "direct"
         },
         {
           "functionname":"simpledocker",
-          "start_script": "nohup docker run hello-world",
+          "start_script": "configTemplates/deploy-single-nodered.sh",
           "script_model": "direct"
         },
         {
           "functionname":"simplescala",
-          "start_script": "/usr/bin/scala   &",
+          "start_script": "configTemplates/deploy-scala.sh",
+          /* must be implemented */
+          "stop_script" : "ls",
           "script_model": "direct"
         },
         {

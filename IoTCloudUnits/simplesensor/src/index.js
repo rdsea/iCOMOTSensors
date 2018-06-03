@@ -20,8 +20,8 @@ let transform = transforms[config.format];
 function start(){
     // read csv
     let stream = fs.createReadStream(path.join(__dirname, `../${config.file}`));
-    let csvStream = csv().on('data', (data) => {
-        let payload = transform(data, config.fields);
+    let csvStream = csv({headers : true}).on('data', (data) => {
+        let payload = transform(data);
         csvStream.pause();
         output(payload, config.uri, config.protocolOptions).then(() => {
             setTimeout(() => csvStream.resume(), 3000);
@@ -31,6 +31,7 @@ function start(){
     stream.pipe(csvStream);    
     csvStream.on('end', () => {setTimeout(() => start(), 3000);})
 }
+
 
 start()
 

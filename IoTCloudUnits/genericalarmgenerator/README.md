@@ -69,11 +69,15 @@ Initial information for object:
 
 name: "M.S.C. TERMINAL VALENCIA,S.A.U", "EUROLINEAS MARITIMAS S.A.","CIA. TRASMEDITERRANEA, S.A.","NOATUM CONTAINER TMNL.VCIA S.A", "VALENCIA TERMINAL EUROPA, S.A.", "TCV STEVEDORING COMPANY, S.A.","TERMINALES PORTUARIAS, S.L."
 
-"cranesinfo": {
+geohash: e.g., ezpb2w9sc
+
+for geohash we have to look at the map and see. We can also use less accuracy location.
+
+"cranesinfo": [
     {
       "name":"",
       "geohash":
     }
-}
+]
 
 ## Contact

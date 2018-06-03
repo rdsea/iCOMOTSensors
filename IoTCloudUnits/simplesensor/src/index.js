@@ -14,17 +14,25 @@ logger.info(`messages sent to ${config.uri}`);
 let output = outputs[config.protocol];
 let transform = transforms[config.format];
 
-// read csv
-let stream = fs.createReadStream(path.join(__dirname, `../${config.file}`));
-let csvStream = csv().on('data', (data) => {
-    let payload = transform(data, config.fields);
-    csvStream.pause();
-    output(payload, config.uri, config.protocolOptions).then(() => {
-        setTimeout(() => csvStream.resume(), 3000);
-    });   
-});
 
-stream.pipe(csvStream);
+
+
+function start(){
+    // read csv
+    let stream = fs.createReadStream(path.join(__dirname, `../${config.file}`));
+    let csvStream = csv().on('data', (data) => {
+        let payload = transform(data, config.fields);
+        csvStream.pause();
+        output(payload, config.uri, config.protocolOptions).then(() => {
+            setTimeout(() => csvStream.resume(), 3000);
+        });   
+    });
+
+    stream.pipe(csvStream);    
+    csvStream.on('end', () => {setTimeout(() => start(), 3000);})
+}
+
+start()
 
 
 

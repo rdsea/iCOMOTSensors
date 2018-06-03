@@ -13,7 +13,9 @@ var template = {
           "functionname":"simplels",
           /* the script here is a direct commandline */
           "start_script": "ls -al",
-          /* can be "direct" or file */
+          /* can be "direct" or service style
+           for service style we need stop_script to kill the function
+          */
           "script_model": "direct"
         },
         {
@@ -26,7 +28,7 @@ var template = {
         },
         {
           "functionname":"simpledocker",
-          "start_script": "nohup docker run hello-world",
+          "start_script": "configTemplates/deploy-single-nodered.sh",
           "script_model": "direct"
         },
         {
@@ -35,7 +37,12 @@ var template = {
           /* must be implemented */
           "stop_script" : "ls",
           "script_model": "direct"
-        }
+        },
+        {
+          "functionname":"simplesleep",
+          "start_script": "sleep 1000",
+          "script_model": "direct"
+        },
       ]
     }
 export default template;

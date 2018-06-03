@@ -1,8 +1,3 @@
-export default function transform(csvDatapoint, csvHeaders){
-    let jsonDatapoint = {};
-    for(let i=0;i<csvDatapoint.length;i++){
-        jsonDatapoint[csvHeaders[i]] = csvDatapoint[i];
-    }
-
+export default function transform(jsonDatapoint){
     return JSON.stringify(jsonDatapoint);
 }

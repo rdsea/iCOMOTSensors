@@ -7,4 +7,4 @@ gcloud -q config set project iotcloudexamples
 gcloud -q config set compute/zone europe-west1-b
 
 # get cluster credentials to interact
-gcloud -q container clusteres get-credentials iotcloudexamples
+gcloud -q container clusters get-credentials iotcloudexamples

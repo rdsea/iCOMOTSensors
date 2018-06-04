@@ -1,0 +1,17 @@
+{
+  "name": "genericalarmgenerator",
+  "version": "1.0.0",
+  "description": "This is a simple program that can be used to generate alarm data in a generic way. The idea is that there are many types of alarms can occur in open space environment, such as building, seaport, and streets. Normally such alarms are provided by some systems but as we do not have all possible alarm data, we can generate alarm data as input for testing how services are triggered based on such alamrs.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "l"
+  ],
+  "author": "lingfangao@gmail.com",
+  "license": "ISC",
+  "dependencies": {
+    "faker": "^4.1.0"
+  }
+}

@@ -1,4 +1,4 @@
-FROM rdsea/provider-base
+FROM node:8-alpine
 
 COPY . /alarmclient
 WORKDIR /alarmclient

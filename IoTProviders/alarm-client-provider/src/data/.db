@@ -1,4 +1,0 @@
-{"alarmBroker":{"host":"localhost","port":1883,"topics":["topic1","topic2"]},"vesselBroker":{"host":"localhost","port":1883,"topics":["vessel1","vessel2"]},"pcs":"http://localhost:8888","createdAt":1528223642111,"alarmclientId":"alarmclient1528223642111","_id":"OoVPyALSqbQkQDqB"}
-{"$$deleted":true,"_id":"OoVPyALSqbQkQDqB"}
-{"alarmBroker":{"host":"localhost","port":1883,"topics":["topic1","topic2"]},"vesselBroker":{"host":"localhost","port":1883,"topics":["vessel1","vessel2"]},"pcs":"http://localhost:8888","createdAt":1528223831863,"alarmclientId":"alarmclient1528223831863","_id":"BHVTmFCcgOov5NpN"}
-{"$$deleted":true,"_id":"BHVTmFCcgOov5NpN"}

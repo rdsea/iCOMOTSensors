@@ -8,7 +8,7 @@ let client = mqtt.connect(config.alarmBroker);
     
 client.on('connect', () => {
     for(let i=0;i<config.alarmBroker.topics.length;i++){
-        client.subscribe("#");
+        client.subscribe(config.alarmBroker.topics[i]);
         logger.info(`now listening to alarms`);
     }
 });

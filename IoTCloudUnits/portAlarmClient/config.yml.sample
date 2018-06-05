@@ -1,0 +1,13 @@
+alarmBroker:
+  host: localhost
+  port: 1883
+  topics:
+    - topic1
+    - topic2
+
+vesselBroker:
+  host: localhost
+  port: 1883
+  topics:
+    - vessel1
+    - vessel2

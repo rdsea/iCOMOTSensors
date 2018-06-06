@@ -3,9 +3,12 @@ const fs = require("fs");
 const promisify = require("util").promisify;
 const deployTemplate = require("./configTemplates/deployTemplate");
 const db = require("./data/db");
+const axios = require("axios");
 
 const exec = promisify(child_process.exec);
 const writeFile = promisify(fs.writeFile);
+
+const pcs = process.env.PCS_URL;
 
 function createVessel(config){
     let boatId = config.vessel.boat.replace(/\s/g,'').toLowerCase();
@@ -14,6 +17,7 @@ function createVessel(config){
     }).then(() => {
         config.createdAt =  (new Date()).getTime();
         config.boatId = boatId;
+        _registerVessel(config.vessel);
         return db.insert(config);
     })
 }
@@ -47,6 +51,13 @@ function deleteVessel(boatId){
             console.log(exec.stderr);
         });
     })
+}
+
+function _registerVessel(vessel){
+    return axios.post(`${pcs}/register`, vessel).catch((err) => {
+        console.log("failed to register vessel!");
+        console.log(err);
+    });
 }
 
 function _provisionVessel(boatId){

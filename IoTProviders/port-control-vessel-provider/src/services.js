@@ -54,7 +54,7 @@ function deleteVessel(boatId){
 }
 
 function _registerVessel(vessel){
-    return axios.post(`${pcs}/register`, vessel).catch((err) => {
+    return axios.post(`${pcs}/portcontrol/register`, vessel).catch((err) => {
         console.log("failed to register vessel!");
         console.log(err);
     });

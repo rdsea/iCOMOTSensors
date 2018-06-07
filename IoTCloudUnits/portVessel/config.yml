@@ -1,0 +1,14 @@
+broker:
+  host: localhost
+  port: 1883
+  topics:
+    - topic1
+    - topic2
+
+vessel:
+  boat: MAERSK ADRIATIC
+  status: Expected
+  arrival: 6/5/2018
+  departure: 6/6/2018
+  destination: VLC
+  terminal: TCV STEVEDORING COMPANY S.A.

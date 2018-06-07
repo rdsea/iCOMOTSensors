@@ -18,9 +18,9 @@ const SEVERITY = [
 ];
 
 const terminals = [
-    {name: "TCV STEVEDORING COMPANY, S.A.", location:"ezp8rmfcsbcg"},
-    {name: "VALENCIA TERMINAL EUROPA, S.A.", location: "ezpb3h3e3cqr"},
-    {name: "M.S.C. TERMINAL VALENCIA,S.A.U ", location: "ezpb2s85c4f7"},
+    {name: "TCV STEVEDORING COMPANY S.A.", location:"ezp8rmfcsbcg"},
+    {name: "VALENCIA TERMINAL EUROPA S.A.", location: "ezpb3h3e3cqr"},
+    {name: "M.S.C. TERMINAL VALENCIA S.A.U ", location: "ezpb2s85c4f7"},
     {name: "NOATUM CONTAINER TMNL.VCIA S.A", location:"ezp8r17m0hn6"},
 ]
 
@@ -29,7 +29,7 @@ rows.push(["time", "alarm_type", "alarm_severity", "location", "object_type", "o
 
 for(let i=0;i<1000;i++){
     let terminal = faker.random.arrayElement(terminals)
-    rows.push([faker.date.recent().toISOString(), faker.random.arrayElement(ALARM_TYPES), terminal.location,"TERMINAL", terminal.name]);
+    rows.push([faker.date.recent().toISOString(), faker.random.arrayElement(ALARM_TYPES), faker.random.arrayElement(SEVERITY), terminal.location,"TERMINAL", terminal.name]);
 }
 
 

@@ -28,7 +28,7 @@ var template = {
         },
         {
           "functionname":"simplenodered",
-          "start_script": "configTemplates/deploy-single-nodered.sh",
+          "start_script": "/usr/local/node/bin/node-red",//configTemplates/deploy-single-nodered.sh",
           "script_model": "direct"
         },
         {
@@ -46,6 +46,12 @@ var template = {
         {
           "functionname":"n2disk",
           "start_script": "configTemplates/deploy-n2disk.sh",
+          "stop_script" :"ls",
+          "script_model": "direct"
+        },
+        {
+          "functionname":"mqtt",
+          "start_script": "/usr/sbin/mosquitto",
           "stop_script" :"ls",
           "script_model": "direct"
         }

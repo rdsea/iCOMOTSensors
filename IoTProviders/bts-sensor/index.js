@@ -20,6 +20,12 @@ router.delete('/:sensorId', (req, res) => {
     res.json(services.deleteSensor(req.params.sensorId));
 })
 
+router.get('/:sensorId/logs', (req, res) => {
+    services.getLogs(req.params.sensorId).then((logs) => {
+        res.json(logs)
+    })
+})
+
 // generate routes for each of the sensor types
 Object.keys(sensorTypes).forEach((sensorType) => {
     router.get(`/${sensorType}`,(req, res) => {

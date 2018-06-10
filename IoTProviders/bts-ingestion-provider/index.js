@@ -46,6 +46,12 @@ router.get('/:ingestionClientId', (req, res) => {
     })
 })
 
+router.get('/:ingestionClientId/logs', (req, res) => {
+    services.getLogs(req.params.ingestionClientId).then((logs) => {
+        res.json(logs)
+    })
+})
+
 app.use('/ingestionClient', router);
 app.listen(PORT, () => {
     console.log(`server listening at port ${PORT}`)

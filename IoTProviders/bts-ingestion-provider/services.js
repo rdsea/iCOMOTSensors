@@ -136,3 +136,43 @@ export function createGoogleServiceAccountSecret(ingestionClientId){
         return config;
     });
 }
+
+export function getLogs(ingestionClientId){
+    let logs = {}
+    console.log(`kubectl logs -l app=${ingestionClientId} --since=15m `)
+    return exec(`kubectl logs -l app=${ingestionClientId} --since=15m `).then((res) => {
+        if(res.stderr) {
+            console.log(res.stderr);
+            logs.logs = `error fetching logs for ${ingestionClientId}`;
+        }
+        logs.logs = res.stdout;
+        return exec(`kubectl get pods -l app=${ingestionClientId} -o json`)        
+    }).then((res) => {
+        if(res.stderr) {
+            console.log(res.stderr);
+            logs.status = `error fetching ${ingestionClientId} status`;
+        }
+        
+        let raw = JSON.parse(res.stdout);
+        try{
+            logs.status = {
+                deployment: "kubernetes.io",
+                cpu: raw.items[0].spec.containers[0].resources.requests.cpu,
+                memory: raw.items[0].spec.containers[0].resources.requests.memory,
+                statuses:raw.items[0].status.containerStatuses.phase,
+                startTime:  raw.items[0].status.containerStatuses.startTime
+            }
+        }catch(err){
+            console.err(err);
+            logs.status = "could not retrieve resource status"
+        }
+        
+        return {
+            status: logs.status,
+            logs: {
+                output: logs.logs,
+                since: "15 minutes"
+            }
+        };
+    })
+}

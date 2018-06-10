@@ -99,6 +99,7 @@ function createSensorConfigMap(config, type){
 function provisionSensor(sensor){
     let sensorDeploy = JSON.parse(JSON.stringify(deployTemplate));
     sensorDeploy.metadata.name = sensor.clientId,
+    sensorDeploy.spec.template.metadata.labels.app = sensor.clientId;
     sensorDeploy.spec.template.spec.volumes.push({
         name: "config",
         configMap: { name: `config-${sensor.clientId}`}
@@ -122,4 +123,44 @@ function provisionSensor(sensor){
         console.log(res.stdout);
         return sensor;
     });
+}
+
+export function getLogs(sensorId){
+    let logs = {}
+    console.log(`kubectl logs -l app=${sensorId} --since=1h`)
+    return exec(`kubectl logs -l app=${sensorId} --since=1h`).then((res) => {
+        if(res.stderr) {
+            console.log(res.stderr);
+            logs.logs = `error fetching logs for ${sensorId}`;
+        }
+        logs.logs = res.stdout;
+        return exec(`kubectl get pods -l app=${sensorId} -o json`)        
+    }).then((res) => {
+        if(res.stderr) {
+            console.log(res.stderr);
+            logs.status = `error fetching ${sensorId} status`;
+        }
+        
+        let raw = JSON.parse(res.stdout);
+        try{
+            logs.status = {
+                deployment: "kubernetes.io",
+                cpu: raw.items[0].spec.containers[0].resources.requests.cpu,
+                memory: raw.items[0].spec.containers[0].resources.requests.memory,
+                statuses:raw.items[0].status.containerStatuses.phase,
+                startTime:  raw.items[0].status.containerStatuses.startTime
+            }
+        }catch(err){
+            console.err(err);
+            logs.status = "could not retrieve resource status"
+        }
+        
+        return {
+            status: logs.status,
+            logs: {
+                output: logs.logs,
+                since: "1 hour"
+            }
+        };
+    })
 }

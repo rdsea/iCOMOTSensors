@@ -43,6 +43,12 @@ router.get('/:brokerId', (req, res) => {
     })
 })
 
+router.get('/:brokerId/logs', (req, res) => {
+    services.getLogs(req.params.brokerId).then((logs) => {
+        res.json(logs)
+    })
+})
+
 app.use('/mosquittobroker', router);
 app.listen(PORT, () => {
     console.log(`server listening at port ${PORT}`)

@@ -26,7 +26,7 @@ router.post('/', (req, res) => {
 });
 
 router.get('/list', (req, res) => {
-    services.getBrokers().then((datatransformers) => {
+    services.getDataTransformers().then((datatransformers) => {
         res.json(datatransformers);
     })
 })

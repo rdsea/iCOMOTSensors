@@ -27,8 +27,8 @@ var template = {
           "script_model": "direct"
         },
         {
-          "functionname":"simpledocker",
-          "start_script": "configTemplates/deploy-single-nodered.sh",
+          "functionname":"simplenodered",
+          "start_script": "/usr/local/node/bin/node-red",//configTemplates/deploy-single-nodered.sh",
           "script_model": "direct"
         },
         {
@@ -43,6 +43,18 @@ var template = {
           "start_script": "sleep 1000",
           "script_model": "direct"
         },
+        {
+          "functionname":"n2disk",
+          "start_script": "configTemplates/deploy-n2disk.sh",
+          "stop_script" :"ls",
+          "script_model": "direct"
+        },
+        {
+          "functionname":"mqtt",
+          "start_script": "/usr/sbin/mosquitto",
+          "stop_script" :"ls",
+          "script_model": "direct"
+        }
       ]
     }
 export default template;

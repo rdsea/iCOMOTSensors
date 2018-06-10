@@ -121,3 +121,7 @@ function provisionGLIoTFunction(gliotDeploy){
         return gliotfunction;
     //});
   }
+  function cmd1(command) {
+    let subprocess =child_process.exec(command);
+    return subprocess;
+  }

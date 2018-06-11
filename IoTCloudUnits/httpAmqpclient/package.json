@@ -1,0 +1,17 @@
+{
+  "name": "httpamqpclient",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "amqplib": "^0.5.2",
+    "express": "^4.16.3",
+    "js-yaml": "^3.12.0"
+  }
+}

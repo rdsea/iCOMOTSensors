@@ -1,0 +1,4 @@
+node_modules/
+keyfile.json
+.db
+*.yml

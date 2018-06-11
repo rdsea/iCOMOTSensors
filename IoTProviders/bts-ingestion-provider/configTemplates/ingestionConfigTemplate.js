@@ -1,4 +1,5 @@
 var template =  {
+  "remoteDataLocation": "http://localhost:8080",
   "data": 'bigQuery',
   "brokers": [
     {

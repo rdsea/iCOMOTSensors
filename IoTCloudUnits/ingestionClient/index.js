@@ -23,6 +23,7 @@ let dataPlugin = require(`./dataPlugins/${config.data}/dataPlugin`).default;
 
 dataPlugin.init().then(() => {
     config.brokers.forEach((broker) => {
+        broker.remoteDataLocation = config.remoteDataLocation
         clients.push(mqttFactory.createMqttClient(broker, dataPlugin.insert));
     })
 })

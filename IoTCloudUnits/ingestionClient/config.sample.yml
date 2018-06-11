@@ -1,5 +1,5 @@
 # location of remote data service that will be used via REST
-remoteDataLocation: localhost:8080
+remoteDataLocation: http://localhost:8080
 test: false # activate test mode
 brokers:
     - host: localhost

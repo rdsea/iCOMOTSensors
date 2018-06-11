@@ -1,6 +1,7 @@
 import mqtt from 'mqtt'
 import fs from 'fs'
 import logger from './logger'
+import axios from 'axios';
 
 function createMqttClient(config, insert){
     let client = mqtt.connect(config);
@@ -27,6 +28,14 @@ function createMqttClient(config, insert){
             logger.warn('failed to save message due to external data service')
             logger.error(err.message)
         });
+
+        if(config.remoteDataLocation){
+            console.log(`sending data to ${config.remoteDataLocation}`)
+            axios.post(config.remoteDataLocation, data).catch((err) => {
+                logger.error(`failed to send data to ${outputUrl}`)
+                logger.error(err);
+            })
+        }
     });
     
     client.on('error', function(err) {

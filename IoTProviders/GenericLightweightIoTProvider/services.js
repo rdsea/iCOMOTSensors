@@ -8,11 +8,12 @@ import randomstring from 'randomstring';
 import { randomBytes } from 'crypto';
 import GLIoTFunction from './data/models/gliotfunction';
 var cmd=require('node-cmd');
-const exec = child_process.exec;
-const execSync = child_process.execSync;
-const execFile = child_process.execFile;
-const spawn = promisify(child_process.spawn);
-const spawnSync = child_process.spawnSync;
+var treekill = require('tree-kill');
+//const exec = child_process.exec;
+//const execSync = child_process.execSync;
+//const execFile = child_process.execFile;
+//const spawn = promisify(child_process.spawn);
+//const spawnSync = child_process.spawnSync;
 
 const writeFile = promisify(fs.writeFile);
 const HashMap = require('hashmap');
@@ -60,9 +61,11 @@ export function deleteGLIoTFunction(gliotId){
         let subprocess = gliotmap.get(gliotId);
         if (subprocess == null)
           return;
-        console.log("Local pid is "+subprocess.pid);
-        subprocess.kill();
-        execSync(`kill -9 ${subprocess.pid}`);
+
+        console.log("Kill all children from the created pid of "+subprocess.pid);
+        treekill(subprocess.pid, 'SIGKILL');
+        //subprocess.kill();
+        //execSync(`kill -9 ${subprocess.pid}`);
         gliotmap.delete(gliotId);
   });
 }
@@ -99,7 +102,7 @@ function provisionGLIoTFunction(gliotDeploy){
     */
     // this is only for direct script. if a script is in a file, then
     // we can just check if the file is available or not.
-    //let output_script_file = "/tmp/deploy-"+gliotId+".sh";
+    //let output_script_file = "var kill = require('tree-kill');/tmp/deploy-"+gliotId+".sh";
     //return writeFile(output_script_file, gliotDeploy.start_script, 'utf8').then (() => {
         //console.log("Execute: "+output_script_file);
         console.log("Call spawn to create new process "+gliotDeploy.start_script);

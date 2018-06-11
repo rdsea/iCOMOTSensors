@@ -17,6 +17,7 @@ export function createDataTransformer(config){
             location: 'creating...',
             createdAt: timestamp,
             datatransformerId: `datatransformer${timestamp}`,
+            port: 1880
         });
         return datatransformer.save();
     });

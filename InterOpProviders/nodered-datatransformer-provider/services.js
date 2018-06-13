@@ -17,7 +17,8 @@ export function createDataTransformer(config){
             location: 'creating...',
             createdAt: timestamp,
             datatransformerId: `datatransformer${timestamp}`,
-            port: 1880
+            port: 1880,
+            url: "pending..."
         });
         return datatransformer.save();
     });
@@ -50,8 +51,7 @@ export function getDataTransformers(datatransformerId){
         datatransformers = res;
         let kubectl = []; // promise executions of kubetcl;
         datatransformers.forEach((datatransformer) => {
-            console.log(datatransformer);
-            kubectl.push(exec(`kubectl get services ${datatransformer.datatransformerId}`).catch((err) => err)); // return error obj otherwise other promises won't resolve
+            kubectl.push(exec(`kubectl get services ${datatransformer.datatransformerId} -o json`).catch((err) => err)); // return error obj otherwise other promises won't resolve
         });
         return Promise.all(kubectl);
     }).then((execs) => {
@@ -62,8 +62,11 @@ export function getDataTransformers(datatransformerId){
 
         let saves = []
         datatransformers.forEach((datatransformer, index) => {
-            console.log(externalIps);
             datatransformer.location = externalIps[index];
+
+            if(datatransformer.location != "pending..."){
+                datatransformer.url = `http://${datatransformer.location}:${datatransformer.port}`
+            }
             saves.push(datatransformer.save());
         });
     }).then(() => {
@@ -74,12 +77,16 @@ export function getDataTransformers(datatransformerId){
 // TODO try to get rid of this way of obtaining external IP
 function extractExternalIpKubectlGetServicesOutput(stdout){
     try{
-        let lines = stdout.split(/\r?\n/);
-        let tokens = lines[1].split(/\s+/);
-        return tokens[3];
+        let service = JSON.parse(stdout);
+        if(service.status.loadBalancer.ingress){
+            return service.status.loadBalancer.ingress[0].ip 
+        }
     }catch(err){
-        return 'N/A';
+        console.log(err);
+        return "creating..."
     }
+    
+    return "creating..."
 
 }
 

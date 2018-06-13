@@ -46,16 +46,23 @@ export function deleteDataTransformer(datatransformerId){
 export function getDataTransformers(datatransformerId){
     let query = {};
     if(datatransformerId) query.datatransformerId = datatransformerId;
+    let koptions =kubeOptions;
     let datatransformers = [];
     return DataTransformer.find(query).then((res) => {
         datatransformers = res;
         let kubectl = []; // promise executions of kubetcl;
         datatransformers.forEach((datatransformer) => {
+          if (process.env.MINIKUBE_NODEPORT) {
+            kubectl.push(exec(`minikube service --url ${datatransformer.datatransformerId}`).catch((err) => err));
+          }
+          else {
             kubectl.push(exec(`kubectl get services ${datatransformer.datatransformerId} -o json`).catch((err) => err)); // return error obj otherwise other promises won't resolve
+          }
         });
         return Promise.all(kubectl);
     }).then((execs) => {
         let externalIps = [];
+        //either ip or url in case of minukube nodeport
         execs.forEach((exec) => {
             externalIps.push(extractExternalIpKubectlGetServicesOutput(exec.stdout));
         });
@@ -63,9 +70,13 @@ export function getDataTransformers(datatransformerId){
         let saves = []
         datatransformers.forEach((datatransformer, index) => {
             datatransformer.location = externalIps[index];
-
-            if(datatransformer.location != "pending..."){
+            if (process.env.MINIKUBE_NODEPORT) {
+              datatransformer.url=datatransformer.location;
+            }
+            else {
+              if(datatransformer.location != "pending..."){
                 datatransformer.url = `http://${datatransformer.location}:${datatransformer.port}`
+              }
             }
             saves.push(datatransformer.save());
         });
@@ -77,15 +88,22 @@ export function getDataTransformers(datatransformerId){
 // TODO try to get rid of this way of obtaining external IP
 function extractExternalIpKubectlGetServicesOutput(stdout){
     try{
-        let service = JSON.parse(stdout);
-        if(service.status.loadBalancer.ingress){
-            return service.status.loadBalancer.ingress[0].ip 
+
+        if (process.env.MINIKUBE_NODEPORT) {
+          let serviceurl=stdout;
+          return serviceurl;
+        }
+        else {
+          let service = JSON.parse(stdout);
+          if(service.status.loadBalancer.ingress){
+            return service.status.loadBalancer.ingress[0].ip
+          }
         }
     }catch(err){
         console.log(err);
         return "creating..."
     }
-    
+
     return "creating..."
 
 }

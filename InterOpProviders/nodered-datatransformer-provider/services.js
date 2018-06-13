@@ -46,7 +46,7 @@ export function deleteDataTransformer(datatransformerId){
 export function getDataTransformers(datatransformerId){
     let query = {};
     if(datatransformerId) query.datatransformerId = datatransformerId;
-    let koptions =kubeOptions;
+  
     let datatransformers = [];
     return DataTransformer.find(query).then((res) => {
         datatransformers = res;

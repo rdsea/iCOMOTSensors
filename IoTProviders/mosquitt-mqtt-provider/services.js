@@ -15,6 +15,7 @@ export function createBroker(config){
     return provisionBroker().then((timestamp) => {
         let broker = new Broker({
             location: 'creating...',
+            url:'pending',
             createdAt: timestamp,
             brokerId: `broker${timestamp}`,
         });

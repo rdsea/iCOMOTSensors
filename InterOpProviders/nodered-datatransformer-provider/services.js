@@ -17,7 +17,8 @@ export function createDataTransformer(config){
             location: 'creating...',
             createdAt: timestamp,
             datatransformerId: `datatransformer${timestamp}`,
-            port: 1880
+            port: 1880,
+            url: "pending..."
         });
         return datatransformer.save();
     });
@@ -62,6 +63,10 @@ export function getDataTransformers(datatransformerId){
         let saves = []
         datatransformers.forEach((datatransformer, index) => {
             datatransformer.location = externalIps[index];
+
+            if(datatransformer.location != "pending..."){
+                datatransformer.url = `http://${datatransformer.location}:${datatransformer.port}`
+            }
             saves.push(datatransformer.save());
         });
     }).then(() => {

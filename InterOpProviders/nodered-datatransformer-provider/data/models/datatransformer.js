@@ -7,6 +7,7 @@ var DataTransformer = mongoose.model('DataTransformer', {
     qos: Number,
     datatransformerId: String,
     port: Number,
+    url: String,
 });
 
 export default DataTransformer;

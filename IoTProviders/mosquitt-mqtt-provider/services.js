@@ -15,6 +15,7 @@ export function createBroker(config){
     return provisionBroker().then((timestamp) => {
         let broker = new Broker({
             location: 'creating...',
+            port:1883,
             url:'pending',
             createdAt: timestamp,
             brokerId: `broker${timestamp}`,
@@ -65,7 +66,7 @@ export function getBrokers(brokerId){
             broker.location = externalIps[index];
 
             if(broker.location != "pending..."){
-                broker.url = `http://${broker.location}:${broker.port}`
+                broker.url = `mqtt://${broker.location}:${broker.port}`
             }
             saves.push(broker.save());
         });

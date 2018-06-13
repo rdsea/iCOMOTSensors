@@ -46,7 +46,7 @@ export function deleteDataTransformer(datatransformerId){
 export function getDataTransformers(datatransformerId){
     let query = {};
     if(datatransformerId) query.datatransformerId = datatransformerId;
-  
+
     let datatransformers = [];
     return DataTransformer.find(query).then((res) => {
         datatransformers = res;
@@ -91,7 +91,7 @@ function extractExternalIpKubectlGetServicesOutput(stdout){
 
         if (process.env.MINIKUBE_NODEPORT) {
           let serviceurl=stdout;
-          return serviceurl;
+          return serviceurl.trim();
         }
         else {
           let service = JSON.parse(stdout);

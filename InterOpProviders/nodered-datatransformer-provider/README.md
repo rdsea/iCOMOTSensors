@@ -9,6 +9,13 @@ Supported by the Inter-IoT.
 
 ### Kubernetes requirements and setup
 
+We have tested with Google Cloud Platform Kubernetes and Minikube/Kubernetes  in a single server. Note the following settings:
+
+* all kube* commandlines should be in the execution path of the service
+* $export MINIKUBE_NODEPORT=True for minikube without loadbalancer, and external ip cannot be exposed, we will use nodeport for exposing service. In this case the command "minikube" must be in the execution path.
+
+The service will use a default node-red container. However, this can be replaced by a customed one.
+
 ### Running services
 
 `npm start`

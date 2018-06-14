@@ -1,5 +1,5 @@
 broker:
-  host: localhost
+  host: 35.202.162.166
   port: 1883
   topics:
     - topic1

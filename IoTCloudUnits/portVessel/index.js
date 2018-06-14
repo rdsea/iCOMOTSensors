@@ -4,8 +4,10 @@ const config = require('./config');
 
 
 let client = mqtt.connect(config.broker);
-    
+
 client.on('connect', () => {
+  //the assumption is that each vessel will listen a topic based on its name
+  //currently we assume that each vessel has a unique name
     let topic = config.vessel.boat.replace(/ /g,'').toLowerCase()
     client.subscribe(topic);
     logger.info(`now listening to ${topic}`);
@@ -25,8 +27,9 @@ client.on('error', function(err) {
 client.on('close', () => {
     logger.warn(`disconnected client no longer ingesting from ${config.topics}`);
 })
-
-function _doAction(action){  
+//since it is just a simulation, the action is just perform the log
+//TODO: it could report the position (e.g. via simulation) and other Information
+function _doAction(action){
     switch(action){
         case "NOTIFY_PRESENCE_TERMINAL_AUTHORITY":
             logger.info("NOTIFY_PRESENCE_TERMINAL_AUTHORITY")

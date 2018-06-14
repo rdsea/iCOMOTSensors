@@ -10,13 +10,27 @@ function findAllVessels(){
 
 function findVesselsInTerminal(terminal){
     let query = {
-        terminal
+        "Terminal":terminal
     }
     return db.find(query)
 }
-
+function registerTruck(truck){
+    return db.insert(truck)
+}
+function findAllTrucks(){
+    return db.find({});
+}
+function findTrucksInPort(licensePlate){
+  let query = {
+      licensePlate
+  }
+  return db.find(query)
+}
 module.exports = {
     registerVessel,
     findVesselsInTerminal,
-    findAllVessels
+    findAllVessels,
+    registerTruck,
+    findAllTrucks,
+    findTrucksInPort
 }

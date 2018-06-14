@@ -1,6 +1,6 @@
 {
   "name": "portvessel",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -8,7 +8,7 @@
     "start": "node index.js"
   },
   "author": "",
-  "license": "ISC",
+  "license": "ApacheLicense",
   "dependencies": {
     "axios": "^0.18.0",
     "js-yaml": "^3.12.0",

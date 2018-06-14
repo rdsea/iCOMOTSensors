@@ -22,7 +22,7 @@ It illustrates the case that the vessels have to communicate with its management
 * each vessel of the company will have a topic for exchanging Information
 * a set of commands and messages are used for emulating IoT information exchanged between vessels and the vessel company.
 
-You can emulate a large number of vessels by running different instances of the Vessel docker.
+You can emulate a large number of vessels by running different instances of the Vessel dockers (or using the port-control-vessel-provider).
 
 ### Vessels and the port authority
 It reflects the vessels communication with the port authority. The way to do is similar to the previous case (vessels and its management company) where we can replace the management company by the port authority.

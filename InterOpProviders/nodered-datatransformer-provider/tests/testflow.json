@@ -1,0 +1,7 @@
+{"id":"92281e0e.451498","label":"testflow",
+  "nodes":[
+    {"id":"1ac2236e.82e2ad","type":"mqtt in","z":"92281e0e.451498","name":"","topic":"","qos":"2","x":220,"y":120,"wires":[["38b605ff.7d0b7a"]]},
+    {"id":"91e629ca.a1468","type":"mqtt out","z":"92281e0e.451498","name":"","topic":"","qos":"","retain":"","x":720,"y":320,"wires":[]},
+    {"id":"38b605ff.7d0b7a","type":"function","z":"92281e0e.451498","name":"","func":"\nreturn msg;","outputs":1,"noerr":0,"x":440,"y":220,"wires":[["91e629ca.a1468"]]}
+  ]
+}

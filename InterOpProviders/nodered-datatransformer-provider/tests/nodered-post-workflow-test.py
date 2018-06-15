@@ -1,4 +1,4 @@
-#this program is used to test a resource lifecycle.
+#this program is used to test the upload of a flow into an instance of node-red
 #we create list and remove resources.
 import requests
 import json

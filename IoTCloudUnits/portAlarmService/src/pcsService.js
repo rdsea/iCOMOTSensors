@@ -13,8 +13,10 @@ actions = {
     REQUEST_NEW_TERMINAL: "REQUEST_NEW_TERMINAL",
 }
 
+//TODO: add similar handles for trucks.
+
 function alarmAction(alarm){
-    logger.info(`received alarm ${alarm.alarm_type}`);    
+    logger.info(`received alarm ${alarm.alarm_type}`);
     logger.info(`requesting all vessels in ${alarm.terminal}`);
 
     return axios(`${config.pcs}/vessels/${alarm.terminal}`).then((vessels) => {
@@ -69,7 +71,7 @@ function _handlePower(alarm, vessel){
             break;
         case "CRIICAL":
             client.publish(topic, actions.NOTIFY_PRESENCE_TERMINAL_AUTHORITY);
-            
+
             break;
     }
 }
@@ -111,4 +113,3 @@ function _handleTraffic(alarm, vessel){
     }
 }
 module.exports = alarmAction;
-

@@ -1,16 +1,17 @@
-# Port Vessel units
-This code is used to emulate a vessel. A Vessel will listen messages from a queue and act accordingly.
+# Port Vessel Unit
+
+Port Vessel Unit is used to emulate a vessel. A vessel will listen messages from a queue and act accordingly.
 
 ## Setup
 
 It requires
 
-* MQTT
+* MQTT: the vessel uses MQTT as its message broker through its receives commands.
 
 ## Configuration
 
 Information about the vessel and communication is defined in config.yml.
-Each vessel will have a unique name and listen a topic from a queue.
+Each vessel will have a unique name and will listen a topic from a queue.
 
 ## Simple scenario
 We can have two scenarios:

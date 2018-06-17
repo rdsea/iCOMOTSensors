@@ -6,6 +6,7 @@ const handleAlarm = require('./src/pcsService');
 
 let client = mqtt.connect(config.alarmBroker);
 
+//connect to the alarm broker
 client.on('connect', () => {
     for(let i=0;i<config.alarmBroker.topics.length;i++){
         client.subscribe(config.alarmBroker.topics[i]);

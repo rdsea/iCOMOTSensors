@@ -1,0 +1,18 @@
+{
+  "name": "portalarmcsensor",
+  "version": "0.1.0",
+  "description": "simular alarms in a seaport",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "author": "linhsolar@gmail.com",
+  "license": "ApacheLicense",
+  "dependencies": {
+    "js-yaml": "^3.12.0",
+    "mocker-data-generator": "^2.6.4",
+    "mqtt": "^2.18.0",
+    "sleep": "^5.1.1"
+  }
+}

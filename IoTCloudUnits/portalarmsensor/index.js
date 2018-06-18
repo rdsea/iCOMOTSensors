@@ -9,7 +9,8 @@ var util=require('util')
 //to be defined as an input parameter
 var number_of_alarms=100;
 var mocker = require('mocker-data-generator').default
-const list_of_alarm_types=["POWER","CHEMICAL","FIRE","TRAFFIC"]
+const list_of_alarm_types=["POWER","CHEMICAL","FIRE","TRAFFIC"];
+//terminal from the port can be found from https://www.valenciaportpcs.net/portcalls/Search
 const list_of_ports=["CIA. TRASMEDITERRANEA, S.A.",
 "EUROLINEAS MARITIMAS S.A.",
 "M.S.C. TERMINAL VALENCIA,S.A.U",

@@ -54,7 +54,17 @@ var template = {
           "start_script": "/usr/sbin/mosquitto",
           "stop_script" :"ls",
           "script_model": "direct"
+        },
+        /* Example of Inter-IoT MW Gateway
+         * for this project, we assume you already install Inter-IoT MW
+         */
+        {
+          "functionname":"interiotgw",
+          "start_script": "/home/truong/temp/tests/virtual-gateway-0.4.1-SNAPSHOT/bin/run",
+          "stop_script" :"ls",
+          "script_model": "direct"
         }
+
       ]
     }
 export default template;

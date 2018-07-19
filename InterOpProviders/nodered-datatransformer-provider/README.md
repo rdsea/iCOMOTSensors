@@ -49,23 +49,39 @@ Alternatively, the source code of data/db.js can be modified to hardcode the URL
 
 ### Examples
 
-Check if the service is available:
+#### Check if the service is available:
 
 * curl -X GET http://[hostname]:3004/datatransformer
 
-Create a new data transformer:
+#### Create a new data transformer without information about tenant:
 
 * curl -X POST http://[hostname]:3004/datatransformer
 
-List existing transformer resources:
+#### Create a new data transformer with information about tenant:
+
+You can also specify tenant information (tenantId, name, description) using
+
+* curl -X POST http://[hostname]:3004/datatransformer
+
+with the body of {tenantId:[id],description:[description], name:[name]} where tenantId, description, and name are provided by the creator.
+
+for example:
+
+curl --header "Content-Type: application/json"   --request POST  --data '{ "tenantId": "valenciaportcontrol", "description": "this is a special instance for valencia port", "name":"truckprocessor"}' http://localhost:3004/datatransformer
+
+#### List existing transformer resources:
 
 * curl -X GET http://[hostname]:3004/datatransformer/list
 
-Get detailed information about a transformer with the id =datatransformer1528623333334:
+#### Get detailed information about a transformer
+For example, with the id =datatransformer1528623333334:
 
 * curl -X GET http://daredevil:3004/datatransformer/datatransformer1528623333334
 
-Remove a transformer with the id = datatransformer1528623333334
+#### Remove a transformer
+
+for example, with the id = datatransformer1528623333334
+
 * curl -X DELETE http://daredevil:3004/datatransformer/datatransformer1528623333334
 
 

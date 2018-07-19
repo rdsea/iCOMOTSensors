@@ -12,8 +12,15 @@ const exec = promisify(child_process.exec);
 const writeFile = promisify(fs.writeFile);
 
 export function createDataTransformer(config){
+    let tenantId =config.tenantId;
+    let name =config.name;
+    let description=config.description;
     return provisionDataTransformer().then((timestamp) => {
+
         let datatransformer = new DataTransformer({
+            tenantId:tenantId,
+            description:description,
+            name:name,
             location: 'creating...',
             createdAt: timestamp,
             datatransformerId: `datatransformer${timestamp}`,

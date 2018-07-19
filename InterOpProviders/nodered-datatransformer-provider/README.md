@@ -67,7 +67,11 @@ with the body of {tenantId:[id],description:[description], name:[name]} where te
 
 for example:
 
-curl --header "Content-Type: application/json"   --request POST  --data '{ "tenantId": "valenciaportcontrol", "description": "this is a special instance for valencia port", "name":"truckprocessor"}' http://localhost:3004/datatransformer
+$curl --header "Content-Type: application/json"   --request POST  --data '{ "tenantId": "valenciaportcontrol", "description": "this is a special instance for valencia port", "name":"truckprocessor"}' http://localhost:3004/datatransformer
+
+would return an instance:
+
+{"_id":"5b4fdcbdb03bd3e52f058a68","tenantId":"valenciaportcontrol","description":"this is a special instance for valencia port","name":"truckprocessor","location":"creating...","createdAt":1531960508701,"datatransformerId":"datatransformer1531960508701","port":1880,"url":"pending...","__v":0}truong@daredevil:~$
 
 #### List existing transformer resources:
 

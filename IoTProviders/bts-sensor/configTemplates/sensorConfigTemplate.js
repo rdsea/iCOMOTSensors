@@ -1,36 +1,22 @@
 export let batteryCurrent = {
-    "protocol": "http",
+    "protocol": "mqtt",
     "protocolOptions": {
-
+        "topic": "topic1"
     },
-    "format": "csv",
-    "fields": [
-        "id",
-        "reading_time",
-        "value",
-        "station_id",
-        "parameter_id"
-    ],
-    "uri": "http://localhost:3000/",
+    "format": "json",
+    "uri": "http://localhost:1883/",
     "file": "data.csv",
     "measurement": "current",
     "unit": "ampere",
 }
 
 export let batteryVoltage = {
-    "protocol": "http",
+    "protocol": "mqtt",
     "protocolOptions": {
-
+        "topic": "topic1"
     },
-    "format": "csv",
-    "fields": [
-        "id",
-        "reading_time",
-        "value",
-        "station_id",
-        "parameter_id"
-    ],
-    "uri": "http://localhost:3000/",
+    "format": "json",
+    "uri": "http://localhost:1883/",
     "file": "data.csv",
     "measurement": "voltage",
     "unit": "volt",
@@ -42,15 +28,8 @@ export let capacity = {
     "protocolOptions": {
         "topic": "topic"
     },
-    "format": "csv",
-    "fields": [
-        "id",
-        "reading_time",
-        "value",
-        "station_id",
-        "parameter_id"
-    ],
-    "uri": "http://localhost:3000/",
+    "format": "json",
+    "uri": "http://localhost:1883/",
     "file": "data.csv",
     "measurement": "capacitance",
     "unit": "farad",
@@ -58,19 +37,12 @@ export let capacity = {
 }
 
 export let generatorVoltage = {
-    "protocol": "http",
+    "protocol": "mqtt",
     "protocolOptions": {
-
+        "topic": "topic"
     },
     "format": "json",
-    "fields": [
-        "id",
-        "reading_time",
-        "value",
-        "station_id",
-        "parameter_id"
-    ],
-    "uri": "http://localhost:3000/",
+    "uri": "http://localhost:1883/",
     "file": "data.csv",
     "measurement": "voltage",
     "unit": "volt",
@@ -78,18 +50,11 @@ export let generatorVoltage = {
 }
 
 export let gridload = {
-    "protocol": "http",
+    "protocol": "mqtt",
     "protocolOptions": {
-
+        "topic": "topic"
     },
     "format": "json",
-    "fields": [
-        "id",
-        "reading_time",
-        "value",
-        "station_id",
-        "parameter_id"
-    ],
     "uri": "http://localhost:3000/",
     "file": "data.csv",
     "measurement": "girdload",
@@ -103,13 +68,6 @@ export let humidity = {
         "topic": "topic"
     },
     "format": "json",
-    "fields": [
-        "id",
-        "reading_time",
-        "value",
-        "station_id",
-        "parameter_id"
-    ],
     "uri": "http://localhost:3000/",
     "file": "data.csv",
     "measurement": "humidity",
@@ -123,13 +81,6 @@ export let temperature = {
         "topic": "topic"
     },
     "format": "json",
-    "fields": [
-        "id",
-        "reading_time",
-        "value",
-        "station_id",
-        "parameter_id"
-    ],
     "uri": "http://localhost:3000/",
     "file": "data.csv",
     "measurement": "temperature",

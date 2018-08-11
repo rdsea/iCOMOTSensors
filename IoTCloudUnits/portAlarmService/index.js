@@ -5,7 +5,8 @@ const config = require('./config');
 const handleAlarm = require('./src/pcsService');
 
 let client = mqtt.connect(config.alarmBroker);
-    
+
+//connect to the alarm broker
 client.on('connect', () => {
     for(let i=0;i<config.alarmBroker.topics.length;i++){
         client.subscribe(config.alarmBroker.topics[i]);
@@ -13,6 +14,7 @@ client.on('connect', () => {
     }
 });
 
+//assume that the alarm is in JSON
 client.on('message', (topic, message) => {
     logger.info(`${message.toString()} received from topic: ${topic} client: ${config.clientId}`);
 		let data = message.toString();

@@ -1,6 +1,6 @@
-# Generic Lightweight IoT Function Provider
+# Generic Lightweight IoT/Edge Function Provider
 
-In many cases, an IoT function (e.g., Gateway, Broker, firewall, etc) has to be executed in a lightweight machine. It means the machine can only run with basic operating system features, VMs, or dockers but the machine cannot have a complex distributed system, like Kubernetes.
+In many cases, an IoT/edge function (e.g., Gateway, Broker, firewall, etc) has to be executed in a lightweight machine. It means the machine can only run with basic operating system features, VMs, or dockers but the machine cannot have a complex distributed system, like Kubernetes.
 
 For such a case, a function is wrapped into a unit which will be run as a process within the machine.
 
@@ -40,7 +40,7 @@ Currently, each function will have a name and start_script. The information will
     "script_model": "direct"
  },
 
-see the deploy-python.sh for an example. Make sure you set execution mode for the script. 
+see the deploy-python.sh for an example. Make sure you set execution mode for the script.
 
 ## APIs
 

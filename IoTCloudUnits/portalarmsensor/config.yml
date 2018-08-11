@@ -1,0 +1,10 @@
+alarmBroker:
+  host: localhost
+  port: 1883
+  username: guest
+  password: guest
+  protocolId: MQIsdp
+  protocolVersion: 3
+
+topic:
+  name: alarmtest1

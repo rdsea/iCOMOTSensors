@@ -12,6 +12,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 var router = express.Router();
 
+//DELETE must be implemented.
+
 router.get("/", (req, res) => {
     services.findAllVessels().then((vessels) => {
         res.json(vessels);
@@ -29,7 +31,19 @@ router.get("/vessel/terminal/:terminal", (req, res) => {
         res.json(vessels);
     })
 })
-
+//TODO
+//TRUCK will be updated based on another program which listens the events
+//from the gate
+router.post("/register/truck", (req, res) => {
+    services.registerTruck(req.body).then((registeredTruck) => {
+        res.json(registeredTruck);
+    })
+})
+router.get("/truck/:licensePlate", (req, res) => {
+    services.findTrucksInPort(req.params.licensePlate).then((trucks) => {
+        res.json(trucks);
+    })
+})
 app.use('/portcontrol', router);
 app.listen(PORT, () => {
     console.log(`server listening at port ${PORT}`)

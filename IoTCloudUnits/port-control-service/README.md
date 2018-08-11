@@ -5,3 +5,6 @@ This service emulates a seaport control service (based on the Valencia port). Th
 ## setup
 
 This service should be running with only one instance (for testing purpose).
+
+## TODO
+Add cranes, trucks, etc.

@@ -1,18 +1,18 @@
 {
-  "name": "portvessel",
+  "name": "portalarmcsensor",
   "version": "0.1.0",
-  "description": "",
+  "description": "simular alarms in a seaport",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.js"
   },
-  "author": "",
+  "author": "linhsolar@gmail.com",
   "license": "ApacheLicense",
   "dependencies": {
-    "axios": "^0.18.0",
     "js-yaml": "^3.12.0",
+    "mocker-data-generator": "^2.6.4",
     "mqtt": "^2.18.0",
-    "winston": "^3.0.0-rc6"
+    "sleep": "^5.1.1"
   }
 }

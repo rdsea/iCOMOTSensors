@@ -1,0 +1,19 @@
+alarmBroker:
+  host: localhost
+  port: 1883
+  username: guest
+  password: guest
+  topics:
+    - alarmtest1
+    - alarmtest2
+
+vesselBroker:
+  host: localhost
+  port: 1883
+  username: guest
+  password: guest
+#  topics:
+#    - vessel1
+#    - vessel2
+
+pcs: http://localhost:9999

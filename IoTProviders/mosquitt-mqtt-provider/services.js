@@ -15,6 +15,8 @@ export function createBroker(config){
     return provisionBroker().then((timestamp) => {
         let broker = new Broker({
             location: 'creating...',
+            port:1883,
+            url:'pending',
             createdAt: timestamp,
             brokerId: `broker${timestamp}`,
         });
@@ -39,7 +41,7 @@ export function deleteBroker(brokerId){
     })
 }
 
-// also updates the external ip by using kubectl 
+// also updates the external ip by using kubectl
 // TODO find a better way to check external ip than parsing stdout !
 export function getBrokers(brokerId){
     let query = {};
@@ -50,7 +52,7 @@ export function getBrokers(brokerId){
         let kubectl = []; // promise executions of kubetcl;
         brokers.forEach((broker) => {
             console.log(broker);
-            kubectl.push(exec(`kubectl get services ${broker.brokerId}`).catch((err) => err)); // return error obj otherwise other promises won't resolve
+            kubectl.push(exec(`kubectl get services ${broker.brokerId} -o json`).catch((err) => err)); // return error obj otherwise other promises won't resolve
         });
         return Promise.all(kubectl);
     }).then((execs) => {
@@ -58,13 +60,17 @@ export function getBrokers(brokerId){
         execs.forEach((exec) => {
             externalIps.push(extractExternalIpKubectlGetServicesOutput(exec.stdout));
         });
-        
+
         let saves = []
         brokers.forEach((broker, index) => {
-            console.log(externalIps);
             broker.location = externalIps[index];
+
+            if(broker.location != "pending..."){
+                broker.url = `mqtt://${broker.location}:${broker.port}`
+            }
             saves.push(broker.save());
         });
+
     }).then(() => {
         return brokers;
     });
@@ -79,13 +85,13 @@ export function getLogs(brokerId){
             logs.logs = `error fetching logs for ${brokerId}`;
         }
         logs.logs = res.stdout;
-        return exec(`kubectl get pods -l app=${brokerId} -o json`)        
+        return exec(`kubectl get pods -l app=${brokerId} -o json`)
     }).then((res) => {
         if(res.stderr) {
             console.log(res.stderr);
             logs.status = `error fetching ${brokerId} status`;
         }
-        
+
         let raw = JSON.parse(res.stdout);
         try{
             logs.status = {
@@ -105,17 +111,24 @@ export function getLogs(brokerId){
         };
     })
 }
+
+
 // TODO try to get rid of this way of obtaining external IP
 function extractExternalIpKubectlGetServicesOutput(stdout){
     try{
-        let lines = stdout.split(/\r?\n/);
-        let tokens = lines[1].split(/\s+/);
-        return tokens[3];
+        let service = JSON.parse(stdout);
+        if(service.status.loadBalancer.ingress){
+            return service.status.loadBalancer.ingress[0].ip
+        }
     }catch(err){
-        return 'N/A';
+        console.log(err);
+        return "creating..."
     }
-    
+
+    return "creating..."
+
 }
+
 
 // provisions testrig and returns timestamp it was provisioned
 function provisionBroker(){

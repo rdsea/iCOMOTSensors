@@ -22,10 +22,10 @@
     "body-parser": "^1.18.3",
     "express": "^4.16.3",
     "hashmap": "^2.3.0",
-    "mongodb": "^3.0.0-rc0",
-    "mongoose": "^4.13.13",
+    "mongodb": "^3.1.1",
+    "mongoose": "^5.2.4",
     "node-cmd": "^3.0.0",
-    "nodemon": "^1.13.3",
+    "nodemon": "^1.18.3",
     "randomstring": "^1.1.5",
     "tree-kill": "^1.2.0"
   }

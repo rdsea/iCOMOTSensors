@@ -1,82 +1,71 @@
-const Datastore = require("nedb");
-const path = require("path");
 
-let database = new Datastore({filename: path.resolve(__dirname, './.db'), autoload: true});
+const MongoClient = require("mongodb").MongoClient;
+let MONGODB_URL = 'mongodb://iotcloudexamples:ac.at.tuwien.dsg@iotcloudexamples-shard-00-00-pz2vu.mongodb.net:27017,iotcloudexamples-shard-00-01-pz2vu.mongodb.net:27017,iotcloudexamples-shard-00-02-pz2vu.mongodb.net:27017/sinc?ssl=true&replicaSet=IoTCloudExamples-shard-0&authSource=admin';
+const DB_NAME = "sinc";
+const COLLECTION = "firewall";
 
+// an environment variable can also be passed
+if(process.env.MONGODB_URL){
+    MONGODB_URL = process.env.MONGODB_URL
+}
+
+let client = null;
+let db = null;
+
+MongoClient.connect(MONGODB_URL, {useNewUrlParser: true}).then((c) => {
+    client = c;
+    db = client.db(DB_NAME);
+});
 
 function insert(doc){
-    return new Promise((resolve, reject) => {
-        console.log(`inserting document ${JSON.stringify(doc)}`);
-        database.insert(doc, (err) => {
-            if(err) {
-                console.error(err);
-                reject(err);
-            }else{
-                console.log(`successfully inserted document ${JSON.stringify(doc)}`);
-                resolve(doc);
-            }
-        })
+    let collection = db.collection(COLLECTION);
+    console.log(`inserting document ${JSON.stringify(doc)}`);
+    return collection.insert(doc).then((res) => {
+        console.log(`successfully inserted document ${JSON.stringify(doc)}`);
+        return doc;
+    }).catch((err) => {
+        console.error(err);
     });
 }
 
 function find(query){
-    return new Promise((resolve, reject) => {
-        database.find(query, (err, docs) => {
-            if(err){
-                reject(err);
-            }else{
-                console.log(`successfully found ${docs.length} results for ${query}`);
-                resolve(docs);
-            }
-        });
-    });
-}
-
-function findOne(query){
-    return new Promise((resolve, reject) => {
-        console.log(`finding one documentof ${JSON.stringify(query)}`);
-        database.findOne(query, (err, doc) => {
-            if(err){
-                console.error(err);
-                reject(err);
-            }else{
-                if(doc === null) console.log(`no result found for ${JSON.stringify(query)}`);
-                resolve(doc);
-            }
-        });
-    });
-}
-
-function update(query, update, options){
-    return new Promise((resolve, reject) => {
-        console.log(`updating documents ${JSON.stringify(query)} with ${JSON.stringify(update)}`);
-        database.update(query, update, (err, numberOfUpdated, upsert) => {
-            if(err){
-                console.error(err);
-                reject(err);
-            }else{
-                console.log(`successfully updated ${numberOfUpdated} docs with ${upsert} upserts`);
-                let res = {
-                    numberOfUpdated,
-                    upsert,
-                }
-                resolve(res);
-            }
-        });
+    let collection = db.collection(COLLECTION);
+    console.log(`finding one documentof ${JSON.stringify(query)}`);
+    return collection.find(query).toArray().then((docs) => {
+        console.log(`successfully found ${docs.length} results for ${query}`);
+        return docs;
+    }).catch((err) => {
+        console.error(err);
+        return [];
     })
 }
 
+function findOne(query){
+    let collection = db.collection(COLLECTION);
+    return collection.findOne(query).then((doc) => {
+        return doc;
+    }).catch((err) => {
+        console.error(err);
+        return null;
+    })
+}
+
+function update(query, update, options){
+    let collection = db.collection(COLLECTION);
+    return collection.updateMany(query, update, options).then((res) => {
+        console.log(`successfully updated ${res.modifiedCount} matched with ${res.matchedCount}`);
+    }).catch((err) => {
+        console.error(err);
+    })
+}
+
+
 function remove(query, options){
-    return new Promise((resolve, reject) => {
-        database.remove(query, (err, numRemoved) => {
-            if(err){
-                console.error(er);
-                reject(err);
-            }else{
-                console.log(`successfully removed ${numRemoved} entries from db`);
-                resolve();
-            }
-        })
+    let collection = db.collection(COLLECTION);
+    return collection.deleteMany(query).then((res) => {
+        console.log(`successfully removed ${res.deletedCount} entries from db`);
+    }).catch((err) => {
+        console.error(err);
     })
 }
 
@@ -87,4 +76,3 @@ module.exports = {
     findOne,
     find
 }
-

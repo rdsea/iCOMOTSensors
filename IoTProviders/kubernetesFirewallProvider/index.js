@@ -16,18 +16,36 @@ router.get("/", (req, res) => {
         url:'/kubefw/',
         sampleConfiguration: {
             serviceName: "serviceName",
-            services: [
-                "service1",
-                "service2"
-            ],
-            ips: [
-                "0.0.0.0/0",
-                "127.0.0.1/16"
-            ],
-            ports: [
-                1234,
-                1234
-            ]
+            ingress:{
+                services: [
+                    "service1",
+                    "service2"
+                ],
+                ips: [
+                    "0.0.0.0/0",
+                    "127.0.0.1/16"
+                ],
+                ports: [
+                    1234,
+                    1234
+                ]
+            },
+
+            egress:{
+                services: [
+                    "service1",
+                    "service2"
+                ],
+                ips: [
+                    "0.0.0.0/0",
+                    "127.0.0.1/16"
+                ],
+                ports: [
+                    1234,
+                    1234
+                ]
+            }
+            
         },
     });
 })

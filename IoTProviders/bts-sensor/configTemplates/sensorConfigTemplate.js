@@ -1,7 +1,9 @@
 export let batteryCurrent = {
     "protocol": "mqtt",
     "protocolOptions": {
-        "topic": "topic1"
+        "topic": "topic1",
+        "username": "xxx",
+        "password": "xxx",
     },
     "format": "json",
     "uri": "http://localhost:1883/",
@@ -20,7 +22,9 @@ export let batteryCurrent = {
 export let batteryVoltage = {
     "protocol": "mqtt",
     "protocolOptions": {
-        "topic": "topic1"
+        "topic": "topic1",
+        "username": "xxx",
+        "password": "xxx",
     },
     "format": "json",
     "uri": "http://localhost:1883/",
@@ -40,7 +44,9 @@ export let batteryVoltage = {
 export let capacity = {
     "protocol": "mqtt",
     "protocolOptions": {
-        "topic": "topic"
+        "topic": "topic",
+        "username": "xxx",
+        "password": "xxx",
     },
     "format": "json",
     "uri": "http://localhost:1883/",
@@ -60,7 +66,9 @@ export let capacity = {
 export let generatorVoltage = {
     "protocol": "mqtt",
     "protocolOptions": {
-        "topic": "topic"
+        "topic": "topic",
+        "username": "xxx",
+        "password": "xxx",
     },
     "format": "json",
     "uri": "http://localhost:1883/",
@@ -80,7 +88,9 @@ export let generatorVoltage = {
 export let gridload = {
     "protocol": "mqtt",
     "protocolOptions": {
-        "topic": "topic"
+        "topic": "topic",
+        "username": "xxx",
+        "password": "xxx",
     },
     "format": "json",
     "uri": "http://localhost:3000/",
@@ -100,7 +110,9 @@ export let gridload = {
 export let humidity = {
     "protocol": "mqtt",
     "protocolOptions": {
-        "topic": "topic"
+        "topic": "topic",
+        "username": "xxx",
+        "password": "xxx",
     },
     "format": "json",
     "uri": "http://localhost:3000/",
@@ -120,7 +132,9 @@ export let humidity = {
 export let temperature = {
     "protocol": "mqtt",
     "protocolOptions": {
-        "topic": "topic"
+        "topic": "topic",
+        "username": "xxx",
+        "password": "xxx",
     },
     "format": "json",
     "uri": "http://localhost:3000/",

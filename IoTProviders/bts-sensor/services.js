@@ -82,7 +82,11 @@ function createSensorConfigMap(config, type){
     let sensorConfig = {
         ...configTemplates[type],
         uri: config.uri,
-        protocolOptions:{ topic: config.topic },
+        protocolOptions:{ 
+            topic: config.topic,
+            username: config.username,
+            password: config.password, 
+        },
         clientId: config.clientId,
     };
     console.log(JSON.stringify(sensorConfig));

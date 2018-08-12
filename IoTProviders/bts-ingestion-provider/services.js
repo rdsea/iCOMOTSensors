@@ -81,11 +81,20 @@ function provisionIngestionClient(config, ingestionClientId){
         configMap: { name: `config-bigquery-${ingestionClientId}`}
     });
 
-    ingestionDeploy.spec.template.spec.containers[0].volumeMounts.push({
-        name: "config-bigquery",
-        mountPath: "/ingestionClient/dataPlugins/bigQuery/config.yml",
-        subPath: "config.yml",
-    });
+    if(config.data === "http"){
+        ingestionDeploy.spec.template.spec.containers[0].volumeMounts.push({
+            name: "config-bigquery",
+            mountPath: "/ingestionClient/dataPlugins/http/config.yml",
+            subPath: "config.yml",
+        });
+    }else{
+        ingestionDeploy.spec.template.spec.containers[0].volumeMounts.push({
+            name: "config-bigquery",
+            mountPath: "/ingestionClient/dataPlugins/bigQuery/config.yml",
+            subPath: "config.yml",
+        });
+    }
+    
 
     ingestionDeploy.spec.template.spec.volumes.push({
         name: "keyfile",
@@ -120,7 +129,9 @@ function createConfigMap(config, ingestionClientId){
 }
 
 function createBigQueryConfigMap(config, ingestionClientId){
-    return writeFile(`/tmp/config.bigquery.yml`, JSON.stringify(config.bigQuery), 'utf8').then(() => {
+    let conf = config.data === "http" ? config.http : config.bigQuery;
+
+    return writeFile(`/tmp/config.bigquery.yml`, JSON.stringify(conf), 'utf8').then(() => {
         return exec(`kubectl create configmap config-bigquery-${ingestionClientId} --from-file=config.yml=/tmp/config.bigquery.yml`);
     }).then((res) => {
         if(res.stderr) throw new Error('error occurred creating ingestion client bigquery config');

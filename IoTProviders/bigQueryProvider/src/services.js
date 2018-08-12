@@ -13,6 +13,7 @@ export function createDataset(datasetId){
         };
         return db.insert(doc);
     }).catch((err) => {
+        console.error(err);
         return null;
     });
 }

@@ -8,6 +8,13 @@ export let batteryCurrent = {
     "file": "data.csv",
     "measurement": "current",
     "unit": "ampere",
+    "fields": [
+        "id",
+        "reading_time",
+        "value",
+        "station_id",
+        "parameter_id"
+    ],
 }
 
 export let batteryVoltage = {
@@ -20,7 +27,14 @@ export let batteryVoltage = {
     "file": "data.csv",
     "measurement": "voltage",
     "unit": "volt",
-    "name": "bts-battery-voltage-sensor"
+    "name": "bts-battery-voltage-sensor",
+    "fields": [
+        "id",
+        "reading_time",
+        "value",
+        "station_id",
+        "parameter_id"
+    ],
 }
 
 export let capacity = {
@@ -33,7 +47,14 @@ export let capacity = {
     "file": "data.csv",
     "measurement": "capacitance",
     "unit": "farad",
-    "name": "bts-capacity-sensor"
+    "name": "bts-capacity-sensor",
+    "fields": [
+        "id",
+        "reading_time",
+        "value",
+        "station_id",
+        "parameter_id"
+    ],
 }
 
 export let generatorVoltage = {
@@ -46,7 +67,14 @@ export let generatorVoltage = {
     "file": "data.csv",
     "measurement": "voltage",
     "unit": "volt",
-    "name": "bts-generator-voltage-sensor"
+    "name": "bts-generator-voltage-sensor",
+    "fields": [
+        "id",
+        "reading_time",
+        "value",
+        "station_id",
+        "parameter_id"
+    ],
 }
 
 export let gridload = {
@@ -59,7 +87,14 @@ export let gridload = {
     "file": "data.csv",
     "measurement": "girdload",
     "unit": "xxx",
-    "name": "bts-grid-load-sensor"
+    "name": "bts-grid-load-sensor",
+    "fields": [
+        "id",
+        "reading_time",
+        "value",
+        "station_id",
+        "parameter_id"
+    ],
 }
 
 export let humidity = {
@@ -72,7 +107,14 @@ export let humidity = {
     "file": "data.csv",
     "measurement": "humidity",
     "unit": "percent",
-    "name": "bts-humidity-sensor"
+    "name": "bts-humidity-sensor",
+    "fields": [
+        "id",
+        "reading_time",
+        "value",
+        "station_id",
+        "parameter_id"
+    ],
 }
 
 export let temperature = {
@@ -85,5 +127,12 @@ export let temperature = {
     "file": "data.csv",
     "measurement": "temperature",
     "unit": "fahrenheit",
-    "name": "bts-temperature-sensor"
+    "name": "bts-temperature-sensor",
+    "fields": [
+        "id",
+        "reading_time",
+        "value",
+        "station_id",
+        "parameter_id"
+    ],
 }

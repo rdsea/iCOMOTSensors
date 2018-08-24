@@ -1,10 +1,16 @@
 import mongoose from './db';
-
-var Camera = mongoose.model('camera', {
+//using legacy coordination
+var Schema = mongoose.Schema;
+var CameraSchema =new Schema({
     id: String,
     name: String,
     description: String,
     address: String,
+    //geojson: {
+      //type: String,
+      location: [Number], //mongodb: longitude first and latitude second
+    //},
+    geohash:String,
     phonenumber: String,
     type: String,
     datapoint: String,
@@ -17,6 +23,10 @@ var Camera = mongoose.model('camera', {
         recv: String,
         connections: []
     }
-}, 'camera');
+  }
+);
+
+CameraSchema.index({ "location": "2d" });
+var Camera = mongoose.model('camera', CameraSchema, 'camera');
 
 export default Camera;

@@ -8,7 +8,7 @@ import * as dngCameraService from '../services/dng-camera-service';
 import * as googleStorageService from '../services/google-storage-service';
 import { writeFileSync } from 'fs';
 import * as userService from '../services/user-service';
-
+var assert = require('assert');
 /**
  * loadVideoFrameFromUrl - load video frame from url of a camera from Danang public camera
  */
@@ -23,6 +23,25 @@ export function listAllVideoFrames(req, res) {
     res.status(500).json(err);
   });
 };
+
+/**
+ * Get all camera based on geohash
+ */
+
+ export function listAllCamerasByLocation(req, res){
+   console.log(req.query);
+   let lon = req.query.lon;
+   let lat =req.query.lat;
+   let distance =req.query.distance;
+   console.log(lon,lat,distance);
+   assert(lon >=-180);
+   assert(lon <=180);
+   assert(lat >=-90);
+   assert(lat <=90);
+   dngCameraService.findAllByLocation(lon,lat,distance).then((cameras) => {
+     res.json(cameras);
+   })
+ }
 
 
 /**
@@ -56,7 +75,7 @@ export function getVideoFrameByTime(req, res) {
   }).catch((err) => {
     console.log(err);
     res.status(500).json(err);
-  });; 
+  });;
 };
 
 export function listAllCameras(req, res){
@@ -94,7 +113,7 @@ export function register(req, res){
 }
 
 /**
- * formURLFromCameraName 
+ * formURLFromCameraName
  * conver cameraName from  2co2.vp9.tv@DNG33 to http://2co2.vp9.tv/chn/DNG33/
  */
 function formURLFromCameraName(cameraName){
@@ -104,5 +123,3 @@ function formURLFromCameraName(cameraName){
 
 	return _cameraName;
 }
-
-

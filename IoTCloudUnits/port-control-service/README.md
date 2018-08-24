@@ -4,7 +4,7 @@ This service emulates a seaport control service (based on the Valencia port). Th
 
 ## setup
 
-This service should be running with only one instance (for testing purpose).
+This service should be running with only one instance (for testing purpose). If you want to run multiple instance for fault tolerance and performance, you can put serveral instances of the service behind a API Getway, such as Kong
 
 ## TODO
-Add cranes, trucks, etc.
+Add cranes, etc.

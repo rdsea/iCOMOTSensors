@@ -8,7 +8,13 @@
     "start": "node index.js"
   },
   "author": "linhsolar@gmail.com",
-  "license": "ApacheLicense",
+  "license": "Apache-2.0",
+  "licenses": [
+    {
+      "type": "Apache-2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0"
+    }
+  ],
   "dependencies": {
     "js-yaml": "^3.12.0",
     "mocker-data-generator": "^2.6.4",

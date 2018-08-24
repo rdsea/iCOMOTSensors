@@ -21,11 +21,11 @@ export function loadVideoFrameFromUrl(url){
      $('tr').each(function() {
       var videoFrameName = '';
       var videoFrameDate = '';
-      
-      $('td').each(function() {              
+
+      $('td').each(function() {
         //Get content in tag <td>
         var st = $(this).text();
-         
+
         //Only get video frame with type .ts
         if(st.indexOf('.ts') !== -1){
           videoFrameName = st;
@@ -38,7 +38,7 @@ export function loadVideoFrameFromUrl(url){
 
         //Form Frame Json object and add to the list of video frames
         if ( videoFrameName !== '' && videoFrameDate !== ''){
-        
+
           var videoFrameObject = {
             name: url + "/" + videoFrameName,
             timestamp: videoFrameDate,
@@ -46,13 +46,13 @@ export function loadVideoFrameFromUrl(url){
 
           if(!(videoFrameMap[videoFrameName])){
               videoFrameMap[videoFrameName] = videoFrameObject;
-          }                  
-        }                
+          }
+        }
       });
     });
     listOfVideoFrames = Object.values(videoFrameMap)
-    return listOfVideoFrames;        
-  });      
+    return listOfVideoFrames;
+  });
 }
 
 export function downloadVideo(url){
@@ -71,10 +71,10 @@ export function getVideoById(listOfVideoFrames, videoId){
     let tokens = frame.name.split("/")
     let currentId = tokens[tokens.length-1];
     console.log(currentId, videoId);
-    
+
     if(currentId === videoId){
         videoFrame = frame;
-    }                      
+    }
   });
   return videoFrame;
 }
@@ -98,7 +98,7 @@ export function getVideoFrameAt(listOfVideoFrames, timestamp){
   listOfVideoFrames.forEach(function(frame){
     if(frame.timestamp === timestamp){
           videoFrame = frame;
-    }                      
+    }
   });
   return videoFrame;
 }
@@ -110,4 +110,13 @@ export function getVideoFrameAt(listOfVideoFrames, timestamp){
 
 export function findAll(){
   return Camera.find({});
+}
+
+export function findAllByLocation(lon,lat,distance){
+  //distance is in meter
+  return Camera.find(
+    { location : { $near : [ lon, lat ], $maxDistance: distance/(6378.1*1000)} }
+  );
+
+//  return Camera.find({});
 }

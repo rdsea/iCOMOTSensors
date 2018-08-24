@@ -1,17 +1,19 @@
 # Overview
 
-This implements an IoT Camera Provider in the context of HAIVAN Project ( http://haivanuni.github.io/haivan/) and INTER-HINC
-
-The IoT Camera Provider can be used for smart city camera analytics and IoT Interoperability
+This implements an IoT Camera Provider in the context of HAIVAN Project ( http://haivanuni.github.io/haivan/) and INTER-HINC (https://github.com/SINCConcept/HINC).
+The IoT Camera Provider can be used for smart city camera analytics and IoT Interoperability.
 
 ## Installations
+
 * npm install
 
-## Reqirements
+## Requirements
 
 A `keyfile.json` google credentials file is necessary in the root directory in this project. This service account should have write access to google cloud storage.
 
 Furthermore, a cloud storage bucket `iotcamera` should exist !
+
+For upload our sample camera JSON data into MongoDB, one also needs API key for Google map services.
 
 ## Run
 
@@ -20,6 +22,11 @@ Furthermore, a cloud storage bucket `iotcamera` should exist !
 
 ## List all cameras
 http://localhost:3000/camera/list
+
+## List camera based on location
+
+http://localhost:3000/camera/list/location?lon=&lat=&distance=
+
 
 ## List  all video frame of data point
 http://localhost:3000/camera/:cameraName/list/all
@@ -45,8 +52,8 @@ com"}' http://localhost:3000/camera/2co2.vp9.tv@chn@DNG25/
 
 would return the link for the video v206442.ts of the camera 2co2.vp9.tv@chn@DNG25 that you can download.
 
-Note that we currently only support Google Storage and google account. 
-You need to register the account using the next POST command. 
+Note that we currently only support Google Storage and google account.
+You need to register the account using the next POST command.
 
 ### POST register for usage
 http://localhost:3000/register/
@@ -55,5 +62,3 @@ Exported videos are stored in a google cloud storage bucket shared with the regi
 
 Example of registering a user:
 $curl -X POST -H "Content-Type: application/json" -d '{"email":"XYZ@gmail.com"}' http://localhost:3000/register
-
-

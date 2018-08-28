@@ -1,5 +1,5 @@
 let config = {
-    keyFileName:"Testproject-b773f3b604e8.json",
+    keyFileName:"google_storage_key.json",
     bucketName:"mytestbucket_test",
     SERVER_PORT: process.env.PORT ||8085
 };

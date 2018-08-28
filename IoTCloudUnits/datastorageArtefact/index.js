@@ -15,6 +15,3 @@ app.use('/datastorageArtefact', router);
 
 app.listen(PORT);
 //console.log(`Running on http://localhost:${PORT}/api-docs`);
-
-
-//TODO Dockerize -> credentials + bucketname

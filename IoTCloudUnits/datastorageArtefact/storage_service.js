@@ -15,9 +15,14 @@ const myBucket = storage.bucket(BUCKET_NAME);
 module.exports = {uploadToBucket: uploadToBucket};
 
 function uploadToBucket(url){
-    console.log(url);
     let filename = generateFilename(url);
-    download(url, filename, ()=>{});
+    return download(url, filename)
+        .then((data) => upload(data))
+        .then(() => getPublicThumbnailUrlForItem(filename));
+}
+
+function getPublicThumbnailUrlForItem(filename) {
+    return new Promise((resolve) => {resolve(`https://storage.googleapis.com/${BUCKET_NAME}/${filename}`)});
 }
 
 function generateFilename(url){
@@ -25,43 +30,42 @@ function generateFilename(url){
 
 }
 
-function download(url, dest, cb) {
-        var file = fs.createWriteStream(dest);
-        var sendReq = request.get(url);
+function download(url, dest) {
+    return new Promise((resolve, reject) => {
+        let file = fs.createWriteStream(dest);
+        let sendReq = request.get(url);
 
         // verify response code
-        sendReq.on('response', function(response) {
+        sendReq.on('response', function (response) {
             if (response.statusCode !== 200) {
-                cb(response);
+                reject(new Error(response));
             }
         });
 
         // check for request errors
         sendReq.on('error', function (err) {
-            fs.unlink(dest, ()=>{});
-            cb(err.message);
+            fs.unlink(dest, () => {
+            });
+            reject(err);
         });
 
         sendReq.pipe(file);
 
-        file.on('finish', function() {
-           file.close(upload(dest));
+        file.on('finish', function () {
+            file.close(() => {
+                resolve(dest)
+            });
         });
 
-        file.on('error', function(err) { // Handle errors
+        file.on('error', function (err) { // Handle errors
             fs.unlink(dest); // Delete the file async. (But we don't check the result)
-            cb(err.message);
+            reject(err);
         });
+    });
 }
 
-// upload file to bucket
-
 function upload(filename){
-
-    myBucket.uploadAsync(filename, { public: true })
-        .then(file => {
-            // file saved
-            console.log("upload of " + filename + " successful")
-            fs.unlink(filename, ()=>{});
-        })
+    return myBucket.uploadAsync(filename, { public: true }).then(()=>{
+        fs.unlink(filename, ()=>{})
+    });
 }

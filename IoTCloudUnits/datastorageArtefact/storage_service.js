@@ -9,10 +9,14 @@ const storage = GoogleCloudStorage({
     keyFilename: config.keyFileName
 });
 
-const BUCKET_NAME = config.bucketName;
-const myBucket = storage.bucket(BUCKET_NAME);
+let myBucket = storage.bucket(config.bucketName);
 
-module.exports = {uploadToBucket: uploadToBucket};
+module.exports = {uploadToBucket: uploadToBucket, changeBucket:changeBucket};
+
+function changeBucket(bucketName){
+    config.bucketName = bucketName;
+    myBucket = storage.bucket(config.bucketName);
+}
 
 function uploadToBucket(url){
     let filename = generateFilename(url);
@@ -22,7 +26,7 @@ function uploadToBucket(url){
 }
 
 function getPublicThumbnailUrlForItem(filename) {
-    return new Promise((resolve) => {resolve(`https://storage.googleapis.com/${BUCKET_NAME}/${filename}`)});
+    return new Promise((resolve) => {resolve(`https://storage.googleapis.com/${config.bucketName}/${filename}`)});
 }
 
 function generateFilename(url){

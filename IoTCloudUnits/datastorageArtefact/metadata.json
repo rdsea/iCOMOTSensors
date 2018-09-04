@@ -12,10 +12,6 @@
         "uri": "dynamic",
         "protocol_name": "http",
         "http_method": "get"
-      },
-      "dataformat": {
-        "encoding": "utf-8",
-        "dataformat_name": "csv"
       }
     }
   ],
@@ -30,10 +26,6 @@
           "project_id": "testproject-214613",
           "bucket": "mytestbucket_test"
         }
-      },
-      "dataformat": {
-        "encoding": "utf-8",
-        "dataformat_name": "json"
       }
     }
   ]

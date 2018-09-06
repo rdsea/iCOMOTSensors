@@ -4,17 +4,32 @@ import fs from 'fs';
 import { promisify } from 'util';
 import deployTemplate from './configTemplates/deployTemplate';
 import serviceTemplate from './configTemplates/serviceTemplate';
+import kubeOptions from './configTemplates/kubeOptions';
 import randomstring from 'randomstring';
 import { randomBytes } from 'crypto';
 import DataTransformer from './data/models/datatransformer';
 
 const exec = promisify(child_process.exec);
 const writeFile = promisify(fs.writeFile);
-
+//simple counter
+var current_instances = 0;
 export function createDataTransformer(config){
     let tenantId =config.tenantId;
     let name =config.name;
     let description=config.description;
+    if (current_instances >= kubeOptions.max_instances) {
+      console.log("The number of instances reaches the limit");
+      return      new DataTransformer({
+                  tenantId:"NONE",
+                  description:"The number of instances reaches the limit",
+                  name:"NONE",
+                  location: 'ERROR',
+                  createdAt: 0,
+                  datatransformerId: "NONE",
+                  port: 0,
+                  url: "ERROR"
+              });
+    }
     return provisionDataTransformer().then((timestamp) => {
 
         let datatransformer = new DataTransformer({
@@ -27,6 +42,7 @@ export function createDataTransformer(config){
             port: 1880,
             url: "pending..."
         });
+        current_instances=current_instances+1;
         return datatransformer.save();
     });
 }
@@ -44,6 +60,7 @@ export function deleteDataTransformer(datatransformerId){
         execs.forEach((exec) => {
             console.log(exec.stdout);
             console.log(exec.stderr);
+            current_instances=current_instances-1;
         });
     })
 }

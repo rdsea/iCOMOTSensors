@@ -1,19 +1,34 @@
 # Overview
 
-This implements an IoT Camera Provider in the context of HAIVAN Project ( http://haivanuni.github.io/haivan/) and INTER-HINC (https://github.com/SINCConcept/HINC).
+This implements an IoT Camera Provider in the context of INTER-HINC (https://github.com/SINCConcept/HINC) and HAIVAN Project ( http://haivanuni.github.io/haivan/).
+
 The IoT Camera Provider can be used for smart city camera analytics and IoT Interoperability.
 
 ## Installations
+
+Using npm to install required package:
 
 * npm install
 
 ## Requirements
 
-A `keyfile.json` google credentials file is necessary in the root directory in this project. This service account should have write access to google cloud storage.
+### Mongo DB
+The IoTCameraProvider uses MongoDB to store metadata about camera as resources. The MongoDB should be configured using  the environment MONGODB_URL:
+
+*export MONGODB_URL=
+
+Furthermore, we have our own sample camera information from Da Nang. For upload our sample camera JSON data into MongoDB (using upload_data.js utility), one also needs API key for Google map services.
+
+* export GOOGLE_MAP_KEY
+
+Contact us if you need the sample data.
+
+### Google storage
+
+There is a feature that allows a customer requests the IoTCameraProvider to push video into Google Storage. For this, A `keyfile.json` google credentials file is necessary in the root directory in this project. This service account should have write access to google cloud storage.
 
 Furthermore, a cloud storage bucket `iotcamera` should exist !
 
-For upload our sample camera JSON data into MongoDB, one also needs API key for Google map services.
 
 ## Run
 

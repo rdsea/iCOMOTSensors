@@ -5,7 +5,7 @@ import routes from './api/routes/routes';
 let app = express(),
   port = process.env.PORT || 3000;
 
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({ extended: true}));
 app.use(bodyParser.json());
 
 

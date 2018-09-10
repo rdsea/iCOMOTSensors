@@ -1,0 +1,34 @@
+{
+  "name": "gliotfunctionprovider",
+  "version": "0.0.1",
+  "description": "a simple generic lightweight IoT function provider",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start-dev": "nodemon index.js --exec babel-node --presets env,stage-2",
+    "start": "nodemon index.js --exec babel-node --presets env"
+  },
+  "author": "linhsolar@gmail.com",
+  "license": "ISC",
+  "devDependencies": {
+    "chai": "*",
+    "mocha": "*",
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-stage-2": "^6.24.1"
+  },
+  "dependencies": {
+    "amqplib": "^0.5.2",
+    "babel-preset-env": "^1.7.0",
+    "body-parser": "^1.18.3",
+    "express": "^4.16.3",
+    "hashmap": "^2.3.0",
+    "node-cmd": "^3.0.0",
+    "nodemon": "^1.13.3",
+    "randomstring": "^1.1.5",
+    "chai": "^4.1.2",
+    "chai-url": "^1.0.4",
+    "mongodb": "^3.1.1",
+    "mongoose": "^5.2.4"
+  }
+}

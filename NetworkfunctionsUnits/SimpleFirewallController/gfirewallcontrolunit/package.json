@@ -1,18 +1,35 @@
 {
   "name": "simplefirewallcontroller",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "a simple firewall control atop google",
-  "main": "index.js",
+  "main": "firewall-google.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon firewall-google.js --exec babel-node"
   },
   "author": "Hong-Linh Truong",
   "license": "Apache-2.0",
+  "licenses": [
+    {
+      "type": "Apache-2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0"
+    }
+  ],
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-stage-2": "^6.24.1"
+  },
   "dependencies": {
     "@google-cloud/compute": "^0.10.0",
     "body-parser": "^1.18.3",
     "config": "^1.30.0",
     "express": "^4.16.3",
-    "googleapis": "^30.0.0"
+    "googleapis": "^30.0.0",
+    "chai": "^4.1.2",
+    "chai-url": "^1.0.4",
+    "mongodb": "^3.1.1",
+    "mongoose": "^5.2.4",
+    "nodemon": "^1.18.3"
   }
 }

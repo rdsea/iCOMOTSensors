@@ -9,7 +9,7 @@ import concurrent.futures
 import argparse
 import numpy as np
 parser = argparse.ArgumentParser()
-parser.add_argument('--broker_provider', help='URL of the GLIOT Provider')
+parser.add_argument('--broker_provider', help='URL of the MQTT Provider')
 #parser.add_argument('--resource_type', help='Type of resource')
 parser.add_argument('--num_test', help='Number of tests')
 parser.add_argument('--num_client',help='Number of concurrent clients')
@@ -43,9 +43,10 @@ def single_test(max_workers,num_test):
     deletion_counter =0
     for i in range(num_test):
         if (dry_run):
-            print(create_resource)
-            print(delete_resource)
-            print(list_resource)
+            print("[DRYRUN] Create a resource with ", create_resource)
+            print("[DRYRUN] List  resources with ",list_resource)
+            print("[DRYRUN] Delete a resource with ",delete_resource)
+
         else:
             start = time.time()
             ping_response=requests.get(base_url)

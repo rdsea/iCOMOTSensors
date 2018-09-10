@@ -1,0 +1,32 @@
+{
+  "resource": {
+    "category": "iot",
+    "type": {
+      "prototype": "software_artefact"
+    }
+  },
+  "inputs": [
+    {
+      "push_pull": "pull",
+      "protocol": {
+        "uri": "dynamic",
+        "protocol_name": "http",
+        "http_method": "get"
+      }
+    }
+  ],
+  "outputs": [
+    {
+      "push_pull": "push",
+      "protocol": {
+        "uri": "client",
+        "protocol_name": "client",
+        "client": {
+          "name":"Google Cloud Storage",
+          "project_id": "testproject-214613",
+          "bucket": "mytestbucket_test"
+        }
+      }
+    }
+  ]
+}

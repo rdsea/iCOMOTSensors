@@ -1,4 +1,8 @@
 //'use strict';
+var chai = require('chai')
+  , expect = chai.expect
+  , should = chai.should();
+chai.use(require('chai-url'));
 const express=require('express');
 const bodyParser=require('body-parser');
 const fs=require('fs');
@@ -23,7 +27,7 @@ var router = express.Router();
 var config = require('config');
 //global directory of credentials: via environment
 var global_dir =process.env.GLOBAL_GOOGLE_CREDENTIAL_DIR;
-
+expect(global_dir).not.to.equal(null);
 //just manage a simple list in memory. no real-world
 //one needs to do some persistent, etc.
 

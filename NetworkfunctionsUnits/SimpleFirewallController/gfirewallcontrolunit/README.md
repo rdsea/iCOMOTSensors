@@ -42,6 +42,11 @@ see config/dev.json:
   "google_service_credential":"74a820857566.json"
 }
 
+for production environment, then set
+$export NODE_ENV=production
+
+the configuration file will be in production.json.
+
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Note that we assume that the google_service_credential will be

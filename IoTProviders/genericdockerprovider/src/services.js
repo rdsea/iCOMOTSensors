@@ -33,7 +33,7 @@ function getAllServices(){
 
 
 function _runDocker(config){
-    let cmd = `docker run -d ${config.image} --name ${config.serviceId}`;
+    let cmd = `docker run -d  --name ${config.serviceId}`;
     config.environment.forEach((env) => {
         cmd += ` -e ${env.name}='${env.value}'`;
     });
@@ -50,6 +50,8 @@ function _runDocker(config){
     });
 
     return Promise.all(writeFilePromises).then(() => {
+        cmd += ` ${config.image}`
+        console.log(cmd)
         return exec(cmd);
     }).then((r) => {
         if(r.stderr) {
@@ -61,17 +63,19 @@ function _runDocker(config){
 }
 
 function _stopDocker(serviceId){
-    return exec(`docker stop ${serviceId}`).then((res) => {
+    return exec(`docker stop ${serviceId}`).then((r) => {
         if(r.stderr) {
             console.log(r.stderr);
             throw new Error('error occurred stopping docker service');
         }
+        console.log(r.stdout);
         return exec(`docker rm ${serviceId}`);
-    }).then((res) => {
+    }).then((r) => {
         if(r.stderr) {
             console.log(r.stderr);
             throw new Error('error occurred removing docker service');
         }
+        console.log(r.stdout);
     });
 }
 

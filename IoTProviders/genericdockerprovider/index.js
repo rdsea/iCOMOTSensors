@@ -48,7 +48,7 @@ router.post("/", (req, res) => {
 
 router.get("/list", (req, res) => {
     services.getAllServices().then((services) => {
-        res.json(servces);
+        res.json(services);
     }).catch((err) => {
         res.status(400).send(err);
     });

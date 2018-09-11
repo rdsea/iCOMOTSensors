@@ -21,8 +21,11 @@ var mqtt = require('mqtt');
 var mqttsender = require('./mqtt.sender');
 var mqttreceiver = require('./mqtt.receiver');
 
-//by default the sender (sink) will be MQTT.
-var isMQTTSender = true;
+//by default the sender (sink) will be undefined =0.
+const UNDEFINED_SINK_MODE=0;
+const MQTT_SINK_MODE=1;
+const AMQP_SINK_MODE=2
+var SINK_MODE = UNDEFINED_SINK_MODE;
 
 
 //Variables
@@ -105,7 +108,7 @@ app.post('/amqp/out/connect', upload.array(), function (req, res, next) {
     amqpOUT.routing_key = req.body.routing_key;
 
     amqpsender.connect(amqpOUT.endpoint, amqpOUT.exchange);
-    isMQTTSender =false;
+    SINK_MODE =AMQP_SINK_MODE;
     res.send("AMQP: publish messages to \nendpoint: " + amqpOUT.endpoint + "\nexchange: " + amqpOUT.exchange + "\nrouting_key: " + amqpOUT.routing_key + "\n");
 
 });
@@ -116,7 +119,7 @@ app.post('/amqp/out/disconnect', (req,res) => {
     amqpOUT.endpoint = "";
     amqpOUT.exchange = "";
     amqpOUT.routing_key = "";
-    isMQTTSender=true;
+    SINK_MODE=UNDEFINED_SINK_MODE;
     res.send("AMQP: stopped publishing messages to \nendpoint: " + amqpOUT.endpoint + "\nexchange: " + amqpOUT.exchange + "\nrouting_key: " + amqpOUT.routing_key + "\n");
 
 });
@@ -147,7 +150,7 @@ app.post('/mqtt/out/connect', upload.array(), function (req, res, next) {
     mqttOUT.topic = req.body.routing_key;
 
     mqttsender.connect(mqttOUT.endpoint, mqttOUT.topic);
-    isMQTTSender=true;
+    SINK_MODE=MQTT_SINK_MODE;
     res.send("MQTT: publish messages to \nendpoint: " + mqttOUT.endpoint + "\ntopic/routing_key: " + mqttOUT.topic + "\n");
 });
 
@@ -155,7 +158,7 @@ app.post('/mqtt/out/disconnect', (req,res) => {
     mqttOUT.endpoint = "";
     mqttOUT.topic = "";
     mqttsender.disconnect();
-    isMQTTSender=false;
+    SINK_MODE=UNDEFINED_SINK_MODE;
     res.send("stopped publishing messages to \nendpoint: " + mqttOUT.endpoint + "\ntopic/routing_key: " + mqttOUT.topic + "\n");
 
 });
@@ -163,22 +166,28 @@ app.post('/mqtt/out/disconnect', (req,res) => {
 
 function ampqCallback(msg){
     csv2json(msg.content.toString(), function (reply) {
-      if (isMQTTSender) {
+      if (SINK_MODE==MQTT_SINK_MODE) {
         mqttsender.publish(mqttOUT.endpoint, mqttOUT.topic, reply);
       }
-      else {
+      else if (SINK_MODE==AMQP_SINK_MODE){
         amqpsender.publish(amqpOUT.endpoint, amqpOUT.exchange, amqpOUT.topic, reply);
+      }
+      else {
+        console.log("Unknown sink mode");
       }
     });
 }
 
 function mqttCallback(msg){
     csv2json(arrayBufferToString(msg), function (reply) {
-        if (isMQTTSender) {
+      if (SINK_MODE==MQTT_SINK_MODE) {
         mqttsender.publish(mqttOUT.endpoint, mqttOUT.topic, reply);
       }
-      else {
+      else if (SINK_MODE==AMQP_SINK_MODE){
         amqpsender.publish(amqpOUT.endpoint, amqpOUT.exchange, amqpOUT.topic, reply);
+      }
+      else {
+        console.log("Unknown sink mode");
       }
     });
 }

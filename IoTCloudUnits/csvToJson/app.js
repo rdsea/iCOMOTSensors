@@ -105,9 +105,9 @@ app.post('/amqp/out/connect', upload.array(), function (req, res, next) {
     amqpOUT.routing_key = req.body.routing_key;
 
     amqpsender.connect(amqpOUT.endpoint, amqpOUT.exchange);
-
-    res.send("AMQP: publish messages to \nendpoint: " + amqpOUT.endpoint + "\nexchange: " + amqpOUT.exchange + "\nrouting_key: " + amqpOUT.routing_key + "\n");
     isMQTTSender =false;
+    res.send("AMQP: publish messages to \nendpoint: " + amqpOUT.endpoint + "\nexchange: " + amqpOUT.exchange + "\nrouting_key: " + amqpOUT.routing_key + "\n");
+
 });
 
 app.post('/amqp/out/disconnect', (req,res) => {
@@ -116,8 +116,9 @@ app.post('/amqp/out/disconnect', (req,res) => {
     amqpOUT.endpoint = "";
     amqpOUT.exchange = "";
     amqpOUT.routing_key = "";
-    res.send("AMQP: stopped publishing messages to \nendpoint: " + amqpOUT.endpoint + "\nexchange: " + amqpOUT.exchange + "\nrouting_key: " + amqpOUT.routing_key + "\n");
     isMQTTSender=true;
+    res.send("AMQP: stopped publishing messages to \nendpoint: " + amqpOUT.endpoint + "\nexchange: " + amqpOUT.exchange + "\nrouting_key: " + amqpOUT.routing_key + "\n");
+
 });
 
 
@@ -154,8 +155,9 @@ app.post('/mqtt/out/disconnect', (req,res) => {
     mqttOUT.endpoint = "";
     mqttOUT.topic = "";
     mqttsender.disconnect();
-    res.send("stopped publishing messages to \nendpoint: " + mqttOUT.endpoint + "\ntopic/routing_key: " + mqttOUT.topic + "\n");
     isMQTTSender=false;
+    res.send("stopped publishing messages to \nendpoint: " + mqttOUT.endpoint + "\ntopic/routing_key: " + mqttOUT.topic + "\n");
+
 });
 
 

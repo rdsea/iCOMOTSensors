@@ -170,7 +170,7 @@ function ampqCallback(msg){
         mqttsender.publish(mqttOUT.endpoint, mqttOUT.topic, reply);
       }
       else if (SINK_MODE==AMQP_SINK_MODE){
-        amqpsender.publish(amqpOUT.endpoint, amqpOUT.exchange, amqpOUT.topic, reply);
+        amqpsender.publish(amqpOUT.endpoint, amqpOUT.exchange, amqpOUT.routing_key, reply);
       }
       else {
         console.log("Unknown sink mode");
@@ -184,7 +184,7 @@ function mqttCallback(msg){
         mqttsender.publish(mqttOUT.endpoint, mqttOUT.topic, reply);
       }
       else if (SINK_MODE==AMQP_SINK_MODE){
-        amqpsender.publish(amqpOUT.endpoint, amqpOUT.exchange, amqpOUT.topic, reply);
+        amqpsender.publish(amqpOUT.endpoint, amqpOUT.exchange, amqpOUT.routing_key, reply);
       }
       else {
         console.log("Unknown sink mode");

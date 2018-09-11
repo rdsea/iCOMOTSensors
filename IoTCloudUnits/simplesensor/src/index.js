@@ -16,7 +16,7 @@ let transform = transforms[config.format];
 
 
 
-
+//TODO enable internal time
 function start(){
     // read csv
     let stream = fs.createReadStream(path.join(__dirname, `../${config.file}`));
@@ -25,24 +25,12 @@ function start(){
         csvStream.pause();
         output(payload, config.uri, config.protocolOptions).then(() => {
             setTimeout(() => csvStream.resume(), 3000);
-        });   
+        });
     });
 
-    stream.pipe(csvStream);    
+    stream.pipe(csvStream);
     csvStream.on('end', () => {setTimeout(() => start(), 3000);})
 }
 
 
 start()
-
-
-
-
-
-
-
-
-
-
-
-

@@ -204,7 +204,7 @@ function csv2json(msg, sendfunction){
 
 
 
-app.listen(PORT, HOST);
+app.listen(PORT);
 console.log(`Running on http://${HOST}:${PORT}`);
 
 function arrayBufferToString(buffer){

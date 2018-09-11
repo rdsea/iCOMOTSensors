@@ -1,10 +1,10 @@
 'use strict';
 
 const express = require('express');
-
 // Constants
 const PORT = 8080;
-const HOST = '0.0.0.0';
+const os = require("os");
+const HOST = os.hostname();
 
 // App
 const app = express();
@@ -21,6 +21,8 @@ var mqtt = require('mqtt');
 var mqttsender = require('./mqtt.sender');
 var mqttreceiver = require('./mqtt.receiver');
 
+//by default the sender (sink) will be MQTT.
+var isMQTTSender = true;
 
 
 //Variables
@@ -105,6 +107,7 @@ app.post('/amqp/out/connect', upload.array(), function (req, res, next) {
     amqpsender.connect(amqpOUT.endpoint, amqpOUT.exchange);
 
     res.send("AMQP: publish messages to \nendpoint: " + amqpOUT.endpoint + "\nexchange: " + amqpOUT.exchange + "\nrouting_key: " + amqpOUT.routing_key + "\n");
+    isMQTTSender =false;
 });
 
 app.post('/amqp/out/disconnect', (req,res) => {
@@ -114,7 +117,7 @@ app.post('/amqp/out/disconnect', (req,res) => {
     amqpOUT.exchange = "";
     amqpOUT.routing_key = "";
     res.send("AMQP: stopped publishing messages to \nendpoint: " + amqpOUT.endpoint + "\nexchange: " + amqpOUT.exchange + "\nrouting_key: " + amqpOUT.routing_key + "\n");
-
+    isMQTTSender=true;
 });
 
 
@@ -143,7 +146,7 @@ app.post('/mqtt/out/connect', upload.array(), function (req, res, next) {
     mqttOUT.topic = req.body.routing_key;
 
     mqttsender.connect(mqttOUT.endpoint, mqttOUT.topic);
-
+    isMQTTSender=true;
     res.send("MQTT: publish messages to \nendpoint: " + mqttOUT.endpoint + "\ntopic/routing_key: " + mqttOUT.topic + "\n");
 });
 
@@ -152,19 +155,29 @@ app.post('/mqtt/out/disconnect', (req,res) => {
     mqttOUT.topic = "";
     mqttsender.disconnect();
     res.send("stopped publishing messages to \nendpoint: " + mqttOUT.endpoint + "\ntopic/routing_key: " + mqttOUT.topic + "\n");
-
+    isMQTTSender=false;
 });
 
 
 function ampqCallback(msg){
     csv2json(msg.content.toString(), function (reply) {
+      if (isMQTTSender) {
+        mqttsender.publish(mqttOUT.endpoint, mqttOUT.topic, reply);
+      }
+      else {
         amqpsender.publish(amqpOUT.endpoint, amqpOUT.exchange, amqpOUT.topic, reply);
+      }
     });
 }
 
 function mqttCallback(msg){
     csv2json(arrayBufferToString(msg), function (reply) {
+        if (isMQTTSender) {
         mqttsender.publish(mqttOUT.endpoint, mqttOUT.topic, reply);
+      }
+      else {
+        amqpsender.publish(amqpOUT.endpoint, amqpOUT.exchange, amqpOUT.topic, reply);
+      }
     });
 }
 

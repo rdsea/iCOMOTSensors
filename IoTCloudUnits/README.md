@@ -8,6 +8,9 @@ For specific informtion on each of the units please view their detailed README
 
 The code is in csvToJson directory. This unit is used to conver CVS to JSON format with MQTT/AMQP as input/output protocols.
 
+## Simple sensor
+The code is in simplesensor directory. This unit is used to emulate a sensor (with realistic data provided) which sends data to console, mqtt or http sink.
+
 ## Generic Sensor
 A virtual java sensor that reads from a csv file. Can be configured to produce data to an MQTT Broker
 

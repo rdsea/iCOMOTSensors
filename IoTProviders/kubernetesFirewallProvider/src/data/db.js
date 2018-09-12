@@ -1,6 +1,9 @@
-
+var chai = require('chai')
+  , expect = chai.expect
+  , should = chai.should();
+chai.use(require('chai-url'));
 const MongoClient = require("mongodb").MongoClient;
-let MONGODB_URL = 'mongodb://iotcloudexamples:ac.at.tuwien.dsg@iotcloudexamples-shard-00-00-pz2vu.mongodb.net:27017,iotcloudexamples-shard-00-01-pz2vu.mongodb.net:27017,iotcloudexamples-shard-00-02-pz2vu.mongodb.net:27017/sinc?ssl=true&replicaSet=IoTCloudExamples-shard-0&authSource=admin';
+let MONGODB_URL = '';
 const DB_NAME = "sinc";
 const COLLECTION = "firewall";
 
@@ -8,7 +11,7 @@ const COLLECTION = "firewall";
 if(process.env.MONGODB_URL){
     MONGODB_URL = process.env.MONGODB_URL
 }
-
+expect(MONGODB_URL).to.have.protocol("mongodb");
 let client = null;
 let db = null;
 

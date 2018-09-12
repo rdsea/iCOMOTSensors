@@ -1,10 +1,11 @@
 # Vessel Provider
 
-This is a provider of vessels for the valencia seaport scenario. The vessel provider will create vessels and configure vessels to register the broker for communication. Furthermore, the vessel information will be register to the port control service
+This is a provider of vessels (based on the valencia seaport scenario). The vessel provider will create vessels and configure vessels to register the broker for communication. Furthermore, the vessel information will be register to the port control service
 
 ## Depending units
 
-* Vessel: in IoTCloudUnits package portVessel
+* Vessel: each vessel is emulated by an Docker instance based on the code in  IoTCloudUnits package portVessel
+
 * Port control service: in IoTCloudUnits/port-control-service
 
 ## Configuration

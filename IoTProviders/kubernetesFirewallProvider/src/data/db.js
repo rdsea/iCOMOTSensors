@@ -11,7 +11,7 @@ const COLLECTION = "firewall";
 if(process.env.MONGODB_URL){
     MONGODB_URL = process.env.MONGODB_URL
 }
-expect(MONGODB_URL).to.have.protocol("mongodb");
+expect(MONGODB_URL).to.have.protocol("mongodb+srv");
 let client = null;
 let db = null;
 

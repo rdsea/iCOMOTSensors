@@ -14,9 +14,14 @@ The code is in datastorageArtefact. This unit is used to pull a data from an htt
 
 It demonstrates a simple protocol interoperability bridge.
 
+## HTTP Push - AMQP Push
+
+The code is in httpAmqpGateway. This unit is used for protocol interoperability. It accepts data through HTTP REST POST and pushes the data to AMQP broker.
+
 ## Generic Alarm Generator
 
 The code is in genericalarmgenerator. This unit is used to simulate alarms (based on some real alarms/info in Valencia port)
+
 
 ## Simple sensor
 The code is in simplesensor directory. This unit is used to emulate a sensor (with realistic data provided) which sends data to console, mqtt or http sink.

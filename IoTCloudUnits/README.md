@@ -6,7 +6,17 @@ For specific informtion on each of the units please view their detailed README
 
 ## MQTT/AMQP cvsToJson
 
-The code is in csvToJson directory. This unit is used to conver CVS to JSON format with MQTT/AMQP as input/output protocols.
+The code is in csvToJson directory. This unit is used to convert CVS to JSON format with MQTT/AMQP as input/output protocols.
+
+## Http-Pull GoogleStorage Push
+
+The code is in datastorageArtefact. This unit is used to pull a data from an http uri and push the data to GoogleStorage.
+
+It demonstrates a simple protocol interoperability bridge.
+
+## Generic Alarm Generator
+
+The code is in genericalarmgenerator. This unit is used to simulate alarms (based on some real alarms/info in Valencia port)
 
 ## Simple sensor
 The code is in simplesensor directory. This unit is used to emulate a sensor (with realistic data provided) which sends data to console, mqtt or http sink.

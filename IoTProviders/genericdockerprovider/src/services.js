@@ -45,8 +45,8 @@ function _runDocker(config){
 
     let writeFilePromises = [];
     config.files.forEach((file) => {
-        writeFilePromises.push(writeFile(`/tmp/${config.serviceId}/${name}`, file.body));
-        cmd += ` -v /tmp/${config.serviceId}/${name}:${file.path}`;
+        writeFilePromises.push(writeFile(`/tmp/${config.serviceId}/${file.name}`, file.body));
+        cmd += ` -v /tmp/${config.serviceId}/${file.name}:${file.path}`;
     });
 
     return Promise.all(writeFilePromises).then(() => {

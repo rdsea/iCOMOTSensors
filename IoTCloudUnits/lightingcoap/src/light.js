@@ -13,14 +13,12 @@ module.exports = {
 	       console.log('Light '+name+ ' is ready')
        })
        light.on('request', function(msg, res) {
-	        console.log(name +' has received message')
+	        console.log(name +' has received message');
+          var arr = new Uint8Array(msg.payload);
+          var str = String.fromCharCode.apply(String, arr);
+          console.log(str)
 	         res.end('Ok')
          })
     return light;
    }
-   //destroy: function() {
-  //   if (light !=null) {
-  //     light.close();
-  //   }
-  // }
 }

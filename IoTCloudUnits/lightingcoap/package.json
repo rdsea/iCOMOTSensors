@@ -1,0 +1,14 @@
+{
+  "name": "lightcoap",
+  "version": "0.1.0",
+  "description": "Simple array of lights",
+  "author": "linhsolar@gmail.com",
+  "main": "arrayoflight.js",
+  "scripts": {
+    "start": "node src/arrayoflight.js -i lightconfig.json"
+  },
+  "dependencies": {
+    "argparse": "^1.0.10",
+    "coap": "^0.22.0"
+  }
+}

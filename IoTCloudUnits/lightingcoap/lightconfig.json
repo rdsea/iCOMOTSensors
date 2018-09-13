@@ -1,0 +1,17 @@
+[
+  {
+    "address":"224.0.1.186",
+    "port":5683,
+    "name":"light 1"
+  },
+  {
+    "address":"224.0.1.186",
+    "port":5683,
+    "name":"light 2"
+  },
+  {
+    "address":"224.0.1.186",
+    "port":5683,
+    "name":"light 3"
+  }
+]

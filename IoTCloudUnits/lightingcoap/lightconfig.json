@@ -2,16 +2,19 @@
   {
     "address":"224.0.1.186",
     "port":5683,
-    "name":"light 1"
+    "name":"light 1",
+    "control_config_file":"/home/truong/myprojects/rdseagit/IoTCloudSamples/IoTCloudUnits/lightingcoap/lightcontrollerconfig.json"
   },
   {
     "address":"224.0.1.186",
     "port":5683,
-    "name":"light 2"
+    "name":"light 2",
+    "control_config_file":"/home/truong/myprojects/rdseagit/IoTCloudSamples/IoTCloudUnits/lightingcoap/lightcontrollerconfig.json"
   },
   {
     "address":"224.0.1.186",
     "port":5683,
-    "name":"light 3"
+    "name":"light 3",
+    "control_config_file":"/home/truong/myprojects/rdseagit/IoTCloudSamples/IoTCloudUnits/lightingcoap/lightcontrollerconfig.json"
   }
 ]

@@ -18,4 +18,13 @@ var args = parser.parseArgs();
 
 var client = coap.request({
 	host: args.address, multicast: true, multicastTimeout: 3000
-}).end()
+})
+//assume this command will be sent
+var command ={
+  "mode":"off"
+}
+client.write(JSON.stringify(command));
+client.on('response', function(res) {
+  res.pipe(process.stdout);
+})
+client.end();

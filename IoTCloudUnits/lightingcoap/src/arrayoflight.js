@@ -11,7 +11,7 @@ var parser = new ArgumentParser({
 parser.addArgument(
   [ '-i', '--input' ],
   {
-    help: 'name of the light'
+    help: 'configuration of light'
   }
 );
 
@@ -19,5 +19,5 @@ var args = parser.parseArgs();
 
 var config_list = JSON.parse(fs.readFileSync(args.input, 'utf8'));
 config_list.forEach(function(item) {
-  var new_light = light.initialize(item.address,item.port,item.name);
+  var new_light = light.initialize(item.address,item.port,item.name,item.control_config_file);
 });

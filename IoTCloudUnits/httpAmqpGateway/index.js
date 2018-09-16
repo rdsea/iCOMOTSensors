@@ -2,10 +2,12 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const config = require("./config");
 const amqp = require('amqplib');
+const chai = require('chai');
+chai.use(require('chai-url'));
 
 let connection = null;
 let channel = null;
-
+chai.expect(config.amqp_uri).to.have.protocol('amqp');
 console.log(`connecting to amqp broker at ${config.amqp_uri}`);
 amqp.connect(config.amqp_uri).then((conn) => {
     console.log(`successfully conencted to ${config.amqp_uri}`);

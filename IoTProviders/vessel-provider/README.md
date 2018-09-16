@@ -1,6 +1,5 @@
 # Vessel Provider
-
-This is a provider of vessels (based on the valencia seaport scenario). The vessel provider will create vessels and configure vessels to register the broker for communication. Furthermore, the vessel information will be register to the port control service
+This implements an emulating provider of vessels that will emulate a set of vessels as resource instances using Kubernetes. Each instance is mapped into a vessel (based on the valencia seaport scenario). The vessel provider will create vessels and configure vessels to register the broker for communication. Furthermore, the vessel information will be register to the port control service
 
 ## Depending units
 

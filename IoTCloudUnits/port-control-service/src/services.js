@@ -26,11 +26,28 @@ function findTrucksInPort(licensePlate){
   }
   return db.find(query)
 }
+
+function registerCrane(crane){
+    return db.insert(crane)
+}
+function findAllCranes(){
+    return db.find({});
+}
+function findTrucksInPort(craneId){
+  let query = {
+      craneId
+  }
+  return db.find(query)
+}
+//TODO find cranes with geohash
+
 module.exports = {
     registerVessel,
     findVesselsInTerminal,
     findAllVessels,
     registerTruck,
     findAllTrucks,
-    findTrucksInPort
+    findTrucksInPort,
+    registerCrane,
+    findAllCranes
 }

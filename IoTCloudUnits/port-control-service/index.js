@@ -44,6 +44,19 @@ router.get("/truck/:licensePlate", (req, res) => {
         res.json(trucks);
     })
 })
+
+//Crane will be added either by crane itself or a cranner provider
+router.post("/register/crane", (req, res) => {
+    services.registerCrane(req.body).then((registeredCrane) => {
+        res.json(registeredCrane);
+    })
+})
+router.get("/crane/:craneId", (req, res) => {
+    services.findCranesInPort(req.params.craneId).then((cranes) => {
+        res.json(cranes);
+    })
+})
+
 app.use('/portcontrol', router);
 app.listen(PORT, () => {
     console.log(`server listening at port ${PORT}`)

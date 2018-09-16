@@ -1,6 +1,6 @@
-# Sample of metadata
+#Sample of metadata
 
-download it from:
+Download it from:
 
 https://console.cloud.google.com/storage/browser/samplemetadatacamera?project=iotcloudexamples
 

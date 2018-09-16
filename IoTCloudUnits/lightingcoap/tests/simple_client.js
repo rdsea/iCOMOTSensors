@@ -24,6 +24,11 @@ var command ={
   "mode":"off"
 }
 client.write(JSON.stringify(command));
+
+client = coap.request({
+	host: args.address, observe:true, multicast: true, multicastTimeout: 3000
+})
+ 
 client.on('response', function(res) {
   res.pipe(process.stdout);
 })

@@ -1,6 +1,6 @@
 import winston from 'winston';
 
-const LOG_FILE = '/tmp/sensor.log'
+const LOG_FILE = '/tmp/simplesensor.log'
 
 const logger = winston.createLogger({
     transports: [
@@ -12,4 +12,3 @@ const logger = winston.createLogger({
 logger.info(`sensor logging all data to ${LOG_FILE}`);
 
 export default logger;
-

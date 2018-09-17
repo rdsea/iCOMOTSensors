@@ -3,13 +3,42 @@ import csv from 'fast-csv';
 import logger from './logger'
 import transforms from './dataTransform';
 import outputs from './output';
-import config from '../config.json';
+//import config from '../config.json';
 import path from 'path';
+var ArgumentParser = require('argparse').ArgumentParser;
+var parser = new ArgumentParser({
+  version: '0.1.0',
+  addHelp:true,
+  description: 'arguments for simplesensor'
+});
+parser.addArgument(
+  [ '-c', '--conf' ],
+  {
+    help: 'configuration information'
+  }
+);
+
+
+var args = parser.parseArgs();
+
+var configuration_file = null;
+
+if (args.conf!=null) {
+  configuration_file=args.conf;
+}
+else {
+  configuration_file=process.env.SIMPLESENSOR_CONFIGURATION_FILE
+}
+
+var config =null
+
+if (configuration_file !=null)
+  config = JSON.parse(fs.readFileSync(configuration_file, 'utf8'));
 
 logger.info(`message output in ${config.format} format`);
 logger.info(`messages sent through ${config.protocol}`);
 logger.info(`messages sent to ${config.uri}`);
-
+logger.info(`dataset is ${config.file}`);
 // get correct output and transform functions
 let output = outputs[config.protocol];
 let transform = transforms[config.format];
@@ -22,7 +51,7 @@ let transform = transforms[config.format];
 function start(){
     // here we emulate the sensor by reading data from a file.
     //for real sensor this can be change.
-    let stream = fs.createReadStream(path.join(__dirname, `../${config.file}`));
+    let stream = fs.createReadStream(`${config.file}`);
     let csvStream = csv({headers : true}).on('data', (data) => {
     //if needed to transform the sensor format.
         let payload = transform(data);

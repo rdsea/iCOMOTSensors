@@ -3,5 +3,5 @@
     "protocolOptions": {},
     "format": "csv",
     "uri": "http://localhost/datasink",
-    "file": "../../data/bts/alarm-2017-10-23-12-vn.csv"
+    "file": "samples/Docker-config/data.csv"
 }

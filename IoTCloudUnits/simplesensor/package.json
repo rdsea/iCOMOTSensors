@@ -1,10 +1,10 @@
 {
   "name": "simplesensor",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "a simple sensor that reads from csv and outputs in different formats",
   "main": "index.js",
   "scripts": {
-    "start": "babel-node src/index.js --presets es2015,stage-1",
+    "start": "babel-node --presets es2015,stage-1 src/index.js ",
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack"
   },
@@ -12,7 +12,7 @@
     "type": "git",
     "url": "git+https://github.com/rdsea/IoTCloudSamples.git"
   },
-  "author": "lingfangao@hotmail.com",
+  "author": "lingfangao@hotmail.com|linhsolar@gmail.com",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/rdsea/IoTCloudSamples/issues"

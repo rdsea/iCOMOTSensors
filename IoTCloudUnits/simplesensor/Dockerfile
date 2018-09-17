@@ -1,7 +1,7 @@
 FROM node:8-alpine
 
-COPY . /sensor
-WORKDIR sensor
+COPY . /simplesensor
+WORKDIR simplesensor
 
-RUN npm i 
+RUN npm i
 CMD ["npm", "start"]

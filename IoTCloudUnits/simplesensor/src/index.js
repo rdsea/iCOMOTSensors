@@ -16,13 +16,18 @@ let transform = transforms[config.format];
 
 
 
-//TODO enable internal time
+//TODO enable interval time and refactor the code so that
+//real measurement can be done easily.
+
 function start(){
-    // read csv
+    // here we emulate the sensor by reading data from a file.
+    //for real sensor this can be change.
     let stream = fs.createReadStream(path.join(__dirname, `../${config.file}`));
     let csvStream = csv({headers : true}).on('data', (data) => {
+    //if needed to transform the sensor format.
         let payload = transform(data);
         csvStream.pause();
+    //output the sensor data to the predefined sink
         output(payload, config.uri, config.protocolOptions).then(() => {
             setTimeout(() => csvStream.resume(), 3000);
         });
@@ -32,5 +37,5 @@ function start(){
     csvStream.on('end', () => {setTimeout(() => start(), 3000);})
 }
 
-
+//start the main sensor function
 start()

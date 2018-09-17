@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/rdsea/IoTCloudSamples#readme",
   "dependencies": {
+    "argparse": "^1.0.10",
     "axios": "^0.17.1",
     "fast-csv": "^2.4.1",
     "js-yaml": "^3.10.0",

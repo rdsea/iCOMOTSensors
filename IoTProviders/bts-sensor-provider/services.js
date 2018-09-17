@@ -82,15 +82,15 @@ function createSensorConfigMap(config, type){
     let sensorConfig = {
         ...configTemplates[type],
         uri: config.uri,
-        protocolOptions:{ 
+        protocolOptions:{
             topic: config.topic,
             username: config.username,
-            password: config.password, 
+            password: config.password,
         },
         clientId: config.clientId,
     };
     console.log(JSON.stringify(sensorConfig));
-    
+
     return writeFile(`/tmp/config.json`, JSON.stringify(sensorConfig), 'utf8').then(() => {
         return exec(`kubectl create configmap config-${sensorConfig.clientId} --from-file=/tmp/config.json`);
     }).then((res) => {
@@ -115,7 +115,7 @@ function provisionSensor(sensor){
         subPath: "config.json"
     });
 
-    sensorDeploy.spec.template.spec.containers[0].image = 'rdsea/'+sensor.name;
+    sensorDeploy.spec.template.spec.containers[0].image = 'rdsea/sensor';//tobe change to+sensor.name;
     console.log(JSON.stringify(sensorDeploy));
     return writeFile(`/tmp/deploy-${sensor.clientId}.json`, JSON.stringify(sensorDeploy), 'utf8').then(() => {
         return exec(`kubectl create -f /tmp/deploy-${sensor.clientId}.json`);
@@ -138,13 +138,13 @@ export function getLogs(sensorId){
             logs.logs = `error fetching logs for ${sensorId}`;
         }
         logs.logs = res.stdout;
-        return exec(`kubectl get pods -l app=${sensorId} -o json`)        
+        return exec(`kubectl get pods -l app=${sensorId} -o json`)
     }).then((res) => {
         if(res.stderr) {
             console.log(res.stderr);
             logs.status = `error fetching ${sensorId} status`;
         }
-        
+
         let raw = JSON.parse(res.stdout);
         try{
             logs.status = {
@@ -158,7 +158,7 @@ export function getLogs(sensorId){
             console.err(err);
             logs.status = "could not retrieve resource status"
         }
-        
+
         return {
             status: logs.status,
             logs: {

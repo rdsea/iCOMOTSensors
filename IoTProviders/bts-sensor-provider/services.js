@@ -79,6 +79,7 @@ export function deleteSensor(sensorId){
 }
 
 function createSensorConfigMap(config, type){
+    //map dataset to sensor or map type to container?
     let sensorConfig = {
         ...configTemplates[type],
         uri: config.uri,
@@ -88,6 +89,7 @@ function createSensorConfigMap(config, type){
             password: config.password,
         },
         clientId: config.clientId,
+        type:type
     };
     console.log(JSON.stringify(sensorConfig));
 
@@ -111,11 +113,11 @@ function provisionSensor(sensor){
 
     sensorDeploy.spec.template.spec.containers[0].volumeMounts.push({
         name: "config",
-        mountPath: "/sensor/config.json",
+        mountPath: "/simplesensor/config.json",
         subPath: "config.json"
     });
 
-    sensorDeploy.spec.template.spec.containers[0].image = 'rdsea/sensor';//tobe change to+sensor.name;
+    sensorDeploy.spec.template.spec.containers[0].image = 'rdsea/'+sensor.type;
     console.log(JSON.stringify(sensorDeploy));
     return writeFile(`/tmp/deploy-${sensor.clientId}.json`, JSON.stringify(sensorDeploy), 'utf8').then(() => {
         return exec(`kubectl create -f /tmp/deploy-${sensor.clientId}.json`);

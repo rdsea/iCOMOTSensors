@@ -6,8 +6,7 @@ var Sensor = mongoose.model('Sensor', {
     uri: String,
     topic: String,
     createdAt: Number,
-    sensorId: String,
-    type: String,
+    sensorId: String
 });
 
 export default Sensor;

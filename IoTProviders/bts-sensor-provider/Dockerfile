@@ -1,8 +1,8 @@
 FROM rdsea/provider-base
 
-COPY . /sensor
-WORKDIR /sensor
+COPY . /sensorprovider
+WORKDIR /sensorprovider
 RUN chmod +x docker-entrypoint.sh
-RUN npm install 
+RUN npm install
 
-ENTRYPOINT ["/sensor/docker-entrypoint.sh"]
+ENTRYPOINT ["/sensorprovider/docker-entrypoint.sh"]

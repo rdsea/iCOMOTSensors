@@ -27,7 +27,12 @@ if (args.conf!=null) {
   configuration_file=args.conf;
 }
 else {
-  configuration_file=process.env.SIMPLESENSOR_CONFIGURATION_FILE
+  if (process.env.SIMPLESENSOR_CONFIGURATION_FILE !=null) {
+    configuration_file=process.env.SIMPLESENSOR_CONFIGURATION_FILE
+  }
+  else {
+    configuration_file="config.json";
+  }
 }
 
 var config =null

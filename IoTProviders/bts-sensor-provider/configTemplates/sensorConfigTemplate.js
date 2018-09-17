@@ -1,4 +1,4 @@
-export let batteryCurrent = {
+export let batterycurrent = {
     "protocol": "mqtt",
     "protocolOptions": {
         "topic": "topic1",
@@ -19,7 +19,7 @@ export let batteryCurrent = {
     ],
 }
 
-export let batteryVoltage = {
+export let batteryvoltage = {
     "protocol": "mqtt",
     "protocolOptions": {
         "topic": "topic1",
@@ -63,7 +63,7 @@ export let capacity = {
     ],
 }
 
-export let generatorVoltage = {
+export let generatorvoltage = {
     "protocol": "mqtt",
     "protocolOptions": {
         "topic": "topic",

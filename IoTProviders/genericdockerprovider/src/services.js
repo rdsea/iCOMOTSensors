@@ -60,8 +60,8 @@ function _runDocker(config){
     cmd += ` ${config.image}`;
     console.log("Running: ",cmd);
     return Promise.all(writeFilePromises).then(() => {
-        //return exec(cmd);
-        return cmdrun.run(cmd);
+        return exec(cmd);
+        //return cmdrun.run(cmd);
     }).then((r) => {
         if(r.stderr) {
             console.log(r.stderr);

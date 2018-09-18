@@ -50,9 +50,10 @@ function _runDocker(config){
     });
 
     let writeFilePromises = [];
+    //created file is put into the mount directory
     config.files.forEach((file) => {
         writeFilePromises.push(writeFile(`/tmp/${config.serviceId}/${file.name}`, file.body));
-        cmd += ` -v /tmp/${config.serviceId}/${file.name}:${file.path}`;
+        cmd += ` -v /tmp/${config.serviceId}:${file.path}`;
     });
     if (config.args) {
       cmd += ` ${config.args}`;

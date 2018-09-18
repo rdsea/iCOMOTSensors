@@ -7,7 +7,7 @@ import serviceTemplate from './configTemplates/serviceTemplate';
 import randomstring from 'randomstring';
 import { randomBytes } from 'crypto';
 import Broker from './data/models/broker';
-
+const url = require('url');
 const exec = promisify(child_process.exec);
 const writeFile = promisify(fs.writeFile);
 const kube_configuration_file = "conf/kubeoptions.json";
@@ -91,6 +91,7 @@ export function getBrokers(brokerId){
             if (kube_option.minikube_nodeport) {
               broker.location = externalIps[index].replace("http","mqtt");
               broker.url=broker.location;
+              broker.port = url.parse(broker.location).port;
             }
             else {
               broker.location = externalIps[index];

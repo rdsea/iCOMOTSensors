@@ -61,7 +61,7 @@ function _runDocker(config){
     console.log("Running: ",cmd);
     return Promise.all(writeFilePromises).then(() => {
         //return exec(cmd);
-        let subprocess =cmdrun.run(cmd);
+        return cmdrun.run(cmd);
     }).then((r) => {
         if(r.stderr) {
             console.log(r.stderr);

@@ -49,7 +49,7 @@ function _runDocker(config){
         writeFilePromises.push(writeFile(`/tmp/${config.serviceId}/${file.name}`, file.body));
         cmd += ` -v /tmp/${config.serviceId}/${file.name}:${file.path}`;
     });
-    if (config.args !='') {
+    if (config.args) {
       cmd += ` ${config.args}`;
     }
     cmd += ` ${config.image}`;

@@ -2,11 +2,12 @@
 //const Docker = require('node-docker-api');
 //const docker = new Docker({ socketPath: '/var/run/docker.sock' });
 const child_process = require("child_process");
-const fs = require("fs");
+//const fs = require("fs");
+const fs = require('fs-extra');
 const promisify = require("util").promisify;
 const db = require("./data/db");
 const exec = promisify(child_process.exec);
-const writeFile = promisify(fs.writeFile);
+const writeFile = promisify(fs.outputFile);
 
 var cmdrun=require('node-cmd');
 //var treekill = require('tree-kill');
@@ -50,8 +51,8 @@ function _runDocker(config){
 
     let writeFilePromises = [];
     config.files.forEach((file) => {
-        writeFilePromises.push(writeFile(`/tmp/${config.serviceId}_${file.name}`, file.body));
-        cmd += ` -v /tmp/${config.serviceId}_${file.name}:${file.path}`;
+        writeFilePromises.push(writeFile(`/tmp/${config.serviceId}/${file.name}`, file.body));
+        cmd += ` -v /tmp/${config.serviceId}/${file.name}:${file.path}`;
     });
     if (config.args) {
       cmd += ` ${config.args}`;

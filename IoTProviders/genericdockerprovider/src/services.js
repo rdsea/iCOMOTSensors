@@ -10,8 +10,9 @@ let currentPort = 3000;
 
 function createService(config){
     let timestamp = Date.now();
-    let serviceId = `service${config.image}${timestamp}`;
-    config.serviceId = serviceId;
+    //some issues with name we need to deal with.
+    let raw_serviceId = `service${config.image}${timestamp}`;
+    config.serviceId = raw_serviceId.replace(/[^a-zA-Z0-9_.-]/gi, '');
     return _runDocker(config).then(() => {
         return db.insert(config);
     })

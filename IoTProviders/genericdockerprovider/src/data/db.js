@@ -30,7 +30,7 @@ function insert(doc){
 
 function find(query){
     let collection = db.collection(COLLECTION);
-    console.log(`finding one documentof ${JSON.stringify(query)}`);
+    console.log(`finding one document of ${JSON.stringify(query)}`);
     return collection.find(query).toArray().then((docs) => {
         console.log(`successfully found ${docs.length} results for ${query}`);
         return docs;

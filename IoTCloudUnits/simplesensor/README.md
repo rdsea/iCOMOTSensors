@@ -46,3 +46,14 @@ For Docker:
 $docker build -t simplesensor .
 
 $docker run -v $PWD/samples/Docker-config:/var/tests  test npm start -- -c /var/tests/config.json
+
+## Creating emulating sensors for IoT-sensor-as-a-provider
+
+Each sensor can be built with an Docker image by providing a separate dataset.
+
+- Prepare the config.file
+- Put dataset as data.csv in the root directory.
+- Modify docker-build.sh if needed to indicate the location of docker hub.
+- Build the docker.
+
+Repeat the above-mentioned instruction with different datasets for different docker image names, we will have samples of sensors. 

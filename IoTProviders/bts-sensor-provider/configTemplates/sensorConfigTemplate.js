@@ -140,7 +140,7 @@ export let temperature = {
     "uri": "http://localhost:3000/",
     "file": "data.csv",
     "measurement": "temperature",
-    "unit": "fahrenheit",
+    "unit": "celsius",
     "name": "bts-temperature-sensor",
     "fields": [
         "id",

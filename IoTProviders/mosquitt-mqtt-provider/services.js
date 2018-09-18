@@ -10,7 +10,7 @@ import Broker from './data/models/broker';
 
 const exec = promisify(child_process.exec);
 const writeFile = promisify(fs.writeFile);
-const kube_configuration_file = "conf/kubetoptions.json";
+const kube_configuration_file = "conf/kubeoptions.json";
 
 const kube_option = JSON.parse(fs.readFileSync(kube_configuration_file, 'utf8'));
 var current_instances = 0;

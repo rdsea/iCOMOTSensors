@@ -8,8 +8,17 @@
     "start-dev": "nodemon index.js --exec babel-node --presets env,stage-2",
     "start": "nodemon index.js --exec babel-node --presets env"
   },
-  "author": "linhsolar@gmail.com",
-  "license": "ISC",
+  "author": {
+    "email": "linhsolar@gmail.com",
+    "url": "http://rdsea.github.io"
+  },
+  "license": "Apache-2.0",
+  "licenses": [
+    {
+      "type": "Apache-2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0"
+    }
+  ],
   "devDependencies": {
     "chai": "*",
     "mocha": "*",

@@ -7,14 +7,22 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.js"
   },
-  "author": "",
-  "license": "ISC",
+  "author": {
+    "email": "linhsolar@gmail.com|lingfangao@gmail.com",
+    "url": "http://rdsea.github.io"
+  },
+  "license": "Apache-2.0",
+  "licenses": [
+    {
+      "type": "Apache-2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0"
+    }
+  ],
   "dependencies": {
     "body-parser": "^1.18.3",
     "express": "^4.16.3",
     "fs-extra": "^7.0.0",
     "mongodb": "^3.1.1",
-    "nedb": "^1.8.0",
-    "node-cmd": "^3.0.0"
+    "nedb": "^1.8.0"
   }
 }

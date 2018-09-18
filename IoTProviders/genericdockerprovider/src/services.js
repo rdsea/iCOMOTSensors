@@ -9,7 +9,7 @@ const db = require("./data/db");
 const exec = promisify(child_process.exec);
 const writeFile = promisify(fs.outputFile);
 
-var cmdrun=require('node-cmd');
+//var cmdrun=require('node-cmd');
 //var treekill = require('tree-kill');
 let currentPort = 3000;
 

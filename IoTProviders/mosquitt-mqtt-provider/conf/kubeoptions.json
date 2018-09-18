@@ -1,0 +1,4 @@
+{
+    "minikube_nodeport": true,
+    "max_instances": 3
+}

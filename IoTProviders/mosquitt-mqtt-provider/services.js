@@ -10,8 +10,23 @@ import Broker from './data/models/broker';
 
 const exec = promisify(child_process.exec);
 const writeFile = promisify(fs.writeFile);
+const kube_configuration_file = "conf/kubetoptions.json";
+
+const kube_option = JSON.parse(fs.readFileSync(kube_configuration_file, 'utf8'));
+var current_instances = 0;
 
 export function createBroker(config){
+  if (current_instances >= kube_option.max_instances) {
+      console.log("The number of instances reaches the limit");
+      return      new Broker({
+        location: 'NONE',
+        port:0,
+        url:'NONE',
+        createdAt: 0,
+        brokerId: "NONE"
+        });
+    }
+    else {
     return provisionBroker().then((timestamp) => {
         let broker = new Broker({
             location: 'creating...',
@@ -20,8 +35,10 @@ export function createBroker(config){
             createdAt: timestamp,
             brokerId: `broker${timestamp}`,
         });
+        current_instances=current_instances+1;
         return broker.save();
     });
+  }
 }
 
 export function deleteBroker(brokerId){
@@ -37,7 +54,9 @@ export function deleteBroker(brokerId){
         execs.forEach((exec) => {
             console.log(exec.stdout);
             console.log(exec.stderr);
+            current_instances=current_instances-1;
         });
+       current_instances=current_instances-1;
     })
 }
 
@@ -52,7 +71,12 @@ export function getBrokers(brokerId){
         let kubectl = []; // promise executions of kubetcl;
         brokers.forEach((broker) => {
             console.log(broker);
-            kubectl.push(exec(`kubectl get services ${broker.brokerId} -o json`).catch((err) => err)); // return error obj otherwise other promises won't resolve
+            if (kube_option.minikube_nodeport) {
+              kubectl.push(exec(`minikube service --url ${broker.brokerId}`).catch((err) => err));
+            }
+            else {
+              kubectl.push(exec(`kubectl get services ${broker.brokerId} -o json`).catch((err) => err)); // return error obj otherwise other promises won't resolve
+          }
         });
         return Promise.all(kubectl);
     }).then((execs) => {
@@ -64,10 +88,14 @@ export function getBrokers(brokerId){
         let saves = []
         brokers.forEach((broker, index) => {
             broker.location = externalIps[index];
-
+            if (kube_option.minikube_nodeport) {
+              broker.url=broker.location;
+            }
+            else {
             if(broker.location != "pending..."){
                 broker.url = `mqtt://${broker.location}:${broker.port}`
             }
+          }
             saves.push(broker.save());
         });
 
@@ -116,10 +144,16 @@ export function getLogs(brokerId){
 // TODO try to get rid of this way of obtaining external IP
 function extractExternalIpKubectlGetServicesOutput(stdout){
     try{
+      if (kube_option.minikube_nodeport) {
+        let serviceurl=stdout;
+        return serviceurl.trim();
+      }
+      else {
         let service = JSON.parse(stdout);
         if(service.status.loadBalancer.ingress){
             return service.status.loadBalancer.ingress[0].ip
         }
+      }
     }catch(err){
         console.log(err);
         return "creating..."

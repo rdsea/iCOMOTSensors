@@ -1,8 +1,8 @@
 FROM rdsea/provider-base
 
-COPY . /mqtt
-WORKDIR /mqtt
+COPY . /mqttprovider
+WORKDIR /mqttprovider
 RUN chmod +x docker-entrypoint.sh
-RUN npm install 
+RUN npm install
 
-ENTRYPOINT ["/mqtt/docker-entrypoint.sh"]
+ENTRYPOINT ["/mqttprovider/docker-entrypoint.sh"]

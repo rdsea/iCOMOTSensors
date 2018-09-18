@@ -89,7 +89,7 @@ export function getBrokers(brokerId){
         brokers.forEach((broker, index) => {
             broker.location = externalIps[index];
             if (kube_option.minikube_nodeport) {
-              broker.url=broker.location;
+              broker.url=broker.location.replace("http","mqtt");
             }
             else {
             if(broker.location != "pending..."){

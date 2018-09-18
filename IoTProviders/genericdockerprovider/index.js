@@ -30,10 +30,10 @@ router.get("/", (req, res) => {
                     path: "/path/to/mount",
                     body: "the content of the file here"
                 }
-            ]
-
+            ],
+            args:"list of arguments"
         }
-        
+
 
     })
 })

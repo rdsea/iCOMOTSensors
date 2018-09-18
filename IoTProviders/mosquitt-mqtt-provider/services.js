@@ -87,14 +87,16 @@ export function getBrokers(brokerId){
 
         let saves = []
         brokers.forEach((broker, index) => {
-            broker.location = externalIps[index];
+
             if (kube_option.minikube_nodeport) {
-              broker.url=broker.location.replace("http","mqtt");
+              broker.location = externalIps[index].replace("http","mqtt");
+              broker.url=broker.location;
             }
             else {
-            if(broker.location != "pending..."){
+              broker.location = externalIps[index];
+              if(broker.location != "pending..."){
                 broker.url = `mqtt://${broker.location}:${broker.port}`
-            }
+              }
           }
             saves.push(broker.save());
         });

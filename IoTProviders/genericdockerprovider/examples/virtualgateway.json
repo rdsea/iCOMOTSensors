@@ -1,0 +1,19 @@
+{
+        "image": "interiotvgateway",
+        "ports": [
+            8829
+        ],
+        "environment": [
+            {
+                "name": "ENV_NAME_JUST_TEST",
+                "value": "variable_test"
+            }
+        ],
+        "files": [
+            {
+                "name": "test_name",
+                "path": "/tmp/",
+                "body": "the content of the file here"
+            }
+        ]
+}

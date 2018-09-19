@@ -11,7 +11,7 @@ const writeFile = promisify(fs.outputFile);
 
 //var cmdrun=require('node-cmd');
 //var treekill = require('tree-kill');
-let currentPort = 3000;
+let currentPort = 8300;
 
 function createService(config){
     let timestamp = Date.now();

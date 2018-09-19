@@ -41,40 +41,6 @@
     "wires": []
   },
   {
-    "id": "dff258e5.f96c28",
-    "type": "csv",
-    "z": "d8a8aba1.995d78",
-    "name": "",
-    "sep": ";",
-    "hdrin": "",
-    "hdrout": false,
-    "multi": "one",
-    "ret": "\\n",
-    "temp": "key1, key2, key3",
-    "skip": "0",
-    "x": 550,
-    "y": 360,
-    "wires": [
-      [
-        "1edb513b.6b191f"
-      ]
-    ]
-  },
-  {
-    "id": "1edb513b.6b191f",
-    "type": "debug",
-    "z": "d8a8aba1.995d78",
-    "name": "CSV output",
-    "active": true,
-    "tosidebar": true,
-    "console": false,
-    "tostatus": false,
-    "complete": "payload",
-    "x": 710,
-    "y": 360,
-    "wires": []
-  },
-  {
     "id": "84d7779e.19e8b8",
     "type": "mqtt in",
     "z": "d8a8aba1.995d78",
@@ -82,11 +48,11 @@
     "topic": "noderedtest",
     "qos": "2",
     "broker": "264320d6.45a71",
-    "x": 200,
-    "y": 120,
+    "x": 167,
+    "y": 436,
     "wires": [
       [
-        "6b83e0c3.b13d1"
+        "ad2630cf.451d2"
       ]
     ]
   },
@@ -124,26 +90,6 @@
     ]
   },
   {
-    "id": "e7918416.8bf6f8",
-    "type": "inject",
-    "z": "d8a8aba1.995d78",
-    "name": "json message",
-    "topic": "",
-    "payload": "{\"key1\":\"this is a\",\"key2\":\" 2\",\"key3\":\" test\"}",
-    "payloadType": "json",
-    "repeat": "",
-    "crontab": "",
-    "once": false,
-    "onceDelay": 0.1,
-    "x": 190,
-    "y": 580,
-    "wires": [
-      [
-        "d921e36.926652"
-      ]
-    ]
-  },
-  {
     "id": "e722c1ae.6cda4",
     "type": "json",
     "z": "d8a8aba1.995d78",
@@ -155,56 +101,23 @@
     "y": 440,
     "wires": [
       [
-        "455433c9.21266c"
+        "455433c9.21266c",
+        "9597a1c7.5d93c"
       ]
     ]
   },
   {
-    "id": "19af184.645e0e8",
-    "type": "json",
+    "id": "9597a1c7.5d93c",
+    "type": "mqtt out",
     "z": "d8a8aba1.995d78",
     "name": "",
-    "property": "payload",
-    "action": "",
-    "pretty": false,
-    "x": 380,
-    "y": 360,
-    "wires": [
-      [
-        "dff258e5.f96c28"
-      ]
-    ]
-  },
-  {
-    "id": "6b83e0c3.b13d1",
-    "type": "switch",
-    "z": "d8a8aba1.995d78",
-    "name": "",
-    "property": "payload",
-    "propertyType": "msg",
-    "rules": [
-      {
-        "t": "istype",
-        "v": "json",
-        "vt": "json"
-      },
-      {
-        "t": "else"
-      }
-    ],
-    "checkall": "true",
-    "repair": false,
-    "outputs": 2,
-    "x": 240,
-    "y": 380,
-    "wires": [
-      [
-        "19af184.645e0e8"
-      ],
-      [
-        "ad2630cf.451d2"
-      ]
-    ]
+    "topic": "jsonOutput",
+    "qos": "0",
+    "retain": "",
+    "broker": "264320d6.45a71",
+    "x": 743.5,
+    "y": 497,
+    "wires": []
   },
   {
     "id": "264320d6.45a71",

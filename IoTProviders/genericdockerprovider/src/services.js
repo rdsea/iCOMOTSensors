@@ -102,27 +102,28 @@ function _generatePorts(portNb){
 }
 
 function _listExistingDockerImages() {
+
     return exec(`docker images --format "{{.Repository}},{{.Tag}},{{.CreatedAt}},{{.Size}}"`).then((r) => {
-        console.log(r.stdout);
+        //console.log(r.stdout);
         let jsonresult=[]
-        csvtojson({noheader:true,headers: ['Image','Tag','CreatedAt','Size']})
+        return csvtojson({noheader:true,headers: ['Image','Tag','CreatedAt','Size']})
             .fromString(r.stdout)
-            .on('json',(json)=>{
-                console.log(json)
-                jsonresult.push(json);
+            .subscribe((data)=>{
+                //console.log(json)
+                jsonresult.push(data);
               })
-              .on('done',()=>{
-                reply = JSON.stringify(jsonresult);
-                return reply;
+            .on('done',()=>{
+              let reply = JSON.stringify(jsonresult);
+              console.log("The service found ",reply)
+              return reply;
               });
 
         })
-
         .catch((err) => {
         //maywe cannot find or not possible to find
           console.log(err);
           let jsonresult=[]
-          reply = JSON.stringify(jsonresult);
+          return JSON.stringify(jsonresult);
         });
 
   }

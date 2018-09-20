@@ -55,6 +55,7 @@ router.get("/list", (req, res) => {
 })
 router.get("/images", (req, res) => {
     services.getAllImages().then((services) => {
+      console.log(services);
         res.json(services);
     }).catch((err) => {
         res.status(400).send(err);

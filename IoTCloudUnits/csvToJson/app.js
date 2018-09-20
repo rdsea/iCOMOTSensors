@@ -200,9 +200,9 @@ function csv2json(msg, sendfunction){
 
     csvtojson({noheader:false})
         .fromString(csvStr)
-        .on('json',(json)=>{ // this func will be called 3 times
-        console.log(json) // => [1,2,3] , [4,5,6]  , [7,8,9]
-    jsonArray.push(json);
+        .on('json',(json)=>{
+          console.log(json)
+          jsonArray.push(json);
     })
     .on('done',()=>{
         reply = JSON.stringify(jsonArray);

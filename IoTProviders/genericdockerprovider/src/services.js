@@ -8,7 +8,7 @@ const promisify = require("util").promisify;
 const db = require("./data/db");
 const exec = promisify(child_process.exec);
 const writeFile = promisify(fs.outputFile);
-
+const csvtojson=require('csvtojson');
 //var cmdrun=require('node-cmd');
 //var treekill = require('tree-kill');
 let currentPort = 8300;
@@ -37,6 +37,13 @@ function getAllServices(){
     return db.find();
 }
 
+function getAllImages(){
+  //TODO we can check if a pre-defined list of images is available
+    console.log("Get all images");
+    return _listExistingDockerImages();
+}
+
+
 
 function _runDocker(config){
     let cmd = `docker run -d  --name ${config.serviceId}`;
@@ -45,10 +52,7 @@ function _runDocker(config){
     });
 
     let hostPorts = _generatePorts(config.ports.length);
-    config.ports.forEach((port, index) => {
-        cmd += ` -p ${hostPorts[index]}:${port}`
-    });
-
+    config.ports.forE
     let writeFilePromises = [];
     //created file is put into the mount directory
     config.files.forEach((file) => {
@@ -65,7 +69,13 @@ function _runDocker(config){
         //return cmdrun.run(cmd);
     }).then((r) => {
         if(r.stderr) {
-            console.log(r.stderr);
+            console.logrouter.get("/list", (req, res) => {
+    services.getAllServices().then((services) => {
+        res.json(services);
+    }).catch((err) => {
+        res.status(400).send(err);
+    });
+})(r.stderr);
             throw new Error('error occurred starting docker service');
         }
         console.log(r.stdout);
@@ -97,9 +107,36 @@ function _generatePorts(portNb){
     return ports;
 }
 
+function _listExistingDockerImages() {
+    return exec(`docker images --format "{{.Repository}},{{.Tag}},{{.CreatedAt}},{{.Size}}"`).then((r) => {
+        let jsonresult=[]
+        csvtojson({noheader:true,headers: ['Image','Tag','CreatedAt','Size']})
+            .fromString(r.output)
+            .on('json',(json)=>{
+                console.log(json)
+                jsonresult.push(json);
+              })
+              .on('done',()=>{
+                reply = JSON.stringify(jsonresult);
+                return reply;
+              });
+
+        })
+
+        .catch((err) => {
+        //maywe cannot find or not possible to find
+          console.log(err);
+          let jsonresult=[]
+          reply = JSON.stringify(jsonresult);
+        });
+        
+  }
+
 module.exports = {
     createService,
     deleteService,
     getAllServices,
-    getService
+    getService,
+    getAllImages
+
 }

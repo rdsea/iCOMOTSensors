@@ -53,6 +53,13 @@ router.get("/list", (req, res) => {
         res.status(400).send(err);
     });
 })
+router.get("/images", (req, res) => {
+    services.getAllImages().then((services) => {
+        res.json(services);
+    }).catch((err) => {
+        res.status(400).send(err);
+    });
+})
 
 router.delete("/:serviceId", (req, res) => {
     services.deleteService(req.params.serviceId).then(() => {

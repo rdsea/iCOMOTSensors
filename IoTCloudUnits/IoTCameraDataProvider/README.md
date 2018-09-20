@@ -35,28 +35,39 @@ Furthermore, a cloud storage bucket `iotcamera` should exist !
 * npm run build
 * npm run start
 
-## List all cameras
+## Running with Docker
+
+For running the docker, MONGODB_URL environment must be provided. The default port (3000) can be changed by defined the variable PORT. Furthermore, port must be exposed to the outsider. 
+
+Furthermore, a keyfile.json for accessing a Google Storage should be provided, if the provider is used to push data to Google Storage.
+
+## Examples of APIs
+
+### List all cameras
 http://localhost:3000/camera/list
 
-## List camera based on location
+### List camera based on location
 
 http://localhost:3000/camera/list/location?lon=&lat=&distance=
 
 
-## List  all video frame of data point
+### List  all video frame of data point
 http://localhost:3000/camera/:cameraName/list/all
-###For example: datapoint = 2co2.vp9.tv@DNG33
-###URL will look like:
+
+For example, with a datapoint = 2co2.vp9.tv@DNG33, the URL will look like:
 http://localhost:3000/camera/2co2.vp9.tv@chn@DNG33/list/all
 
 
-## Get lastest video frame of data point
+### Get lastest video frame of data point
+
 http://localhost:3000/camera/:cameraName/list/now
-### For example: datapoint = 2co2.vp9.tv@chn@DNG33
-### URL will look like:
+
+For example: datapoint = 2co2.vp9.tv@chn@DNG33, the URL will look like:
+
 http://localhost:3000/camera/2co2.vp9.tv@chn@DNG33/list/now
 
-## POST generate a download link for a video (via google cloud bucket)
+### POST generate a download link for a video (via google cloud bucket)
+
 http://localhost:3000/camera/:cameraName/
 expects `videoName` in the body, should include the filetype extension
 

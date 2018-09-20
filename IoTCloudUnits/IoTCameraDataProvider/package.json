@@ -9,11 +9,29 @@
     "start-dev": "node ./build/server.js",
     "update-geocode": "nodemon ./src/update_geocode.js --exec babel-node --presets env,stage-2"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rdsea/IoTCloudSamples.git"
+  },
+  "author": {
+    "url": "http://rdsea.github.io"
+  },
+  "license": "Apache-2.0",
+  "licenses": [
+    {
+      "type": "Apache-2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0"
+    }
+  ],
+  "bugs": {
+    "url": "https://github.com/rdsea/IoTCloudSamples/issues"
+  },
+  "homepage": "https://github.com/rdsea/IoTCloudSamples#readme",
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-preset-env": "^1.7.0",
     "babel-preset-stage-2": "^6.24.1",
-    "nodemon": "^1.18.3"
+    "nodemon": "^1.18.4"
   },
   "dependencies": {
     "@google-cloud/storage": "^1.7.0",
@@ -21,13 +39,15 @@
     "argparse": "^1.0.10",
     "axios": "^0.17.1",
     "body-parser": "^1.18.3",
+    "chai": "^4.1.2",
+    "chai-url": "^1.0.4",
     "cheerio": "^0.22.0",
     "express": "^4.16.3",
     "moment": "^2.22.2",
-    "mongodb": "^3.1.1",
-    "mongoose": "^5.2.4",
+    "mongodb": "^3.1.6",
+    "mongoose": "^5.2.16",
     "request": "^2.88.0",
     "shortid": "^2.2.13",
-    "winston": "^3.0.0"
+    "winston": "^3.1.0"
   }
 }

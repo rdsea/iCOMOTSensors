@@ -1,0 +1,42 @@
+{
+  "resource": {
+    "category": "iot",
+    "type": {
+      "prototype": "software_artefact"
+    }
+  },
+  "inputs": [
+    {
+      "push_pull": "push",
+      "protocol": {
+        "uri": "mqtt://localhost:1883",
+        "protocol_name": "mqtt",
+        "topic": "noderedtest",
+        "qos": 0
+      },
+      "dataformat": {
+        "encoding": "utf-8",
+        "dataformat_name": "json"
+      }
+    }
+  ],
+  "outputs": [
+    {
+      "push_pull": "push",
+      "protocol": {
+        "uri": "mqtt://localhost:1883",
+        "protocol_name": "mqtt",
+        "topic": "csvOutput",
+        "qos": 0
+      },
+      "dataformat": {
+        "encoding": "utf-8",
+        "dataformat_name": "csv",
+        "headers":"key1, key2, key3",
+        "seperator":",",
+        "newline_seperator":"\n",
+        "headers_included":false
+      }
+    }
+  ]
+}

@@ -1,0 +1,144 @@
+[
+  {
+    "id": "ff7908bc.d57dd8",
+    "type": "tab",
+    "label": "Flow 2",
+    "disabled": false,
+    "info": ""
+  },
+  {
+    "id": "cce95245.85c4",
+    "type": "csv",
+    "z": "ff7908bc.d57dd8",
+    "name": "",
+    "sep": ";",
+    "hdrin": "",
+    "hdrout": false,
+    "multi": "one",
+    "ret": "\\n",
+    "temp": "key1, key2, key3",
+    "skip": "0",
+    "x": 541,
+    "y": 318,
+    "wires": [
+      [
+        "e15c22d0.f506",
+        "42dcbea1.4a831"
+      ]
+    ]
+  },
+  {
+    "id": "e15c22d0.f506",
+    "type": "debug",
+    "z": "ff7908bc.d57dd8",
+    "name": "CSV output",
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "payload",
+    "x": 701,
+    "y": 318,
+    "wires": []
+  },
+  {
+    "id": "1561fbf5.91e374",
+    "type": "mqtt in",
+    "z": "ff7908bc.d57dd8",
+    "name": "",
+    "topic": "noderedtest",
+    "qos": "2",
+    "broker": "264320d6.45a71",
+    "x": 146,
+    "y": 318,
+    "wires": [
+      [
+        "ab4deacd.787068"
+      ]
+    ]
+  },
+  {
+    "id": "e059ab1f.bca118",
+    "type": "mqtt out",
+    "z": "ff7908bc.d57dd8",
+    "name": "",
+    "topic": "noderedtest",
+    "qos": "2",
+    "retain": "",
+    "broker": "264320d6.45a71",
+    "x": 461,
+    "y": 478,
+    "wires": []
+  },
+  {
+    "id": "ef43a801.4670e8",
+    "type": "inject",
+    "z": "ff7908bc.d57dd8",
+    "name": "json message",
+    "topic": "",
+    "payload": "{\"key1\":\"this is a\",\"key2\":\" 2\",\"key3\":\" test\"}",
+    "payloadType": "json",
+    "repeat": "",
+    "crontab": "",
+    "once": false,
+    "onceDelay": 0.1,
+    "x": 184,
+    "y": 475,
+    "wires": [
+      [
+        "e059ab1f.bca118"
+      ]
+    ]
+  },
+  {
+    "id": "ab4deacd.787068",
+    "type": "json",
+    "z": "ff7908bc.d57dd8",
+    "name": "",
+    "property": "payload",
+    "action": "",
+    "pretty": false,
+    "x": 371,
+    "y": 318,
+    "wires": [
+      [
+        "cce95245.85c4"
+      ]
+    ]
+  },
+  {
+    "id": "42dcbea1.4a831",
+    "type": "mqtt out",
+    "z": "ff7908bc.d57dd8",
+    "name": "",
+    "topic": "csvOutput",
+    "qos": "0",
+    "retain": "",
+    "broker": "264320d6.45a71",
+    "x": 707.5,
+    "y": 398,
+    "wires": []
+  },
+  {
+    "id": "264320d6.45a71",
+    "type": "mqtt-broker",
+    "z": "",
+    "name": "",
+    "broker": "localhost",
+    "port": "1883",
+    "clientid": "",
+    "usetls": false,
+    "compatmode": true,
+    "keepalive": "60",
+    "cleansession": true,
+    "birthTopic": "",
+    "birthQos": "0",
+    "birthPayload": "",
+    "closeTopic": "",
+    "closeQos": "0",
+    "closePayload": "",
+    "willTopic": "",
+    "willQos": "0",
+    "willPayload": ""
+  }
+]

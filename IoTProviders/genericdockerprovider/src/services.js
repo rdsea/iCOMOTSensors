@@ -69,17 +69,11 @@ function _runDocker(config){
         //return cmdrun.run(cmd);
     }).then((r) => {
         if(r.stderr) {
-            console.logrouter.get("/list", (req, res) => {
-    services.getAllServices().then((services) => {
-        res.json(services);
-    }).catch((err) => {
-        res.status(400).send(err);
-    });
-})(r.stderr);
+            console.log(r.stderr);
             throw new Error('error occurred starting docker service');
         }
         console.log(r.stdout);
-    });
+  });
 }
 
 function _stopDocker(serviceId){
@@ -109,9 +103,10 @@ function _generatePorts(portNb){
 
 function _listExistingDockerImages() {
     return exec(`docker images --format "{{.Repository}},{{.Tag}},{{.CreatedAt}},{{.Size}}"`).then((r) => {
+        console.log(r.stdout);
         let jsonresult=[]
         csvtojson({noheader:true,headers: ['Image','Tag','CreatedAt','Size']})
-            .fromString(r.output)
+            .fromString(r.stdout)
             .on('json',(json)=>{
                 console.log(json)
                 jsonresult.push(json);
@@ -129,7 +124,7 @@ function _listExistingDockerImages() {
           let jsonresult=[]
           reply = JSON.stringify(jsonresult);
         });
-        
+
   }
 
 module.exports = {

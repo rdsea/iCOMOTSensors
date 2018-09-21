@@ -1,0 +1,6 @@
+{
+  "kubeoptions": {
+    "minikube_nodeport": false,
+    "max_instances": 10
+  }
+}

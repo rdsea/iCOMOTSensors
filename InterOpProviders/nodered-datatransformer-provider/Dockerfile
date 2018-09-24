@@ -1,8 +1,9 @@
 FROM rdsea/provider-base
 
-COPY . /nodered
-WORKDIR /nodered
+COPY . /noderedprovider
+WORKDIR /noderedprovider
 RUN chmod +x docker-entrypoint.sh
-RUN npm install 
+RUN npm install
 
-ENTRYPOINT ["/nodered/docker-entrypoint.sh"]
+ENV NODE_ENV "production"
+ENTRYPOINT ["/noderedprovider/docker-entrypoint.sh"]

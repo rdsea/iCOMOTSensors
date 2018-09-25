@@ -1,0 +1,83 @@
+[
+  {
+    "id": "92060cd4.662b5",
+    "type": "mqtt in",
+    "z": "8d7e330b.8f5a7",
+    "name": "",
+    "topic": "yaml_input",
+    "qos": "2",
+    "broker": "264320d6.45a71",
+    "x": 203.3333282470703,
+    "y": 243.3333282470703,
+    "wires": [
+      [
+        "f7b2736a.b0c0b"
+      ]
+    ]
+  },
+  {
+    "id": "4b290edb.257ca",
+    "type": "mqtt out",
+    "z": "8d7e330b.8f5a7",
+    "name": "",
+    "topic": "yaml_csv_bridge",
+    "qos": "2",
+    "retain": "",
+    "broker": "264320d6.45a71",
+    "x": 693.3332786560059,
+    "y": 243.3333034515381,
+    "wires": []
+  },
+  {
+    "id": "f7b2736a.b0c0b",
+    "type": "yaml",
+    "z": "8d7e330b.8f5a7",
+    "property": "payload",
+    "name": "",
+    "x": 356.6666488647461,
+    "y": 243.33333206176758,
+    "wires": [
+      [
+        "fcc886b0.9f0308"
+      ]
+    ]
+  },
+  {
+    "id": "fcc886b0.9f0308",
+    "type": "json",
+    "z": "8d7e330b.8f5a7",
+    "name": "",
+    "property": "payload",
+    "action": "",
+    "pretty": false,
+    "x": 513.3333053588867,
+    "y": 243.33331489562988,
+    "wires": [
+      [
+        "4b290edb.257ca"
+      ]
+    ]
+  },
+  {
+    "id": "264320d6.45a71",
+    "type": "mqtt-broker",
+    "z": "",
+    "name": "",
+    "broker": "localhost",
+    "port": "1883",
+    "clientid": "",
+    "usetls": false,
+    "compatmode": true,
+    "keepalive": "60",
+    "cleansession": true,
+    "birthTopic": "",
+    "birthQos": "0",
+    "birthPayload": "",
+    "closeTopic": "",
+    "closeQos": "0",
+    "closePayload": "",
+    "willTopic": "",
+    "willQos": "0",
+    "willPayload": ""
+  }
+]

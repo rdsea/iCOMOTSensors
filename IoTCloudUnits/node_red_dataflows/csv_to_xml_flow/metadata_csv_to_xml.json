@@ -17,10 +17,10 @@
       "dataformat": {
         "encoding": "utf-8",
         "dataformat_name": "csv",
-        "headers":"key1, key2, key3",
+        "headers":"",
         "seperator":";",
         "newline_seperator":"\n",
-        "headers_included":false
+        "headers_included":true
       }
     }
   ],
@@ -30,12 +30,12 @@
       "protocol": {
         "uri": "mqtt://localhost:1883",
         "protocol_name": "mqtt",
-        "topic": "json_output",
+        "topic": "xml_output",
         "qos": 2
       },
       "dataformat": {
         "encoding": "utf-8",
-        "dataformat_name": "json"
+        "dataformat_name": "xml"
       }
     }
   ]

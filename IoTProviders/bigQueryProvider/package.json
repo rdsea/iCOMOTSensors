@@ -7,8 +7,17 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon src/index.js --exec babel-node"
   },
-  "author": "lingfangao@gmail.com",
-  "license": "ISC",
+  "author": {
+    "email": "lingfangao@gmail.com|linhsolar@gmail.com|",
+    "url": "http://rdsea.github.io"
+  },
+  "license": "Apache-2.0",
+  "licenses": [
+    {
+      "type": "Apache-2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0"
+    }
+  ],
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-preset-env": "^1.6.1",

@@ -2,7 +2,8 @@ import mongoose from 'mongoose';
 
 
 const MongoClient = require("mongodb").MongoClient;
-let MONGODB_URL = 'mongodb://iotcloudexamples:ac.at.tuwien.dsg@iotcloudexamples-shard-00-00-pz2vu.mongodb.net:27017,iotcloudexamples-shard-00-01-pz2vu.mongodb.net:27017,iotcloudexamples-shard-00-02-pz2vu.mongodb.net:27017/sinc?ssl=true&replicaSet=IoTCloudExamples-shard-0&authSource=admin';
+let MONGODB_URL = process.env.MONGODB_URL;
+
 const DB_NAME = "sinc";
 const COLLECTION = "bigquery";
 

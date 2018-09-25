@@ -28,6 +28,7 @@
     "body-parser": "^1.18.2",
     "chai": "^4.1.2",
     "chai-url": "^1.0.4",
+    "config": "^2.0.1",
     "express": "^4.16.2",
     "mongodb": "^3.1.1",
     "mongoose": "^5.2.4",

@@ -2,7 +2,11 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import * as services from './services';
 
-const PORT = 3004;
+var PORT = 3004;
+
+if (process.env.PORT) {
+  PORT=process.env.PORT;
+}
 var app = express();
 
 // middleware declaration

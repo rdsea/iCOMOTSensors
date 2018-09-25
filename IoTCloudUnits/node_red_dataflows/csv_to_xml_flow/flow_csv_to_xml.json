@@ -20,7 +20,7 @@
     "type": "mqtt out",
     "z": "8d7e330b.8f5a7",
     "name": "",
-    "topic": "json_output",
+    "topic": "xml_output",
     "qos": "2",
     "retain": "",
     "broker": "264320d6.45a71",
@@ -44,20 +44,20 @@
     "y": 241.111102104187,
     "wires": [
       [
-        "87d8fe5e.55fa1"
+        "62ba28b4.214b28"
       ]
     ]
   },
   {
-    "id": "87d8fe5e.55fa1",
-    "type": "json",
+    "id": "62ba28b4.214b28",
+    "type": "xml",
     "z": "8d7e330b.8f5a7",
     "name": "",
     "property": "payload",
-    "action": "",
-    "pretty": false,
-    "x": 522.6110305786133,
-    "y": 241.6667037010193,
+    "attr": "",
+    "chr": "",
+    "x": 523.3333129882812,
+    "y": 239.99998474121094,
     "wires": [
       [
         "4b290edb.257ca"

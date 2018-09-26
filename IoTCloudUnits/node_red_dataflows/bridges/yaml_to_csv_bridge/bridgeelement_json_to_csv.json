@@ -4,14 +4,14 @@
     "type": "mqtt in",
     "z": "8d7e330b.8f5a7",
     "name": "",
-    "topic": "csv_input",
+    "topic": "yaml_csv_bridge",
     "qos": "2",
     "broker": "264320d6.45a71",
-    "x": 213.3333282470703,
+    "x": 203.3333282470703,
     "y": 243.3333282470703,
     "wires": [
       [
-        "4783de9.985a92"
+        "f226c373.e704d"
       ]
     ]
   },
@@ -20,7 +20,7 @@
     "type": "mqtt out",
     "z": "8d7e330b.8f5a7",
     "name": "",
-    "topic": "json_output",
+    "topic": "csv_output",
     "qos": "2",
     "retain": "",
     "broker": "264320d6.45a71",
@@ -29,35 +29,31 @@
     "wires": []
   },
   {
-    "id": "4783de9.985a92",
-    "type": "csv",
-    "z": "8d7e330b.8f5a7",
-    "name": "",
-    "sep": ";",
-    "hdrin": true,
-    "hdrout": "",
-    "multi": "one",
-    "ret": "\\n",
-    "temp": "",
-    "skip": "0",
-    "x": 372.22221755981445,
-    "y": 241.111102104187,
-    "wires": [
-      [
-        "87d8fe5e.55fa1"
-      ]
-    ]
-  },
-  {
-    "id": "87d8fe5e.55fa1",
+    "id": "f226c373.e704d",
     "type": "json",
     "z": "8d7e330b.8f5a7",
     "name": "",
     "property": "payload",
     "action": "",
     "pretty": false,
-    "x": 522.6110305786133,
-    "y": 241.6667037010193,
+    "x": 355.5555419921875,
+    "y": 245.5555419921875,
+    "wires": [
+      [
+        "5618f474.26662c"
+      ]
+    ]
+  },
+  {
+    "id": "5618f474.26662c",
+    "type": "function",
+    "z": "8d7e330b.8f5a7",
+    "name": "object_to_csv",
+    "func": "let header = \"\";\nlet data = \"\";\n\nfor (var key in msg.payload) {\n    header += key + \";\";\n    if(msg.payload[key].includes(\";\")){\n        data += \"\\\"\" + msg.payload[key] + \"\\\";\"\n    }else{\n        data += msg.payload[key] + \";\"\n    }\n}\nheader = header.slice(0, -1);\ndata = data.slice(0, -1);\n\nmsg.payload =header + \"\\n\" + data;\nreturn msg;",
+    "outputs": 1,
+    "noerr": 0,
+    "x": 509.9999694824219,
+    "y": 245.5555419921875,
     "wires": [
       [
         "4b290edb.257ca"

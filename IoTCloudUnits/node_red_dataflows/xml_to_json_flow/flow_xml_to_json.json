@@ -4,14 +4,14 @@
     "type": "mqtt in",
     "z": "8d7e330b.8f5a7",
     "name": "",
-    "topic": "csv_input",
+    "topic": "xml_input",
     "qos": "2",
     "broker": "264320d6.45a71",
-    "x": 213.3333282470703,
+    "x": 203.3333282470703,
     "y": 243.3333282470703,
     "wires": [
       [
-        "4783de9.985a92"
+        "9ffade60.1b732"
       ]
     ]
   },
@@ -24,43 +24,55 @@
     "qos": "2",
     "retain": "",
     "broker": "264320d6.45a71",
-    "x": 682.22216796875,
-    "y": 246.66665649414062,
+    "x": 812.2221527099609,
+    "y": 244.44442749023438,
     "wires": []
   },
   {
-    "id": "4783de9.985a92",
-    "type": "csv",
-    "z": "8d7e330b.8f5a7",
-    "name": "",
-    "sep": ";",
-    "hdrin": true,
-    "hdrout": "",
-    "multi": "one",
-    "ret": "\\n",
-    "temp": "",
-    "skip": "0",
-    "x": 372.22221755981445,
-    "y": 241.111102104187,
-    "wires": [
-      [
-        "87d8fe5e.55fa1"
-      ]
-    ]
-  },
-  {
-    "id": "87d8fe5e.55fa1",
+    "id": "f226c373.e704d",
     "type": "json",
     "z": "8d7e330b.8f5a7",
     "name": "",
     "property": "payload",
     "action": "",
     "pretty": false,
-    "x": 522.6110305786133,
-    "y": 241.6667037010193,
+    "x": 643.3333053588867,
+    "y": 243.33331871032715,
     "wires": [
       [
         "4b290edb.257ca"
+      ]
+    ]
+  },
+  {
+    "id": "9ffade60.1b732",
+    "type": "xml",
+    "z": "8d7e330b.8f5a7",
+    "name": "",
+    "property": "payload",
+    "attr": "",
+    "chr": "",
+    "x": 363.3333053588867,
+    "y": 238.88887405395508,
+    "wires": [
+      [
+        "b04dbb8a.fbca38"
+      ]
+    ]
+  },
+  {
+    "id": "b04dbb8a.fbca38",
+    "type": "function",
+    "z": "8d7e330b.8f5a7",
+    "name": "xml_unfold",
+    "func": "msg.payload = msg.payload.root;\n\nfor(var key in msg.payload){\n    if(msg.payload[key].length===1){\n        msg.payload[key]=msg.payload[key][0];\n    }\n}\n\nreturn msg;",
+    "outputs": 1,
+    "noerr": 0,
+    "x": 506.1111068725586,
+    "y": 241.11110305786133,
+    "wires": [
+      [
+        "f226c373.e704d"
       ]
     ]
   },

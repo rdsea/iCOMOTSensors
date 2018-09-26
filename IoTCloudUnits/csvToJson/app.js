@@ -1,8 +1,10 @@
 'use strict';
 
+var config=require('config');
+var csv2json=config.get('csv2json');
 const express = require('express');
 // Constants
-const PORT = 8080;
+const PORT = csv2json.port;
 const os = require("os");
 const HOST = os.hostname();
 

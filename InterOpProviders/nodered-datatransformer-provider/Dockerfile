@@ -1,4 +1,5 @@
-FROM rdsea/provider-base
+#FROM rdsea/provider-base
+FROM node:8-alpine
 
 COPY . /noderedprovider
 WORKDIR /noderedprovider

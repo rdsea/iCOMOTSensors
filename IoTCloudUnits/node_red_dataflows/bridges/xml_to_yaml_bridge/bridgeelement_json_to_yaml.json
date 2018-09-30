@@ -4,14 +4,14 @@
     "type": "mqtt in",
     "z": "8d7e330b.8f5a7",
     "name": "",
-    "topic": "csv_input",
+    "topic": "xml_yaml_bridge",
     "qos": "2",
     "broker": "264320d6.45a71",
-    "x": 213.3333282470703,
+    "x": 203.3333282470703,
     "y": 243.3333282470703,
     "wires": [
       [
-        "4783de9.985a92"
+        "f226c373.e704d"
       ]
     ]
   },
@@ -20,7 +20,7 @@
     "type": "mqtt out",
     "z": "8d7e330b.8f5a7",
     "name": "",
-    "topic": "json_output",
+    "topic": "yaml_output",
     "qos": "2",
     "retain": "",
     "broker": "264320d6.45a71",
@@ -29,35 +29,29 @@
     "wires": []
   },
   {
-    "id": "4783de9.985a92",
-    "type": "csv",
-    "z": "8d7e330b.8f5a7",
-    "name": "",
-    "sep": ";",
-    "hdrin": true,
-    "hdrout": "",
-    "multi": "one",
-    "ret": "\\n",
-    "temp": "",
-    "skip": "0",
-    "x": 372.22221755981445,
-    "y": 241.111102104187,
-    "wires": [
-      [
-        "87d8fe5e.55fa1"
-      ]
-    ]
-  },
-  {
-    "id": "87d8fe5e.55fa1",
+    "id": "f226c373.e704d",
     "type": "json",
     "z": "8d7e330b.8f5a7",
     "name": "",
     "property": "payload",
     "action": "",
     "pretty": false,
-    "x": 522.6110305786133,
-    "y": 241.6667037010193,
+    "x": 355.5555419921875,
+    "y": 245.5555419921875,
+    "wires": [
+      [
+        "9f9350f9.9d4bf"
+      ]
+    ]
+  },
+  {
+    "id": "9f9350f9.9d4bf",
+    "type": "yaml",
+    "z": "8d7e330b.8f5a7",
+    "property": "payload",
+    "name": "",
+    "x": 518.8888397216797,
+    "y": 246.66665649414062,
     "wires": [
       [
         "4b290edb.257ca"

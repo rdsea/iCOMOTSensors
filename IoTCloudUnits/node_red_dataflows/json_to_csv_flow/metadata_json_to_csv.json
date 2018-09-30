@@ -11,8 +11,8 @@
       "protocol": {
         "uri": "mqtt://localhost:1883",
         "protocol_name": "mqtt",
-        "topic": "noderedtest",
-        "qos": 0
+        "topic": "json_input",
+        "qos": 2
       },
       "dataformat": {
         "encoding": "utf-8",
@@ -26,16 +26,16 @@
       "protocol": {
         "uri": "mqtt://localhost:1883",
         "protocol_name": "mqtt",
-        "topic": "csvOutput",
-        "qos": 0
+        "topic": "csv_output",
+        "qos": 2
       },
       "dataformat": {
         "encoding": "utf-8",
         "dataformat_name": "csv",
-        "headers":"key1, key2, key3",
-        "seperator":",",
+        "headers":"",
+        "seperator":";",
         "newline_seperator":"\n",
-        "headers_included":false
+        "headers_included":true
       }
     }
   ]

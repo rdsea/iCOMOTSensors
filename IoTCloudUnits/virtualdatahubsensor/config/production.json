@@ -1,0 +1,18 @@
+{
+  "virtualdatahubsensor": {
+   "in": {
+     "protocol":"amqp",
+     "endpoint":"amqp://sheep.rmq.cloudamqp.com",
+     "topic":"",
+     "exchange":"iot2018",
+     "routing_key":""
+   },
+   "out": {
+     "protocol":"mqtt",
+     "endpoint":"mqtt://@m23.cloudmqtt.com:17510",
+     "topic":"iot2018",
+     "exchange":"",
+     "routing_key":""
+   }
+  }
+}

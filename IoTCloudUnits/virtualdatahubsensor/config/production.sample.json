@@ -1,0 +1,19 @@
+{
+  "virtualdatahubsensor": {
+   "port":8099,
+   "in": {
+     "protocol":"amqp",
+     "endpoint":"amqp://krqnieqy:FJK-p-Z1VWBKU4Frznw8NqGS8Jvp138u@sheep.rmq.cloudamqp.com/krqnieqy",
+     "topic":"",
+     "exchange":"iot2018",
+     "routing_key":""
+   },
+   "out": {
+     "protocol":"mqtt",
+     "endpoint":"mqtt://yyoozdks:vFybfsEh65BR@m23.cloudmqtt.com:17510",
+     "topic":"iot2018",
+     "exchange":"",
+     "routing_key":""
+   }
+  }
+}

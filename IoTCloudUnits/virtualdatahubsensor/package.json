@@ -1,0 +1,15 @@
+{
+  "name": "virtualdatahubsensor",
+  "version": "0.1.0",
+  "description": "virtual sensor by extracting data from datahub",
+  "author": "linhsolar@gmail.com",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "amqplib": "^0.5.2",
+    "config": "^2.0.1",
+    "mqtt": "^2.16.0"
+  }
+}

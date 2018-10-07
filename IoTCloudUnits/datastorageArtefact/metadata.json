@@ -2,7 +2,9 @@
   "resource": {
     "category": "iot",
     "type": {
-      "prototype": "software_artefact"
+      "prototype": "software_artefact",
+      "execution_env":"docker",
+      "image":"rdsea/http2datastorage"
     }
   },
   "inputs": [

@@ -1,4 +1,4 @@
 #!/bin/bash
 
-docker build -t rdsea/csv2json_multiprotocol .
-docker push rdsea/csv2json_multiprotocol
+docker build -t rdsea/csvjson-bridge .
+docker push rdsea/csvjson-bridge

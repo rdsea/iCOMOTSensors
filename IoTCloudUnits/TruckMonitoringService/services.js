@@ -1,4 +1,3 @@
-
 import randomstring from 'randomstring';
 import { randomBytes } from 'crypto';
 import TruckInfo from './data/models/truckinfo';
@@ -67,6 +66,7 @@ export function processingData(config){
             channel.ack(msg);
             var entry =JSON.parse(msg.content);
             //console.log(entry);
+	   //follow valencia data model
               if (entry["valenciaPortData"]['entryVehicles'] !=null) {
                  console.log("Get enter "+entry["valenciaPortData"]['entryVehicles'][0]['plate']);
                   return updateTruckInfo(entry["valenciaPortData"]['entryVehicles'][0]['plate'],true);

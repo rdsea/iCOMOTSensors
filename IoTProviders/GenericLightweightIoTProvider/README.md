@@ -1,12 +1,8 @@
 # Generic Lightweight IoT/Edge Function Provider
 
-In many cases, an IoT/edge function (e.g., Gateway, Broker, firewall, etc) has to be executed in a lightweight machine. It means the machine can only run with basic operating system features, VMs, or dockers but the machine cannot have a complex distributed system, like Kubernetes.
+In many cases, an IoT/edge function (e.g., Gateway, Broker, firewall, etc) has to be executed in a lightweight machine. It means the machine can only run with basic operating system features but the machine cannot have a complex distributed system, like Kubernetes. Furthermore, the function does not have to be exposed as a service for remote access.
 
-For such a case, a function is wrapped into a unit which will be run as a process within the machine.
-
-This provider will support this kind of units in a generic way.
-
-Note: the code has not been fully tested and there are some known bugs.
+For such a case, a function is wrapped into a unit under scripts which will be run as a process within the machine. This provider will support this kind of units in a generic way.
 
 ## Prepare the function
 
@@ -22,13 +18,7 @@ In our current design, we just support start_script. Currently, start_script is 
 
 Currently, each function will have a name and start_script. The information will be specified in configTemplates/deployTemplate.js
 
-### Example with docker
 
- "functions": [    
-     {
-       "functionname":"simpledocker",
-       "start_script": "docker run hello-world"
-     },
 
 ### Example with Python
 

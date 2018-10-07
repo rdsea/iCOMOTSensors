@@ -1,5 +1,6 @@
-# Generic Docker Provider
-This provider supports running lightweight dockers for IoT/Edge server. The idea is that for IoT/Edge applications some lightweighted Dockerized components/services can be started and stopped on-demand. This provider supports the management of such Dockerized components/services.
+# Dockerized Service Provider
+This provider supports running lightweight microservices provided by docker images for IoT/Edge server. The idea is that for IoT/Edge applications some lightweighted Dockerized components/services must be  started and stopped on-demand. Furthermore, such services must be exposed to the outside world.
+This provider supports the management of such Dockerized components/services.
 
 ## Setup
 

@@ -14,10 +14,17 @@ var router = express.Router();
 
 router.post('/', (req, res) => {
   services.processingData(req.body);
+  res.json({
+     'message':'OK'
+   });
+});
+
+router.get('/', (req,res) => {
     res.json({
         url:'/truckmonitoring/',
         sampleConfiguration: {
-          'message':'just a simple truck monitoring'
+	 'amqp_uri':'amqp://user@pass:host',
+         'amqp_queue':'just a simple truck monitoring'
         }
     });
 });

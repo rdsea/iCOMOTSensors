@@ -1,0 +1,5 @@
+{
+  "mqttamqpbridge": {
+   "port":8095
+  }
+}

@@ -1,0 +1,72 @@
+{
+  "resource": {
+    "category": "iot",
+    "type": {
+      "prototype": "software_artefact",
+      "execution_env":"docker",
+      "image":"rdsea/csv2json_multiprotocol"
+    }
+  },
+  "inputs": [
+    {
+      "push_pull": "push",
+      "protocol": {
+        "uri": "dynamic",
+        "protocol_name": "mqtt",
+        "topic": "",
+        "qos": 2
+      },
+      "dataformat": {
+        "encoding": "utf-8",
+        "dataformat_name": "csv",
+        "headers":"",
+        "seperator":";",
+        "newline_seperator":"\n",
+        "headers_included":true
+      }
+    },
+    {
+      "push_pull": "push",
+      "protocol": {
+        "uri": "dynamic",
+        "protocol_name": "amqp",
+        "queue": ""
+      },
+      "dataformat": {
+        "encoding": "utf-8",
+        "dataformat_name": "csv",
+        "headers":"",
+        "seperator":";",
+        "newline_seperator":"\n",
+        "headers_included":true
+      }
+    }
+  ],
+  "outputs": [
+    {
+      "push_pull": "push",
+      "protocol": {
+        "uri": "dynamic",
+        "protocol_name": "mqtt",
+        "topic": "json_output",
+        "qos": 2
+      },
+      "dataformat": {
+        "encoding": "utf-8",
+        "dataformat_name": "json"
+      }
+    },
+    {
+      "push_pull": "push",
+      "protocol": {
+        "uri": "dynamic",
+        "protocol_name": "amqp",
+        "exchange": ""
+      },
+      "dataformat": {
+        "encoding": "utf-8",
+        "dataformat_name": "json"
+      }
+    }
+  ]
+}

@@ -2,7 +2,8 @@
   "resource": {
     "category": "iot",
     "type": {
-      "prototype": "software_artefact"
+      "prototype": "software_artefact",
+      "execution_env":"node_red"
     }
   },
   "inputs": [

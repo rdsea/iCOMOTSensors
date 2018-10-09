@@ -1,0 +1,185 @@
+{
+  "id": "bridge_yaml_to_csv",
+  "slice": {
+    "resources": {
+      "yaml_to_json": {
+        "uuid": "5bbc45ff857aba0001b3281e",
+        "name": "bridgeelement_yaml_to_json",
+        "executionEnvironment": "nodered",
+        "artefactReference": "https://raw.githubusercontent.com/rdsea/IoTCloudSamples/master/IoTCloudUnits/node_red_dataflows/bridges/yaml_to_csv_bridge/bridgeelement_yaml_to_json.json",
+        "metadata": {
+          "resource": {
+            "category": "iot",
+            "type": {
+              "prototype": "software_artefact",
+              "execution_env": "nodered"
+            }
+          },
+          "inputs": [
+            {
+              "push_pull": "push",
+              "protocol": {
+                "uri": "mqtt://localhost:1883",
+                "protocol_name": "mqtt",
+                "topic": "yaml_input",
+                "qos": 2
+              },
+              "dataformat": {
+                "encoding": "utf-8",
+                "dataformat_name": "yaml"
+              }
+            }
+          ],
+          "outputs": [
+            {
+              "push_pull": "push",
+              "protocol": {
+                "uri": "mqtt://localhost:1883",
+                "protocol_name": "mqtt",
+                "topic": "yaml_csv_bridge",
+                "qos": 2
+              },
+              "dataformat": {
+                "encoding": "utf-8",
+                "dataformat_name": "json"
+              }
+            }
+          ]
+        }
+      },
+      "json_to_csv": {
+        "uuid": "5bbc45fe857aba0001b3281d",
+        "name": "bridgeelement_json_to_csv",
+        "executionEnvironment": "nodered",
+        "artefactReference": "https://raw.githubusercontent.com/rdsea/IoTCloudSamples/master/IoTCloudUnits/node_red_dataflows/bridges/yaml_to_csv_bridge/bridgeelement_json_to_csv.json",
+        "metadata": {
+          "resource": {
+            "category": "iot",
+            "type": {
+              "prototype": "software_artefact",
+              "execution_env": "nodered"
+            }
+          },
+          "inputs": [
+            {
+              "push_pull": "push",
+              "protocol": {
+                "uri": "mqtt://localhost:1883",
+                "protocol_name": "mqtt",
+                "topic": "yaml_csv_bridge",
+                "qos": 2
+              },
+              "dataformat": {
+                "encoding": "utf-8",
+                "dataformat_name": "json"
+              }
+            }
+          ],
+          "outputs": [
+            {
+              "push_pull": "push",
+              "protocol": {
+                "uri": "mqtt://localhost:1883",
+                "protocol_name": "mqtt",
+                "topic": "csv_output",
+                "qos": 2
+              },
+              "dataformat": {
+                "encoding": "utf-8",
+                "dataformat_name": "csv",
+                "headers": "",
+                "seperator": ";",
+                "newline_seperator": "\n",
+                "headers_included": true
+              }
+            }
+          ]
+        }
+      },
+      "broker": {
+        "name": "mosquitto broker",
+        "resourceCategory": "BROKER",
+        "resourceType": "NETWORK_FUNCTION_SERVICE",
+        "location": null,
+        "metadata": {
+          "resource": {
+            "category": "network_function_service",
+            "type": {
+              "prototype": "MessageBroker",
+              "protocols": [
+                {
+                  "protocol_name": "mqtt"
+                }
+              ],
+              "topics": [
+                "yaml_input",
+                "yaml_csv_bridge",
+                "csv_output"
+              ],
+              "auto_create": true
+            }
+          }
+        },
+        "parameters": {
+          "ingressAccessPoints": [],
+          "egressAccessPoints": []
+        },
+        "controlPoints": [],
+        "dataPoints": [],
+        "uuid": null,
+        "providerUuid": "mqttlocal1set0"
+      }
+    },
+    "connectivities": {
+      "yaml_to_broker": {
+        "in": "yaml_to_json",
+        "out": "broker"
+      },
+      "broker_to_csv": {
+        "in": "broker",
+        "out": "json_to_csv"
+      }
+    }
+  },
+  "metadata": {
+    "resource": {
+      "category": "intop_bridge"
+    },
+    "inputs": [
+      {
+        "push_pull": "push",
+        "protocol": {
+          "uri": "mqtt://localhost:1883",
+          "protocol_name": "mqtt",
+          "topic": "yaml_input",
+          "qos": 2
+        },
+        "dataformat": {
+          "encoding": "utf-8",
+          "dataformat_name": "yaml"
+        }
+      }
+    ],
+    "outputs": [
+      {
+        "push_pull": "push",
+        "protocol": {
+          "uri": "mqtt://localhost:1883",
+          "protocol_name": "mqtt",
+          "topic": "csv_output",
+          "qos": 2
+        },
+        "dataformat": {
+          "encoding": "utf-8",
+          "dataformat_name": "csv",
+          "headers": "",
+          "seperator": ";",
+          "newline_seperator": "\n",
+          "headers_included": true
+        }
+      }
+    ]
+  },
+  "inputResourceId": "5bbc45ff857aba0001b3281e",
+  "outputResourceId": "5bbc45fe857aba0001b3281d"
+}

@@ -12,12 +12,12 @@
       "protocol": {
         "uri": "mqtt://localhost:1883",
         "protocol_name": "mqtt",
-        "topic": "xml_input",
+        "topic": "yaml_csv_bridge",
         "qos": 2
       },
       "dataformat": {
         "encoding": "utf-8",
-        "dataformat_name": "xml"
+        "dataformat_name": "json"
       }
     }
   ],

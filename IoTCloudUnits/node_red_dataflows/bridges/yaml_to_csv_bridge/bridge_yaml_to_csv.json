@@ -1,5 +1,5 @@
 {
-  "id": "bridge_yaml_to_csv",
+  "name": "bridge_yaml_to_csv",
   "slice": {
     "resources": {
       "yaml_to_json": {

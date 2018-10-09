@@ -1,5 +1,5 @@
 {
-  "id": "bridge_xml_to_yaml",
+  "name": "bridge_xml_to_yaml",
   "slice": {
     "resources": {
       "xml_to_json": {

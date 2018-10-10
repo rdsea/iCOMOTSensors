@@ -8,7 +8,8 @@ const promisify = require("util").promisify;
 const db = require("./data/db");
 const exec = promisify(child_process.exec);
 const writeFile = promisify(fs.outputFile);
-const csvtojson=require('csvtojson');
+const dockerizedserviceprovider=require("config");
+var provider_config =dockerizedserviceprovider.get("dockerizedserviceprovider");
 //var cmdrun=require('node-cmd');
 //var treekill = require('tree-kill');
 let currentPort = 8300;
@@ -34,7 +35,10 @@ function getService(serviceId){
 }
 
 function getAllServices(){
-    return db.find();
+    let query ={
+      providerid:provider_config.PROVIDER_ID
+    };
+    return db.find(query);
 }
 
 function getAllImages(){
@@ -46,6 +50,7 @@ function getAllImages(){
 
 
 function _runDocker(config){
+    config['providerid']=provider_config.PROVIDER_ID;
     let cmd = `docker run -d  --name ${config.serviceId}`;
     config.environment.forEach((env) => {
         cmd += ` -e ${env.name}='${env.value}'`;

@@ -52,7 +52,16 @@ function _runDocker(config){
     });
 
     let hostPorts = _generatePorts(config.ports.length);
-    config.ports.forE
+    let exposedPortTuples=[]
+    config.ports.forEach((port, index) => {
+        cmd += ` -p ${hostPorts[index]}:${port}`
+        let portMap = {
+          "source":port,
+          "exposed":hostPorts[index]
+        }
+        exposedPortTuples.push(portMap)
+    });
+    config['exposedPorts']=exposedPortTuples;
     let writeFilePromises = [];
     //created file is put into the mount directory
     config.files.forEach((file) => {

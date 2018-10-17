@@ -54,7 +54,7 @@ export function deleteDataTransformer(datatransformerId){
     let query = {
         'datatransformerId':datatransformerId
     };
-    return DataTransformer.findOneAndDelete(datatransformerId).then(() => {
+    return DataTransformer.findOneAndDelete(query).then(() => {
         let execs = [];
         execs.push(exec(`kubectl delete deployments ${datatransformerId}`).catch((err) => err));
         execs.push(exec(`kubectl delete services ${datatransformerId}`).catch((err) => err));

@@ -7,6 +7,7 @@ import serviceTemplate from './configTemplates/serviceTemplate';
 const config_package=require('config');
 var kubeOptions=config_package.get("kubeoptions");
 const isIp = require('is-ip');
+const isUrl = require('is-url');
 // from './configTemplates/kubeOptions';
 import randomstring from 'randomstring';
 import { randomBytes } from 'crypto';
@@ -80,7 +81,8 @@ export function getDataTransformers(datatransformerId){
         datatransformers = res;
         let kubectl = []; // promise executions of kubetcl;
         datatransformers.forEach((datatransformer) => {
-          _updateDataTransformerInfo(datatransformer);
+          if (!isUrl.isUrl(datatransformer.url))
+            _updateDataTransformerInfo(datatransformer);
 
   /*
           if (process.env.MINIKUBE_NODEPORT) {

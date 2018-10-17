@@ -81,7 +81,7 @@ export function getDataTransformers(datatransformerId){
         datatransformers = res;
         let kubectl = []; // promise executions of kubetcl;
         datatransformers.forEach((datatransformer) => {
-          if (!isUrl.isUrl(datatransformer.url))
+          if (!isUrl(datatransformer.url))
             _updateDataTransformerInfo(datatransformer);
 
   /*

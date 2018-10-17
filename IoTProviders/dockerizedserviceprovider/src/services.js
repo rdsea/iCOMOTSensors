@@ -55,24 +55,28 @@ function _runDocker(config){
     config.environment.forEach((env) => {
         cmd += ` -e ${env.name}='${env.value}'`;
     });
-
-    let hostPorts = _generatePorts(config.ports.length);
-    let exposedPortTuples=[]
-    config.ports.forEach((port, index) => {
-        cmd += ` -p ${hostPorts[index]}:${port}`
-        let portMap = {
-          "source":port,
-          "exposed":hostPorts[index]
-        }
-        exposedPortTuples.push(portMap)
-    });
-    config['exposedPorts']=exposedPortTuples;
+    if (config.ports) {
+      let hostPorts = _generatePorts(config.ports.length);
+      let exposedPortTuples=[]
+      config.ports.forEach((port, index) => {
+          cmd += ` -p ${hostPorts[index]}:${port}`
+          let portMap = {
+            "source":port,
+            "exposed":hostPorts[index]
+          }
+          exposedPortTuples.push(portMap)
+        });
+        config['exposedPorts']=exposedPortTuples;
+      }
     let writeFilePromises = [];
-    //created file is put into the mount directory
-    config.files.forEach((file) => {
+    if (config.files) {
+
+      //created file is put into the mount directory
+      config.files.forEach((file) => {
         writeFilePromises.push(writeFile(`/tmp/${config.serviceId}/${file.name}`, file.body));
         cmd += ` -v /tmp/${config.serviceId}:${file.path}`;
-    });
+      });
+    }
     if (config.args) {
       cmd += ` ${config.args}`;
     }

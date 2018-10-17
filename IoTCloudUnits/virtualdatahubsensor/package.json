@@ -9,7 +9,9 @@
   },
   "dependencies": {
     "amqplib": "^0.5.2",
+    "argparse": "^1.0.10",
     "config": "^2.0.1",
-    "mqtt": "^2.16.0"
+    "mqtt": "^2.16.0",
+    "request": "^2.88.0"
   }
 }

@@ -1,0 +1,72 @@
+{
+  "resource": {
+    "category": "iot",
+    "type": {
+      "prototype": "software_artefact",
+      "execution_env":"nodered"
+    }
+  },
+  "inputs": [
+    {
+      "push_pull": "push",
+      "protocol": {
+        "uri": "http://<host>:<port>/protonInRule",
+        "protocol_name": "http",
+        "http_method":"POST",
+        "parameters":{
+          "body": {
+            "<parametername>": {
+              "required": true
+            }
+          },
+          "path":{},
+          "query":{},
+          "header":{}
+        }
+      },
+      "dataformat": {
+        "encoding": "utf-8",
+        "dataformat_name": "json"
+      }
+    }
+  ],
+  "outputs": [
+    {
+      "push_pull": "push",
+      "protocol": {
+        "uri": "http://<pcs-portcall>",
+        "protocol_name": "http",
+        "http_method":"<http_method>",
+        "parameters":{
+          "body":{},
+          "path":{},
+          "query":{},
+          "header":{}
+        }
+      },
+      "dataformat": {
+        "encoding": "utf-8",
+        "dataformat_name": "json"
+      }
+    },
+    {
+      "push_pull": "push",
+      "protocol": {
+        "uri": "http://<fiware-sth-raw>",
+        "protocol_name": "http",
+        "http_method":"<http_method>",
+        "parameters":{
+          "body":{},
+          "path":{},
+          "query":{},
+          "header":{}
+        }
+      },
+      "dataformat": {
+        "encoding": "utf-8",
+        "dataformat_name": "json"
+      }
+    }
+
+  ]
+}

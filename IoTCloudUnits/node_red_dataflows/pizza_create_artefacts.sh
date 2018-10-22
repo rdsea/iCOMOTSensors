@@ -22,5 +22,8 @@ pizza artefact create https://raw.githubusercontent.com/rdsea/IoTCloudSamples/ma
 pizza artefact create https://raw.githubusercontent.com/rdsea/IoTCloudSamples/master/IoTCloudUnits/node_red_dataflows/xml_to_json_flow/flow_xml_to_json_flow.json nodered ./xml_to_json_flow/metadata_xml_to_json.json nodered_xml_to_json_flow
 pizza artefact create https://raw.githubusercontent.com/rdsea/IoTCloudSamples/master/IoTCloudUnits/node_red_dataflows/yaml_to_json_flow/flow_yaml_to_json_flow.json nodered ./yaml_to_json_flow/metadata_yaml_to_json.json nodered_yaml_to_json_flow
 
-
-
+#interiot flows
+pizza artefact create https://raw.githubusercontent.com/rdsea/IoTCloudSamples/master/IoTCloudUnits/node_red_dataflows/interiot_cep_pcs/flow_interiot_cep_pcs.json nodered ./interiot_cep_pcs/metadata_interiot_cep_pcs.json interiot_cep_pcs-flow
+pizza artefact create https://raw.githubusercontent.com/rdsea/IoTCloudSamples/master/IoTCloudUnits/node_red_dataflows/interiot_fiware/flow_interiot_fiware.json nodered ./interiot_fiware/metadata_interiot_fiware.json interiot_fiware-flow
+pizza artefact create https://raw.githubusercontent.com/rdsea/IoTCloudSamples/master/IoTCloudUnits/node_red_dataflows/interiot_platformx/flow_interiot_platformx.json nodered ./interiot_platformx/metadata_interiot_platformx.json interiot_platformx-flow
+pizza artefact create https://raw.githubusercontent.com/rdsea/IoTCloudSamples/master/IoTCloudUnits/node_red_dataflows/interiot_sofia2/flow_interiot_sofia2.json nodered ./interiot_sofia2/metadata_interiot_sofia2.json interiot_sofia2-flow

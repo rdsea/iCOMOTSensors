@@ -1,6 +1,7 @@
 {
         "image": "interiotvgateway",
         "ports": [
+            8080,
             8829
         ],
         "environment": [

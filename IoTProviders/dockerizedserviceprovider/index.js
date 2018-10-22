@@ -1,8 +1,12 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const services = require("./src/services");
-
-const PORT = 3009;
+const dockerizedserviceprovider=require("config");
+var config =dockerizedserviceprovider.get("dockerizedserviceprovider");
+var PORT = 3009;
+if (config.port !=null) {
+  PORT = config.port;
+}
 var app = express();
 
 // middleware declaration

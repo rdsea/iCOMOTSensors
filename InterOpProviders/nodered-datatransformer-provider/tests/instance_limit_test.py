@@ -21,5 +21,6 @@ headers = {
     }
 
 for i in range(num_test):
+    payload['name']="truckprocessor"+str(i)
     response = requests.request("POST", args.datatransformer_provider, data=json.dumps(payload), headers=headers)
     print(response.text)

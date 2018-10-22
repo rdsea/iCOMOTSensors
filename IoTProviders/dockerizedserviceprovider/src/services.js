@@ -8,7 +8,8 @@ const promisify = require("util").promisify;
 const db = require("./data/db");
 const exec = promisify(child_process.exec);
 const writeFile = promisify(fs.outputFile);
-const csvtojson=require('csvtojson');
+const dockerizedserviceprovider=require("config");
+var provider_config =dockerizedserviceprovider.get("dockerizedserviceprovider");
 //var cmdrun=require('node-cmd');
 //var treekill = require('tree-kill');
 let currentPort = 8300;
@@ -34,7 +35,10 @@ function getService(serviceId){
 }
 
 function getAllServices(){
-    return db.find();
+    let query ={
+      providerid:provider_config.PROVIDER_ID
+    };
+    return db.find(query);
 }
 
 function getAllImages(){
@@ -46,19 +50,33 @@ function getAllImages(){
 
 
 function _runDocker(config){
+    config['providerid']=provider_config.PROVIDER_ID;
     let cmd = `docker run -d  --name ${config.serviceId}`;
     config.environment.forEach((env) => {
         cmd += ` -e ${env.name}='${env.value}'`;
     });
-
-    let hostPorts = _generatePorts(config.ports.length);
-    config.ports.forE
+    if (config.ports) {
+      let hostPorts = _generatePorts(config.ports.length);
+      let exposedPortTuples=[]
+      config.ports.forEach((port, index) => {
+          cmd += ` -p ${hostPorts[index]}:${port}`
+          let portMap = {
+            "source":port,
+            "exposed":hostPorts[index]
+          }
+          exposedPortTuples.push(portMap)
+        });
+        config['exposedPorts']=exposedPortTuples;
+      }
     let writeFilePromises = [];
-    //created file is put into the mount directory
-    config.files.forEach((file) => {
+    if (config.files) {
+
+      //created file is put into the mount directory
+      config.files.forEach((file) => {
         writeFilePromises.push(writeFile(`/tmp/${config.serviceId}/${file.name}`, file.body));
         cmd += ` -v /tmp/${config.serviceId}:${file.path}`;
-    });
+      });
+    }
     if (config.args) {
       cmd += ` ${config.args}`;
     }

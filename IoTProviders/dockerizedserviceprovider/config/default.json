@@ -1,0 +1,6 @@
+{
+  "dockerizedserviceprovider": {
+    "port":3009,
+    "PROVIDER_ID":"7c51d72a-cc92-11e8-b091-33e3dee0bbed"
+  }
+}

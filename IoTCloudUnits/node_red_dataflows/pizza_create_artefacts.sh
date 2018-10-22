@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+
+#bridgeelements
+#artefacts for xml_to_yaml bridge
+pizza artefact create https://raw.githubusercontent.com/rdsea/IoTCloudSamples/master/IoTCloudUnits/node_red_dataflows/bridges/xml_to_yaml_bridge/bridgeelement_json_to_yaml.json nodered ./bridges/xml_to_yaml_bridge/metadata_bridgeelement_json_to_yaml.json bridgeelement_json_to_yaml
+pizza artefact create https://raw.githubusercontent.com/rdsea/IoTCloudSamples/master/IoTCloudUnits/node_red_dataflows/bridges/xml_to_yaml_bridge/bridgeelement_xml_to_json.json nodered ./bridges/xml_to_yaml_bridge/metadata_bridgeelement_xml_to_json.json bridgeelement_xml_to_json
+
+#artefacts for yaml_to_csv bridge
+pizza artefact create https://raw.githubusercontent.com/rdsea/IoTCloudSamples/master/IoTCloudUnits/node_red_dataflows/bridges/yaml_to_csv_bridge/bridgeelement_json_to_csv.json nodered ./bridges/yaml_to_csv_bridge/metadata_bridgeelement_json_to_csv.json bridgeelement_json_to_csv
+pizza artefact create https://raw.githubusercontent.com/rdsea/IoTCloudSamples/master/IoTCloudUnits/node_red_dataflows/bridges/yaml_to_csv_bridge/bridgeelement_yaml_to_json.json nodered ./bridges/yaml_to_csv_bridge/metadata_bridgeelement_yaml_to_json.json bridgeelement_yaml_to_json
+
+
+#artefact flows
+pizza artefact create https://raw.githubusercontent.com/rdsea/IoTCloudSamples/master/IoTCloudUnits/node_red_dataflows/csv_to_json_flow/flow_csv_to_json.json nodered ./csv_to_json_flow/metadata_csv_to_json.json nodered_csv_to_json
+pizza artefact create https://raw.githubusercontent.com/rdsea/IoTCloudSamples/master/IoTCloudUnits/node_red_dataflows/csv_to_xml_flow/flow_csv_to_xml.json nodered ./csv_to_xml_flow/metadata_csv_to_xml.json nodered_csv_to_xml
+pizza artefact create https://raw.githubusercontent.com/rdsea/IoTCloudSamples/master/IoTCloudUnits/node_red_dataflows/fixed_header_csv_to_json_flow/flow_fixed_header_csv_to_json_flow.json nodered ./fixed_header_csv_to_json_flow/metadata_fixed_header_csv_to_json.json nodered_fixed_header_csv_to_json_flow
+pizza artefact create https://raw.githubusercontent.com/rdsea/IoTCloudSamples/master/IoTCloudUnits/node_red_dataflows/json_to_csv_flow/flow_json_to_csv_flow.json nodered ./json_to_csv_flow/metadata_json_to_csv.json nodered_json_to_csv_flow
+pizza artefact create https://raw.githubusercontent.com/rdsea/IoTCloudSamples/master/IoTCloudUnits/node_red_dataflows/json_to_fixed_header_csv_flow/flow_json_to_fixed_header_csv_flow.json nodered ./json_to_fixed_header_csv_flow/metadata_json_to_fixed_header_csv.json nodered_json_to_fixed_header_csv_flow
+pizza artefact create https://raw.githubusercontent.com/rdsea/IoTCloudSamples/master/IoTCloudUnits/node_red_dataflows/json_to_xml_flow/flow_json_to_xml_flow.json nodered ./json_to_xml_flow/metadata_json_to_xml.json nodered_json_to_xml_flow
+pizza artefact create https://raw.githubusercontent.com/rdsea/IoTCloudSamples/master/IoTCloudUnits/node_red_dataflows/json_to_yaml_flow/flow_json_to_yaml_flow.json nodered ./json_to_yaml_flow/metadata_json_to_yaml.json nodered_json_to_yaml_flow
+pizza artefact create https://raw.githubusercontent.com/rdsea/IoTCloudSamples/master/IoTCloudUnits/node_red_dataflows/xml_to_csv_flow/flow_xml_to_csv_flow.json nodered ./xml_to_csv_flow/metadata_xml_to_csv.json nodered_xml_to_csv_flow
+pizza artefact create https://raw.githubusercontent.com/rdsea/IoTCloudSamples/master/IoTCloudUnits/node_red_dataflows/xml_to_json_flow/flow_xml_to_json_flow.json nodered ./xml_to_json_flow/metadata_xml_to_json.json nodered_xml_to_json_flow
+pizza artefact create https://raw.githubusercontent.com/rdsea/IoTCloudSamples/master/IoTCloudUnits/node_red_dataflows/yaml_to_json_flow/flow_yaml_to_json_flow.json nodered ./yaml_to_json_flow/metadata_yaml_to_json.json nodered_yaml_to_json_flow
+
+#interiot flows
+pizza artefact create https://raw.githubusercontent.com/rdsea/IoTCloudSamples/master/IoTCloudUnits/node_red_dataflows/interiot_cep_pcs/flow_interiot_cep_pcs.json nodered ./interiot_cep_pcs/metadata_interiot_cep_pcs.json interiot_cep_pcs-flow
+pizza artefact create https://raw.githubusercontent.com/rdsea/IoTCloudSamples/master/IoTCloudUnits/node_red_dataflows/interiot_fiware/flow_interiot_fiware.json nodered ./interiot_fiware/metadata_interiot_fiware.json interiot_fiware-flow
+pizza artefact create https://raw.githubusercontent.com/rdsea/IoTCloudSamples/master/IoTCloudUnits/node_red_dataflows/interiot_platformx/flow_interiot_platformx.json nodered ./interiot_platformx/metadata_interiot_platformx.json interiot_platformx-flow
+pizza artefact create https://raw.githubusercontent.com/rdsea/IoTCloudSamples/master/IoTCloudUnits/node_red_dataflows/interiot_sofia2/flow_interiot_sofia2.json nodered ./interiot_sofia2/metadata_interiot_sofia2.json interiot_sofia2-flow

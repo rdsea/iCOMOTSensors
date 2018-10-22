@@ -27,16 +27,12 @@
       "protocol": {
         "uri": "mqtt://localhost:1883",
         "protocol_name": "mqtt",
-        "topic": "csv_output",
+        "topic": "xml_yaml_bridge",
         "qos": 2
       },
       "dataformat": {
         "encoding": "utf-8",
-        "dataformat_name": "csv",
-        "headers":"",
-        "seperator":";",
-        "newline_seperator":"\n",
-        "headers_included":true
+        "dataformat_name": "json"
       }
     }
   ]

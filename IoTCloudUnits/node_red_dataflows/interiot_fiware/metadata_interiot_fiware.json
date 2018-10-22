@@ -1,0 +1,37 @@
+{
+  "resource": {
+    "category": "iot",
+    "type": {
+      "prototype": "software_artefact",
+      "execution_env":"nodered"
+    }
+  },
+  "inputs": [
+    {
+      "push_pull": "push",
+      "protocol": {
+        "uri": "mqtt://<host>:1880/fiwaresth",
+        "protocol_name": "http",
+        "http_method":"GET",
+        "parameters":{
+          "query":{
+            "data1":"Number",
+            "data2":"Number"
+          }
+        }
+      },
+      "dataformat": {
+        "encoding": "utf-8",
+        "dataformat_name": "json",
+        "schema_type":"fiware"
+      }
+    }
+  ],
+  "outputs": [
+    {
+      "push_pull": "push",
+      "protocol": "<datalake-protocol-object>",
+      "dataformat": "<commonformat-dataformat-object>"
+    }
+  ]
+}

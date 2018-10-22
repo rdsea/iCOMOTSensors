@@ -1,0 +1,177 @@
+{
+  "name": "bridge_xml_to_yaml",
+  "slice": {
+    "resources": {
+      "xml_to_json": {
+        "uuid": "5bbc45fd857aba0001b3281c",
+        "name": "bridgeelement_xml_to_json",
+        "executionEnvironment": "nodered",
+        "artefactReference": "https://raw.githubusercontent.com/rdsea/IoTCloudSamples/master/IoTCloudUnits/node_red_dataflows/bridges/xml_to_yaml_bridge/bridgeelement_xml_to_json.json",
+        "metadata": {
+          "resource": {
+            "category": "iot",
+            "type": {
+              "prototype": "software_artefact",
+              "execution_env": "nodered"
+            }
+          },
+          "inputs": [
+            {
+              "push_pull": "push",
+              "protocol": {
+                "uri": "mqtt://localhost:1883",
+                "protocol_name": "mqtt",
+                "topic": "xml_input",
+                "qos": 2
+              },
+              "dataformat": {
+                "encoding": "utf-8",
+                "dataformat_name": "xml"
+              }
+            }
+          ],
+          "outputs": [
+            {
+              "push_pull": "push",
+              "protocol": {
+                "uri": "mqtt://localhost:1883",
+                "protocol_name": "mqtt",
+                "topic": "xml_yaml_bridge",
+                "qos": 2
+              },
+              "dataformat": {
+                "encoding": "utf-8",
+                "dataformat_name": "json"
+              }
+            }
+          ]
+        }
+      },
+      "json_to_yaml": {
+        "uuid": "5bbc45fb857aba0001b3281b",
+        "name": "bridgeelement_json_to_yaml",
+        "executionEnvironment": "nodered",
+        "artefactReference": "https://raw.githubusercontent.com/rdsea/IoTCloudSamples/master/IoTCloudUnits/node_red_dataflows/bridges/xml_to_yaml_bridge/bridgeelement_json_to_yaml.json",
+        "metadata": {
+          "resource": {
+            "category": "iot",
+            "type": {
+              "prototype": "software_artefact",
+              "execution_env": "nodered"
+            }
+          },
+          "inputs": [
+            {
+              "push_pull": "push",
+              "protocol": {
+                "uri": "mqtt://localhost:1883",
+                "protocol_name": "mqtt",
+                "topic": "xml_yaml_bridge",
+                "qos": 2
+              },
+              "dataformat": {
+                "encoding": "utf-8",
+                "dataformat_name": "json"
+              }
+            }
+          ],
+          "outputs": [
+            {
+              "push_pull": "push",
+              "protocol": {
+                "uri": "mqtt://localhost:1883",
+                "protocol_name": "mqtt",
+                "topic": "yaml_output",
+                "qos": 2
+              },
+              "dataformat": {
+                "encoding": "utf-8",
+                "dataformat_name": "yaml"
+              }
+            }
+          ]
+        }
+      },
+      "broker": {
+        "name": "mosquitto broker",
+        "resourceCategory": "BROKER",
+        "resourceType": "NETWORK_FUNCTION_SERVICE",
+        "location": null,
+        "metadata": {
+          "resource": {
+            "category": "network_function_service",
+            "type": {
+              "prototype": "MessageBroker",
+              "protocols": [
+                {
+                  "protocol_name": "mqtt"
+                }
+              ],
+              "topics": [
+                "xml_input",
+                "xml_yaml_bridge",
+                "yaml_output"
+              ],
+              "auto_create": true
+            }
+          }
+        },
+        "parameters": {
+          "ingressAccessPoints": [],
+          "egressAccessPoints": []
+        },
+        "controlPoints": [],
+        "dataPoints": [],
+        "uuid": null,
+        "providerUuid": "mqttlocal1set0"
+      }
+    },
+    "connectivities": {
+      "xml_to_broker": {
+        "in": "xml_to_json",
+        "out": "broker"
+      },
+      "broker_to_yaml": {
+        "in": "broker",
+        "out": "json_to_yaml"
+      }
+    }
+  },
+  "metadata": {
+    "resource": {
+      "category": "intop_bridge"
+    },
+    "inputs": [
+      {
+        "push_pull": "push",
+        "protocol": {
+          "uri": "mqtt://localhost:1883",
+          "protocol_name": "mqtt",
+          "topic": "xml_input",
+          "qos": 2
+        },
+        "dataformat": {
+          "encoding": "utf-8",
+          "dataformat_name": "xml"
+        }
+      }
+    ],
+    "outputs": [
+      {
+        "push_pull": "push",
+        "protocol": {
+          "uri": "mqtt://localhost:1883",
+          "protocol_name": "mqtt",
+          "topic": "yaml_output",
+          "qos": 2
+        },
+        "dataformat": {
+          "encoding": "utf-8",
+          "dataformat_name": "yaml"
+        }
+      }
+    ]
+  },
+  "inputResourceId": "5bbc45fd857aba0001b3281c",
+  "outputResourceId": "5bbc45fb857aba0001b3281b"
+}

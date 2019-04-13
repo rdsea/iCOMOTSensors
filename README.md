@@ -2,7 +2,7 @@
 # IoT Cloud Samples for Ensembles of IoT, Network Functions and Cloud
 
 ## Introduction
-This collection includes different types of IoT, network functions and cloud units, as well as samples of IoT Cloud Systems, data, and testing scenarios for different purposes. The work is partially supported by the [H2020 U-test project](http://www.u-test.eu) and the [H2020 Inter-IoT](http://www.inter-iot-project.eu/), with a lot of in-kind effort from students and also is benefited from our collaboration with industries, who share use cases and data.
+This collection includes different types of IoT, network functions and cloud units, as well as samples of IoT Cloud Systems, data, and testing scenarios for different purposes. 
 
 Our goal  is to provide open source samples that one can use for different purposes in research and development of [ensembles of IoT, Network functions and clouds](https://link.springer.com/article/10.1007/s11761-018-0228-2).
 
@@ -83,4 +83,8 @@ If you use the samples, try to read the following papers and cite them where we 
 
 ## Contact
 Code is currently updated and uploaded.
-Contact Hong-Linh Truong (hong-linh.truong@tuwien.ac.at) for further information
+Contact Hong-Linh Truong (linh.truong@aalto.fi) for further information
+
+## Acknowledgment
+
+The work is partially supported by the [H2020 U-test project](http://www.u-test.eu) and the [H2020 Inter-IoT](http://www.inter-iot-project.eu/), with a lot of in-kind effort from students and also is benefited from our collaboration with industries, who share use cases and data.

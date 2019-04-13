@@ -7,7 +7,7 @@ This collection includes different types of IoT, network functions and cloud uni
 Our goal  is to provide open source samples that one can use for different purposes in research and development of [ensembles of IoT, Network functions and clouds](https://link.springer.com/article/10.1007/s11761-018-0228-2).
 
 Our code is currently being updated and uploaded.
-Contact Hong-Linh Truong (hong-linh.truong@tuwien.ac.at) for further information
+
 
 ## IoT Cloud Units
 

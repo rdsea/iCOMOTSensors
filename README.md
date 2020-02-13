@@ -8,6 +8,10 @@ Our goal  is to provide open source samples that one can use for different purpo
 
 Our code is currently being updated and uploaded.
 
+Pls. cite this paper if you use the IoTCloudSamples:
+
+Hong-Linh Truong,[Using IoTCloudSamples as a Software Framework for Simulations of Edge Computing Scenarios](https://www.researchgate.net/publication/339201255_Using_IoTCloudSamples_as_a_Software_Framework_for_Simulations_of_Edge_Computing_Scenarios), 2019.
+
 
 ## IoT Cloud Units
 

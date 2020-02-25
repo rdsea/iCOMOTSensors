@@ -93,17 +93,3 @@ alarm_id | Type of alarms
 301	| AC power loss
 305	| low temperature
 
-## Some usages
-This is about aggregated data. You can use the station_id to split data into
-different small data sets:
-
-    - all data with the same station id comes from one station
-    - you can use alarm_id or datapoint_id to identify sensors or alarms
-
-therefore, based on station id, alarm_id, datapoint_id, you can emulate
-various sensors from different stations.  For example:
-
-     - using alarm*.csv: you emulate various stations, in which various alarm sensors (using alarm id) sending alarm information about parameters (param id) whose values are above the threashold.
-
-
-You can also do some analytics, e.g. analyze frequency of alarms.

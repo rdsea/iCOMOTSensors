@@ -1,5 +1,4 @@
 #!/bin/bash
 
-/auth.sh
+#/auth.sh
 npm start
-

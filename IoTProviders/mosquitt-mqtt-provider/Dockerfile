@@ -1,5 +1,4 @@
-FROM rdsea/provider-base
-
+FROM node
 COPY . /mqttprovider
 WORKDIR /mqttprovider
 RUN chmod +x docker-entrypoint.sh

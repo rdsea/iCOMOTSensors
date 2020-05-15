@@ -1,2 +1,2 @@
-amqp_uri: amqp://kikghwrj:VBze-MjoklEt7NSpPlSWSEUSJwxJOoCW@sheep.rmq.cloudamqp.com/kikghwrj
+amqp_uri: amqp://....
 amqp_queue: client_queue

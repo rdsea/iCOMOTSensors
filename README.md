@@ -79,7 +79,7 @@ From units, providers and data, for research questions, one can create various d
 
 ## Relevant publications
 
-If you use the samples, try to read the following papers and cite them where we describe samples:
+The following papers are relevant to the development of the IoTCloudSamples:
 - Hong-Linh Truong, Lingfan Gao, Michael Hammerer, Service Architectures and Dynamic Solutions for Interoperability of IoT, Network Functions and Cloud Resources [Preprint](https://bit.ly/2LEYoIz), 12th European Conference on Software Architecture, September 24-28, 2018, Madrid, Spain
 - Hong-Linh Truong, Luca Berardinelli, Ivan Pavkovic and Georgiana Copil, Modeling and Provisioning IoT Cloud Systems for Testing Uncertainties, [Pre-print PDF](https://users.aalto.fi/~truongh4/publications/2017/truong-mobiquitous2017.pdf), 14th EAI International Conference on Mobile and Ubiquitous Systems: Computing, Networking and Services (MobiQuitous 2017), November 7–10, 2017,Melbourne, Australia.
 - Hong-Linh Truong, Georgiana Copil, Schahram Dustdar, Duc-Hung Le, Daniel Moldovan, Stefan Nastic, On Engineering Analytics for Elastic IoT Cloud Platforms [PDF](https://users.aalto.fi/~truongh4/publications/2016/truong-icsoc2016.pdf), (c)Springer-Verlag,14th International Conference on Service Oriented Computing (ICSOC 2016), Oct 10-13, 2016. Banff, Canada.

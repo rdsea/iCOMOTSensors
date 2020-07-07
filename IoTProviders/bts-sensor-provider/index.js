@@ -41,8 +41,7 @@ Object.keys(sensorTypes).forEach((sensorType) => {
     });
 })
 
-app.use('/sensor/bts', router);
+app.use('/sensor', router);
 app.listen(PORT, () => {
     console.log(`server listening at port ${PORT}`)
 })
-

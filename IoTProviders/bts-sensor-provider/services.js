@@ -19,7 +19,7 @@ export function getSampleConfigs(){
         let configTemplate = configTemplates[sensorType];
         let config  = {
             name: sensorType,
-            url:`/sensor/bts/${sensorType}`,
+            url:`/sensor/${sensorType}`,
             sampleConfiguration: {
                 uri: configTemplate.uri,
                 ...configTemplate.protocolOptions,

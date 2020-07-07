@@ -1,33 +1,28 @@
 {
-  "name": "bts-sensor-provider",
-  "version": "1.0.0",
+  "name": "sensor-provider",
+  "version": "1.0.1",
   "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon index.js --exec babel-node"
+    "start": "nodemon -r esm index.js"
   },
-  "author": "lingfangao@gmail.com",
-  "license": "Apache-2.0",
+  "author": "lingfangao@gmail.com|linhsolar@gmail.com",
   "licenses": [
     {
       "type": "Apache-2.0",
       "url": "http://www.apache.org/licenses/LICENSE-2.0"
-    }]
-   ,
-  "devDependencies": {
-    "babel-cli": "^6.26.0",
-    "babel-preset-env": "^1.6.1",
-    "babel-preset-stage-2": "^6.24.1"
-  },
+    }
+  ],
   "dependencies": {
     "body-parser": "^1.18.2",
     "chai": "^4.1.2",
     "chai-url": "^1.0.4",
+    "esm": "^3.2.25",
     "express": "^4.16.2",
     "mongodb": "^3.0.0-rc0",
-    "mongoose": "^4.13.7",
-    "nodemon": "^1.13.3",
+    "mongoose": "^5.9.22",
+    "nodemon": "^2.0.4",
     "randomstring": "^1.1.5"
   }
 }

@@ -1,5 +1,4 @@
-FROM rdsea/provider-base
-
+FROM node:alpine3.12
 COPY . /sensorprovider
 WORKDIR /sensorprovider
 RUN chmod +x docker-entrypoint.sh

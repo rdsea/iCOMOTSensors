@@ -2,6 +2,6 @@
     "protocol": "mqtt",
     "protocolOptions": {"topic":"ecsa2018"},
     "format": "csv",
-    "uri": "mqtt://guest:guest@35.188.101.46:1883",
+    "uri": "mqtt://guest:guest@xxx:1883",
     "file": "../../data/bts/alarm-2017-10-23-12-vn.csv"
 }

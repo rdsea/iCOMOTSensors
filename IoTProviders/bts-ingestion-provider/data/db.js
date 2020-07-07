@@ -2,8 +2,9 @@ import mongoose from 'mongoose';
 
 
 const MongoClient = require("mongodb").MongoClient;
-let MONGODB_URL = 'mongodb://iotcloudexamples:ac.at.tuwien.dsg@iotcloudexamples-shard-00-00-pz2vu.mongodb.net:27017,iotcloudexamples-shard-00-01-pz2vu.mongodb.net:27017,iotcloudexamples-shard-00-02-pz2vu.mongodb.net:27017/sinc?ssl=true&replicaSet=IoTCloudExamples-shard-0&authSource=admin';
-const DB_NAME = "sinc";
+let MONGODB_URL = 'mongodb://localhost:27017';
+//Todo: make them into configuration file
+const DB_NAME = "iotcloudsamples";
 const COLLECTION = "ingestion";
 
 // an environment variable can also be passed

@@ -3,6 +3,7 @@ import csv from 'fast-csv';
 import logger from './logger'
 import transforms from './dataTransform';
 import outputs from './output';
+const assert = require('assert').strict;
 //import config from '../config.json';
 import path from 'path';
 var ArgumentParser = require('argparse').ArgumentParser;
@@ -17,12 +18,17 @@ parser.addArgument(
     help: 'configuration information'
   }
 );
-
+parser.addArgument(
+  [ '-i', '--interval' ],
+  {
+    help: 'interval (ms)'
+  }
+);
 
 var args = parser.parseArgs();
 
 var configuration_file = null;
-
+var interval = 3000;
 if (args.conf!=null) {
   configuration_file=args.conf;
 }
@@ -34,6 +40,10 @@ else {
     configuration_file="config.json";
   }
 }
+if (args.interval !=null) {
+   interval =args.interval;
+   assert.ok (interval>0);
+}
 
 var config =null
 
@@ -44,6 +54,7 @@ logger.info(`message output in ${config.format} format`);
 logger.info(`messages sent through ${config.protocol}`);
 logger.info(`messages sent to ${config.uri}`);
 logger.info(`dataset is ${config.file}`);
+logger.info(`sending interval is ${interval}`);
 // get correct output and transform functions
 let output = outputs[config.protocol];
 let transform = transforms[config.format];
@@ -63,12 +74,12 @@ function start(){
         csvStream.pause();
     //output the sensor data to the predefined sink
         output(payload, config.uri, config.protocolOptions).then(() => {
-            setTimeout(() => csvStream.resume(), 3000);
+            setTimeout(() => csvStream.resume(), interval);
         });
     });
 
     stream.pipe(csvStream);
-    csvStream.on('end', () => {setTimeout(() => start(), 3000);})
+    csvStream.on('end', () => {setTimeout(() => start(), interval);})
 }
 
 //start the main sensor function

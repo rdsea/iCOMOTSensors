@@ -1,13 +1,13 @@
 # IoT Providers
 
-This includes resource providers that can be used for IoT services.
+This includes service providers that can be used for creating IoT services as resources.
 
-## Providers
+## Examples of Providers
 
-- alarm-client-provider: a provider emulating real alarm sensors.
+- **alarm-client-provider**: a provider emulating real alarm sensors.
+- **bts-ingestion-provider**: a simple provider for ingesting data into database
+- **bigQueryProvider**: a dataservice provider built atop Google BigQuery
 
-- bigQueryProvider: a dataservice provider built atop Google BigQuery
+- **GenericLightweightIoTProvider**: a generic provider which can be used to run simple command-line based resources
 
-- GenericLightweightIoTProvider: provides a generic provider which can be used to run simple command-line based resources
-
--kubernetesfirewallprovider: provides network policies control for K8s systems.
+- **kubernetesfirewallprovider**: provides network policies control for K8s systems.

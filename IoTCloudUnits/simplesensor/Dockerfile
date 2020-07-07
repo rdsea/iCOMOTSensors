@@ -1,7 +1,7 @@
-FROM node:8-alpine
+FROM node:alpine3.12
 
 COPY . /simplesensor
 WORKDIR simplesensor
 
-RUN npm i
+RUN npm install
 CMD ["npm", "start"]

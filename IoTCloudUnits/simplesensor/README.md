@@ -1,5 +1,6 @@
 # Simple emulating sensor
 
+## Overview
 This is used to emulate a sensor. It will get a real sensor data and send the data to different outputs:
 
 - console
@@ -29,24 +30,24 @@ each docker simple sensor can be used for a different dataset, the following ste
 In the host machine:
 
 * prepare a dataset file
-* automatically create a configuration file: not that the path of the dataset must be correct.  
+* automatically create a configuration file: not that the path of the dataset must be correct.
 
 Then expose files and run docker. Assume that the configuration file config.json is in /var/tests (and the dataset is also in the same directory)
 
-$docker run -v /var/tests:/var/tests  simplesensor npm start -- -c /var/tests/config.json
+$docker run -v /var/tests:/var/tests  simplesensor npm start -- -c /var/tests/config.json -i [milliseconds]
 
 ## Tests
 
 Running:
-
-$npm start -- -c samples/config.sample.json
-
+```
+$npm start -- -c samples/config.sample.json -i 5000
+```
 For Docker:
-
+```
 $docker build -t simplesensor .
 
 $docker run -v $PWD/samples/Docker-config:/var/tests  test npm start -- -c /var/tests/config.json
-
+```
 ## Creating emulating sensors for IoT-sensor-as-a-provider
 
 Each sensor can be built with an Docker image by providing a separate dataset.
@@ -56,4 +57,4 @@ Each sensor can be built with an Docker image by providing a separate dataset.
 - Modify docker-build.sh if needed to indicate the location of docker hub.
 - Build the docker.
 
-Repeat the above-mentioned instruction with different datasets for different docker image names, we will have samples of sensors. 
+Repeat the above-mentioned instruction with different datasets for different docker image names, we will have samples of sensors.

@@ -1,26 +1,22 @@
 {
-  "name": "test-rig-provider",
-  "version": "1.0.0",
+  "name": "bts-ingestion-provider",
+  "version": "1.0.1",
   "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon index.js --exec babel-node"
+    "start": "nodemon -r esm index.js"
   },
-  "author": "lingfangao@gmail.com",
-  "license": "ISC",
-  "devDependencies": {
-    "babel-cli": "^6.26.0",
-    "babel-preset-env": "^1.6.1",
-    "babel-preset-stage-2": "^6.24.1"
-  },
+  "author": "lingfangao@gmail.com|linhsolar@gmail.com",
+  "license": "APACHE-2.0",
   "dependencies": {
     "body-parser": "^1.18.2",
+    "esm": "^3.2.25",
     "express": "^4.16.2",
-    "mongodb": "^3.1.1",
-    "mongoose": "^4.13.7",
+    "mongodb": "^3.5.9",
+    "mongoose": "^5.9.22",
     "nedb": "^1.8.0",
-    "nodemon": "^1.13.3",
+    "nodemon": "^2.0.4",
     "randomstring": "^1.1.5"
   }
 }

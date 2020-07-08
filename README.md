@@ -2,7 +2,7 @@
 # IoT Cloud Samples for Ensembles of IoT, Network Functions and Cloud
 
 ## Introduction
-This collection includes different types of IoT, edge services, network functions and cloud units, as well as samples of IoT Cloud Systems, data, and testing scenarios for different purposes. Our goal  is to provide open source samples that one can use for different purposes in research and development of [ensembles of IoT, Network functions and clouds](https://link.springer.com/article/10.1007/s11761-018-0228-2).
+This collection includes different types of IoT, edge services, network functions and cloud units, as well as samples of IoT Cloud Systems, data, and testing scenarios for different **research and teaching purposes**. Our goal  is to provide open source samples that one can use for different purposes in research and development of [ensembles of IoT, Network functions and clouds](https://link.springer.com/article/10.1007/s11761-018-0228-2).
 
 Note: *Our code is currently being updated and uploaded.*
 
@@ -74,6 +74,12 @@ From existing units, providers and data, for specific research and development p
 - for interoperability and slice management (https://github.com/SINCConcept/HINC)
 - for testing uncertainty (https://github.com/rdsea/T4UME)
 - for testing incidents (https://github.com/rdsea/bigdataincidentanalytics)
+
+## Supporting Edge Cloud Technologies
+IoTCloudSamples utilizes different programming languages and frameworks. Generally, code can be run with
+* Docker container systems
+  - Several prebuilt containers are available in https://hub.docker.com/u/rdsea
+* Kubernetes (mainly tested with Google Kubernetes and minukube)
 
 ## Relevant publications
 

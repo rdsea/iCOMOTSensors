@@ -6,12 +6,10 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [
-    "l"
-  ],
-  "author": "lingfangao@gmail.com",
-  "license": "ISC",
+  "author": "linhsolar@gmail.com|lingfangao@gmail.com",
+  "license": "APACHE-2.0",
   "dependencies": {
+    "argparse": "^1.0.10",
     "faker": "^4.1.0"
   }
 }

@@ -1,8 +1,17 @@
+
 import express from 'express';
 import bodyParser from 'body-parser';
-import * as services from './services';
+import * as services from './services.js';
 
 var PORT = 3004;
+
+import dotenv from 'dotenv';
+const dotenv_config =dotenv.config();
+if (dotenv_config.error) {
+    console.log("Dotenv .env file exists but with wrong configuration");
+  throw result.error
+}
+
 
 if (process.env.PORT) {
   PORT=process.env.PORT;

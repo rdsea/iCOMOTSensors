@@ -1,7 +1,6 @@
 # Introduction
 
-this is a service for data transformation based on node-red.
-the idea is that the provider offers "node-red service" as a resource. One consumer can request a resource then submit workflows to the resource to perform data transformation. Therefore during runtime, such resources can be used for interoperability.
+This is a service for data transformation based on node-red. The idea is that the provider offers "node-red service" as a resource. One consumer can request a resource then submit workflows to the resource to perform data transformation. Therefore during runtime, such resources can be used for interoperability.
 
 Supported by the [Inter-IoT project](http://www.inter-iot-project.eu/).
 
@@ -20,14 +19,14 @@ The service will use a default node-red container. However, this can be replaced
 
 The default node-red container is "nodered/node-red-docker", specified in the configTemplates/deployTemplate.js:
 
-'''
+```
 "containers": [
   {
     "name": "nodereddatatranformer",
     "image": "nodered/node-red-docker",'
-'''    
+```
 
-this is the default image that can be downloaded from docker hub and made available to Kubernetes.
+this is the default image that can be downloaded from [Docker hub](https://hub.docker.com/r/nodered/node-red/) and made available to Kubernetes.
 
 To use the service with a customized node-red container image:
 
@@ -37,11 +36,14 @@ To use the service with a customized node-red container image:
 
 ### Configure MongoDB
 
-MongoDB is used to store information about resources. The URL of MongoDB must be set through environment variable, such as
+[MongoDB](https://www.mongodb.com) is used to store information about resources. The URL of MongoDB must be set through environment variable, such as
 
+```
 $export MONGODB_URL=
+```
 
 Alternatively, the source code of data/db.js can be modified to hardcode the URL.
+>Note: [MongoDB Atlas](https://www.mongodb.com/cloud/atlas) offers some free instances that can be used to test.
 
 ### Running services
 
@@ -50,44 +52,52 @@ Alternatively, the source code of data/db.js can be modified to hardcode the URL
 ### Examples
 
 #### Check if the service is available:
-
-* curl -X GET http://[hostname]:3004/datatransformer
+```
+$curl -X GET http://[hostname]:3004/datatransformer
+```
 
 #### Create a new data transformer without information about tenant:
-
-* curl -X POST http://[hostname]:3004/datatransformer
+```
+$curl -X POST http://[hostname]:3004/datatransformer
+```
 
 #### Create a new data transformer with information about tenant:
 
 You can also specify tenant information (tenantId, name, description) using
-
-* curl -X POST http://[hostname]:3004/datatransformer
+```
+$curl -X POST http://[hostname]:3004/datatransformer
+```
 
 with the body of {tenantId:[id],description:[description], name:[name]} where tenantId, description, and name are provided by the creator.
 
 for example:
-
+```
 $curl --header "Content-Type: application/json"   --request POST  --data '{ "tenantId": "valenciaportcontrol", "description": "this is a special instance for valencia port", "name":"truckprocessor"}' http://localhost:3004/datatransformer
-
+```
 would return an instance:
-
+```
 {"_id":"5b4fdcbdb03bd3e52f058a68","tenantId":"valenciaportcontrol","description":"this is a special instance for valencia port","name":"truckprocessor","location":"creating...","createdAt":1531960508701,"datatransformerId":"datatransformer1531960508701","port":1880,"url":"pending...","__v":0}truong@daredevil:~$
+```
 
 #### List existing transformer resources:
-
-* curl -X GET http://[hostname]:3004/datatransformer/list
+```
+$curl -X GET http://[hostname]:3004/datatransformer/list
+```
 
 #### Get detailed information about a transformer
 For example, with the id =datatransformer1528623333334:
 
-* curl -X GET http://daredevil:3004/datatransformer/datatransformer1528623333334
+```
+$curl -X GET http://daredevil:3004/datatransformer/datatransformer1528623333334
+```
 
 #### Remove a transformer
 
 for example, with the id = datatransformer1528623333334
 
-* curl -X DELETE http://daredevil:3004/datatransformer/datatransformer1528623333334
-
+```
+$curl -X DELETE http://daredevil:3004/datatransformer/datatransformer1528623333334
+```
 
 ## Authors
 

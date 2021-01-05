@@ -1,14 +1,33 @@
 //this is used to test mongodb connection for the service
-var chai = require('chai')
-  , expect = chai.expect
-  , should = chai.should();
-chai.use(require('chai-url'));
-const mongoose = require('mongoose');
+import chai from 'chai'
+var expect = chai.expect
+var should = chai.should();
+import chaiurl from 'chai-url'
+chai.use(chaiurl);
+import  mongoose from 'mongoose';
 mongoose.Promise = global.Promise;
 //test if MONGODB_URL is not null
 //the mongodbl URL comes from the environment variable
+import dotenv from 'dotenv';
+const dotenv_config =dotenv.config();
+if (dotenv_config.error) {
+    console.log("Dotenv .env file exists but with wrong configuration");
+  throw result.error
+}
 const MONGODB_URL= process.env.MONGODB_URL;
-expect(MONGODB_URL).to.have.protocol("mongodb");
+try {
+  expect(MONGODB_URL).to.have.protocol("mongodb");
+}
+catch (Exception) {
+  expect(MONGODB_URL).to.have.protocol("mongodb+srv");
+  try {
+    expect(MONGODB_URL).to.have.protocol("mongodb+srv:");
+  }
+  catch (ex) {
+    console.log(ex);
+    exist(0);
+  }
+}
 var connection = mongoose.createConnection(MONGODB_URL,{useNewUrlParser: true });
 connection.on('error', function(err) {
   console.log(err)

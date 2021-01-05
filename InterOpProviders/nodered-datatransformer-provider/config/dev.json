@@ -1,0 +1,7 @@
+{
+  "kubeoptions": {
+    "minikube_nodeport": false,
+    "max_instances": 10
+  },
+  "PROVIDER_ID":"2a73ccac-d20e-11e8-87f8-7bb842415504"
+}

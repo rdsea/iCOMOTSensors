@@ -2,8 +2,10 @@
 import child_process from 'child_process';
 import fs from 'fs';
 import { promisify } from 'util';
-import deployTemplate from './configTemplates/deployTemplate';
-import serviceTemplate from './configTemplates/serviceTemplate';
+import deployTemplate from './configTemplates/deployTemplate.js';
+import serviceTemplate from './configTemplates/serviceTemplate.js';
+import { createRequire } from 'module';
+const require = createRequire(import.meta.url);
 const config_package=require('config');
 var kubeOptions=config_package.get("kubeoptions");
 const isIp = require('is-ip');
@@ -11,7 +13,7 @@ const isUrl = require('is-url');
 // from './configTemplates/kubeOptions';
 import randomstring from 'randomstring';
 import { randomBytes } from 'crypto';
-import DataTransformer from './data/models/datatransformer';
+import DataTransformer from './data/models/datatransformer.js';
 
 const exec = promisify(child_process.exec);
 const writeFile = promisify(fs.writeFile);

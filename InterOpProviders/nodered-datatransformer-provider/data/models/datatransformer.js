@@ -1,4 +1,4 @@
-import mongoose from '../db';
+import mongoose from '../db.js';
 
 var DataTransformer = mongoose.model('DataTransformer', {
     tenantId: String, //owner/tenant provided by creator

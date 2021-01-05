@@ -2,10 +2,11 @@
   "name": "nodereddatatransformer",
   "version": "0.1.0",
   "description": "",
+  "type": "module",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Running tests in tests directory\" && exit 1",
-    "start": "nodemon index.js --exec babel-node"
+    "start": "nodemon  -r dotenv/config index.js"
   },
   "author": {
     "email": "linhsolar@gmail.com|lingfangao@gmail.com",
@@ -24,17 +25,19 @@
     "babel-preset-stage-2": "^6.24.1"
   },
   "dependencies": {
-    "bluebird": "^3.5.1",
-    "body-parser": "^1.18.2",
-    "chai": "^4.1.2",
+    "bluebird": "^3.7.2",
+    "body-parser": "^1.19.0",
+    "chai": "^4.2.0",
     "chai-url": "^1.0.4",
-    "config": "^2.0.1",
-    "express": "^4.16.2",
-    "is-ip": "^2.0.0",
+    "config": "^3.3.3",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "is-ip": "^3.1.0",
     "is-url": "^1.2.4",
-    "mongodb": "^3.1.1",
-    "mongoose": "^5.2.4",
-    "nodemon": "^1.18.3",
-    "randomstring": "^1.1.5"
+    "mongodb": "^3.6.3",
+    "mongoose": "^5.11.10",
+    "nodemon": "^2.0.6",
+    "randomstring": "^1.1.5",
+    "require": "^2.4.20"
   }
 }

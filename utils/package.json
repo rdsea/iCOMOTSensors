@@ -1,0 +1,14 @@
+{
+  "name": "utils",
+  "version": "0.0.1",
+  "description": "Just a set of utilities",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Linh Truong",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "mocker-data-generator": "^2.10.0",
+    "mqtt": "^4.2.6"
+  }
+}

@@ -1,6 +1,8 @@
 # Some utilities
 
-We have some utilities for testing purposes.
+We have some utilities for testing purposes. Both JavaScript and Python code are included.
+* requirements.txt for python package
+* package.json for JavaScript 
 
 Conversion programs are used to convert real data from one form to another form for data preparation for tests
 

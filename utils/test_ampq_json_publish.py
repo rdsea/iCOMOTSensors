@@ -25,7 +25,7 @@ channel.queue_declare(queue=args.upload_queuename, durable=True)
 upload_data_records = json.load(open(args.input_data))
 for req_id in range(len(upload_data_records)):
     message = json.dumps(upload_data_records[req_id])
-    print "[uploading_requester] sends: " + message
+    print ("[uploading_requester] sends: {}",message)
     #we use the default exchange and route the message to the queuename
     #this essentially is a single queue model (direct queue)
     channel.basic_publish(exchange='',routing_key=args.upload_queuename,

@@ -42,7 +42,12 @@ To use the service with a customized node-red container image:
 $export MONGODB_URL=
 ```
 
-Alternatively, the source code of data/db.js can be modified to hardcode the URL.
+Alternatively, the configuration can also be loaded from **.env** file, e.g., using the dotenv/config pre-loading
+
+```
+$node --require dotenv/config
+
+```
 >Note: [MongoDB Atlas](https://www.mongodb.com/cloud/atlas) offers some free instances that can be used to test.
 
 ### Running services

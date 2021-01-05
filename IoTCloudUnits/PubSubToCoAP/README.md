@@ -6,21 +6,21 @@ This unit performs a simple protocol translation from AMQP/MQTT to CoAP.
 
 JSON data sent to MQTT/AMQP broker (in) will be pushed to a CoAP server or a CoAP multicast group. MQTT/AMQP Brokers and CoAP servers are available.
 
-The assumption is that the topic/queue of AMQP/MQTT will be mapped to a resource of CoAP:
+The assumption is that the topic/queue of AMQP/MQTT will be mapped to a resource of CoAP based on the following rule:
 
-topic --> coap://endpoint/topic
+*topic --> coap://endpoint/topic*
 
 We support only a single output CoAP server/multicast group.
 
 ## APIs.
 
-### running
-
-npm start
-
+### Running
+```
+$npm start
+```
 ### Check the availability
 
-curl -X GET http://localhost:8080/  
+curl -X GET http://localhost:8080/
 
 It will also return a list of APIs.
 

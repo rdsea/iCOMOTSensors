@@ -13,7 +13,7 @@ Hong-Linh Truong,[Using IoTCloudSamples as a Software Framework for Simulations 
 
 ## IoT Cloud Units
 
-They include units for IoT, Edge and Cloud. The code is under IoTCloudUnits directory.
+They include units for IoT, Edge and Cloud. The code is under IoTCloudUnits directory. A unit mostly is a microservice, a single function or a component that offer a set of functions for a tenant.
 
 ### IoT units
 IoT units are components for IoT. Examples are sensors, actuators, and even gateways. They can also be just user-defined scripts that model some IoT behaviors.

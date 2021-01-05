@@ -2,7 +2,8 @@
 
 const express = require('express');
 // Constants
-const PORT = 4321;
+//TODO: move this into a configuration file
+const PORT = 8080;
 const os = require("os");
 const HOST = os.hostname();
 
@@ -42,20 +43,20 @@ coapOUT.multicast=false;
 app.use(bodyParser.json()); // for parsing application/json
 
 app.get('/', (req, res) => {
-    var title = "<h1>CSV to JSON</h1>";
+    var title = "<h1>PubSubToCoAP</h1>";
 
     var amqptitle = "<h2>amqp</h2>";
     var amqpsub = '<div>POST /amqp/in/subscribe</div>';
     var amqpsubdis = '<div>POST /amqp/in/disconnect</div>';
 
-    var amqpInfo = amqptitle + amqpsub + amqpsubdis + amqppub + amqppubdis;
+    var amqpInfo = amqptitle + amqpsub + amqpsubdis;
 
     var mqtttitle = "<h2>mqtt</h2>";
     var mqttsub = '<div>POST /mqtt/in/subscribe</div>';
     var mqttsubdis = '<div>POST /mqtt/in/disconnect</div>';
 
 
-    var mqttInfo = mqtttitle + mqttsub + mqttsubdis + mqttpub + mqttpubdis;
+    var mqttInfo = mqtttitle + mqttsub + mqttsubdis;
 
     res.send(title + amqpInfo + mqttInfo);
 

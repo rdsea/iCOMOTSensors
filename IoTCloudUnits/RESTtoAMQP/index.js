@@ -10,7 +10,7 @@ let channel = null;
 chai.expect(config.amqp_uri).to.have.protocol('amqp');
 console.log(`connecting to amqp broker at ${config.amqp_uri}`);
 amqp.connect(config.amqp_uri).then((conn) => {
-    console.log(`successfully conencted to ${config.amqp_uri}`);
+    console.log(`successfully connected to ${config.amqp_uri}`);
     connection = conn;
     console.log('creating new channel');
     return connection.createChannel();
@@ -30,9 +30,14 @@ var app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+//The API should be extended to allow  the specification of queue name
 app.post("/", (req, res) => {
+    //no error check
+    //reliability, ack, etc. should be supported.
     console.log(`sending msg to queue ${config.amqp_queue} `);
-    channel.sendToQueue(config.amqp_queue, new Buffer(JSON.stringify(req.body)));
+    //complex data transformation should be supported.
+    channel.sendToQueue(config.amqp_queue, new Buffer.from(JSON.stringify(req.body)));
+    res.send({"send_ack":"OK"});
 });
 
 

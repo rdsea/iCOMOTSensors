@@ -1,0 +1,52 @@
+{
+    "stakeholders": [
+        {"id": "google1", "roles": "inf_provider", "provision": ["storage", "computing"]},
+        {"id": "google2", "roles": "inf_provider", "provision": ["storage"]},
+        {"id": "aaltosea1", "roles": "ml_provider", "provision": ["mlmodels", "services"]},
+        {"id": "aaltosea2", "roles": "ml_provider", "provision": ["mlmodels"]},
+        {"id": "user1", "roles": "ml_user", "provision": ["request"]},
+        {"id": "user2", "roles": "ml_user", "provision": ["request"]}
+    ],
+    "provision": {
+        "service": [
+            {"id": "request", "serviceapis": "mptt", "machinetypes": ["small", "normal"], "processortypes": ["CPU"]}
+        ],
+        "data": [
+            {"id": "BTS", "datatypes": "plain_text", "formats": "csv"}
+        ],
+        "mlmodels":[
+            {"id": "ml_inference", "mlinfrastructures": "tensorflow", "machinetypes": ["small", "normal"], "inferencemodes": "dynamic"},
+            {"id": "ml_training", "mlinfrastructures": "tensorflow", "machinetypes": ["large"], "inferencemodes": "dynamic"}
+        ]
+    },
+
+    "quality": {
+        "services": [
+            {"ResponseTime":{"operators":"max","unit":"s","value":0.1,"class": ["performance"], "machinetypes": ["small"]}},
+            {"ResponseTime":{"operators":"max","unit":"s","value":0.5,"class": ["performance"], "machinetypes": ["normal"]}},
+            {"Reliability":{"operators":"min","unit":"percentage","value":90, "class": ["performance"], "machinetypes": ["normal"]}}
+        ],
+        "data":[
+            {"Accuracy":{"operators":"min","unit":"percentage","value":90, "class": ["qualityofdata"]}},
+            {"Completeness":{"operators":"min","unit":"percentage","value":90, "resourceType": ["qualityofdata"]}}
+        ],
+        "mlmodels": [
+            {"Accuracy":{"operators":"min","unit":"percentage","value":95, "class": ["Accuracy"], "machinetypes": ["small"]}},
+            {"Accuracy":{"operators":"min","unit":"percentage","value":99, "class": ["Accuracy"], "machinetypes": ["normal"]}}
+        ]
+        
+    },
+    "security": {
+        "encryption":{"types": ["end2end"]}
+    },
+    "fairness":{
+        "Predictionbias":{"operators":"max","unit":"percentage","value":"value", "class": ["Accuracy"]}
+    },
+    "interpretability": {
+        "explanability": {"modes": ["full","compact"]}
+    },
+    "cost": [
+        {"id": "cost", "class": "cost"},
+        {"id": "pricingmodel", "class": "cost"}
+    ]
+}

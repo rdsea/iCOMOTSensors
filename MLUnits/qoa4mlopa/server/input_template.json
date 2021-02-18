@@ -1,0 +1,16 @@
+{
+    "client_info": {
+        "id": "aaltosea1",
+        "roles": "ml_provider"
+    },
+    "service_info": {
+        "id": "request", 
+        "machinetypes": "small", 
+        "metric": ["Accuracy", "ResponseTime","DataAccuracy"] 
+    },
+    "metric": {
+        "Accuracy": 1.0,
+        "ResponseTime": 1.0,
+        "Network": 0.0
+    }
+}

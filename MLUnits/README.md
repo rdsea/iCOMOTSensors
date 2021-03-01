@@ -12,4 +12,4 @@ This experiment is used to predict the failure event at base transceiver station
 ## Running the experiment
 - Start RabbitMQ using docker composed by running the script (run.sh) in **server** folder
 - Start ML_Prediction_Server.py
-- Send request to the queue with message is a json object including [index, stationid, datapointid, alarmid, value, threshold]
+- Send request to the queue with message is a json object including [index, stationid, datapointid, alarmid, value, threshold], or try using the example client code with our data by starting Send_request.py in the client directory

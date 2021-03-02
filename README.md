@@ -52,6 +52,10 @@ Most Cloud units are based on real cloud services, such as from Google, Amazon, 
 
 They are for network function features. For example, firewall control is network feature that can be deployed for a specific system.
 
+### Machine Learning units
+
+[ML units](MLUnits/README.md) implement ML models that can be deployed as a service unit. 
+
 ## IoT, Cloud and Network Function providers
 
 Units provide basic functions. We provide Providers which can be used to provision and manage resources, which are instances of units, for different purposes. A provider will provide IoT, network functions and cloud resources.

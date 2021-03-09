@@ -1,0 +1,9 @@
+version: "3.0"
+services:
+    broker_log_writer:
+        build: "."
+        depends_on: 
+          - broker
+        volumes:
+          - "./logs/subscription logs/:/logger/log"
+        entrypoint: ["python3", "mqtt_client.py", "broker", "1883"]

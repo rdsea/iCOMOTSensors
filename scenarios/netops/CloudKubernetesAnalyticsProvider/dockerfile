@@ -1,0 +1,24 @@
+# This is custom spark streaming with Kafka connector inbuild into it
+FROM docker-registry.rahti.csc.fi/spark-images/spark:latest
+
+# Do not change this
+USER notebook
+
+# ---- Python ----
+#No really necessary~ Will need further analysis
+RUN pip install kafka-python
+#    && pip install scipy
+
+# ---- Java ----
+# In case if you have Java JAR files, please add them from your local machine like this
+# The first parameter here is the jar file which is present on the machine where you will build this image
+# Additionally, it's best to keep the jar file in the same folder where this Dockerfile is present
+
+# The second paramter is the location of the jar file in the spark cluster 
+# Make sure, you put the location as /opt/jars for the cluster
+
+ADD spark-streaming-kafka-0-8-assembly_2.11-2.4.6.jar /opt/jars/spark-streaming-kafka-0-8-assembly_2.11-2.4.6.jar
+# ADD another-lib.jar /opt/jars/another-lib.jar
+
+# Do not change this
+USER root

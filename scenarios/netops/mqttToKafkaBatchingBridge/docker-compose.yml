@@ -1,0 +1,6 @@
+version: "3.0"
+services:
+    mini-batch-converter:
+        build: "."
+        # converter.py params: broker address, broker_port, broker_name, batch_intervals, kafka_brokers_address
+        entrypoint: ["python3", "converter.py", "broker", "1883", "4", "10", "192.168.1.12:32812,192.168.1.12:32814"]        

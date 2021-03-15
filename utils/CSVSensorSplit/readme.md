@@ -2,6 +2,9 @@
 
 This utility script splits a large sensor `.csv` file efficiently into chuncks of 100000 lines[^1]. This should be done to enable parallel stream of sensors (for example in the GPOn scenario)/
 
+Alternatively, we can also use https://csvkit.readthedocs.io/en/latest/  for splitting the files
+
+
 #### requirements
 * python3
 * pandas

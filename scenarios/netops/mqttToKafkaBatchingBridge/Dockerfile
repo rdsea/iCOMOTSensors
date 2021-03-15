@@ -11,4 +11,4 @@ RUN pip3 install -r requirements.txt
 WORKDIR /mini-batch-converter
 COPY . .
 
-ENTRYPOINT ["python3", "converter.py", "broker", "1883", "edge_1", "60", "kafka:1234"]
+ENTRYPOINT ["python3", "converter.py"]

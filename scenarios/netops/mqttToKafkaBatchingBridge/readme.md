@@ -8,8 +8,15 @@ This is an **application** specific mqtt to kafka bridge. Meaning it will only w
 * docker and docker-compose
 
 #### usage
-* update the docker-compose file, with the appropriate mqtt and kafka broker params[^1].
+* update the docker-compose file, with the appropriate mqtt and kafka broker environment variables.
 * run `docker-compose up`
 
+**Required environment variables**
+```yaml
+KAFKA_BOOTSTRAP_SERVERS: '192.168.1.12:32812,192.168.1.12:32814'
+MQTT_HOST: broker
+MQTT_PORT: 1883
+EDGE_BROKER_NAME: 'edge_broker_gcp'
+BATCH_POOL_FREQUENCY: 10
+```
 
-[^1]: params : `params: broker address, broker_port, broker_name, batch_intervals, kafka_brokers_address`

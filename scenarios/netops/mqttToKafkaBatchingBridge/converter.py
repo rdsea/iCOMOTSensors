@@ -36,11 +36,31 @@ rootLogger.addHandler(consoleHandler)
 
 args = sys.argv
 
-mqtt_host = args[1] 
-mqtt_port = int(args[2])
-broker_name = args[3]
-batch_pool_frequency = int(args[4])
-kafka_broker = args[5].split(',')
+kafka_bootstrap_servers = os.environ.get('KAFKA_BOOTSTRAP_SERVERS')
+if not bootstrap_servers:
+    raise Exception('KAFKA_BOOTSTRAP_SERVERS not defined')
+
+kafka_broker = kafka_bootstrap_servers.split(',')
+
+mqtt_host = os.environ.get('MQTT_HOST')
+if not bootstrap_servers:
+    raise Exception('MQTT_HOST not defined')
+
+mqtt_port = os.environ.get('MQTT_PORT')
+if not bootstrap_servers:
+    raise Exception('MQTT_PORT not defined')
+mqtt_port = int(mqtt_port)
+
+broker_name = os.environ.get('EDGE_BROKER_NAME')
+if not bootstrap_servers:
+    raise Exception('EDGE_BROKER_NAME not defined')
+
+batch_pool_frequency = os.environ.get('BATCH_POOL_FREQUENCY')
+if not bootstrap_servers:
+    raise Exception('BATCH_POOL_FREQUENCY not defined')
+
+batch_pool_frequency = int(batch_pool_frequency)
+
 
 class MiniBatch:
     def __init__(self):

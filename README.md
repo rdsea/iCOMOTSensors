@@ -8,7 +8,7 @@ Note: *Our code is currently being updated and uploaded.*
 
 Pls. cite this paper if you use the IoTCloudSamples:
 
-Hong-Linh Truong,[Using IoTCloudSamples as a Software Framework for Simulations of Edge Computing Scenarios](https://www.researchgate.net/publication/339201255_Using_IoTCloudSamples_as_a_Software_Framework_for_Simulations_of_Edge_Computing_Scenarios), 2019.
+Hong-Linh Truong,[Using IoTCloudSamples as a Software Framework for Simulations of Edge Computing Scenarios](https://research.aalto.fi/files/61274956/Truong_Using.1_s2.0_S2542660521000275_main.pdf), Internet of Things: Engineering Cyber Physical Human Systems, 14, [100383]. https://doi.org/10.1016/j.iot.2021.100383.
 
 
 ## IoT Cloud Units
@@ -52,9 +52,9 @@ Most Cloud units are based on real cloud services, such as from Google, Amazon, 
 
 They are for network function features. For example, firewall control is network feature that can be deployed for a specific system.
 
-### Machine Learning units
+## Machine Learning units
 
-[ML units](MLUnits/README.md) implement ML models that can be deployed as a service unit. 
+[ML units](MLUnits/README.md) implement ML models that can be deployed as a service unit.
 
 ## IoT, Cloud and Network Function providers
 
@@ -79,6 +79,13 @@ From existing units, providers and data, for specific research and development p
 - for testing uncertainty (https://github.com/rdsea/T4UME)
 - for testing incidents (https://github.com/rdsea/bigdataincidentanalytics)
 
+### BTS Monitoring Scenario 
+The [BTS monitoring scenario](scenarios/simpleBTS) illustrates monitoring and data analytics for BTS.
+
+### Network Operations Monitoring Scenario
+
+The [network operations analytics scenario](scenarios/netops) is used to study elasticity and elasticity of edge-cloud systems for network monitoring.
+
 ## Supporting Edge Cloud Technologies
 IoTCloudSamples utilizes different programming languages and frameworks. Generally, code can be run with
 * Docker container systems
@@ -88,7 +95,7 @@ IoTCloudSamples utilizes different programming languages and frameworks. General
 ## Relevant publications
 
 The following papers are relevant to the development of the IoTCloudSamples:
-- Hong-Linh Truong,[Using IoTCloudSamples as a Software Framework for Simulations of Edge Computing Scenarios](https://www.researchgate.net/publication/339201255_Using_IoTCloudSamples_as_a_Software_Framework_for_Simulations_of_Edge_Computing_Scenarios), 2019.
+- Hong-Linh Truong,[Using IoTCloudSamples as a Software Framework for Simulations of Edge Computing Scenarios](https://research.aalto.fi/files/61274956/Truong_Using.1_s2.0_S2542660521000275_main.pdf), Internet of Things: Engineering Cyber Physical Human Systems, 14, [100383]. https://doi.org/10.1016/j.iot.2021.100383.
 - Hong-Linh Truong, Lingfan Gao, Michael Hammerer, Service Architectures and Dynamic Solutions for Interoperability of IoT, Network Functions and Cloud Resources [Preprint](https://bit.ly/2LEYoIz), 12th European Conference on Software Architecture, September 24-28, 2018, Madrid, Spain
 - Hong-Linh Truong, Luca Berardinelli, Ivan Pavkovic and Georgiana Copil, Modeling and Provisioning IoT Cloud Systems for Testing Uncertainties, [Pre-print PDF](https://users.aalto.fi/~truongh4/publications/2017/truong-mobiquitous2017.pdf), 14th EAI International Conference on Mobile and Ubiquitous Systems: Computing, Networking and Services (MobiQuitous 2017), November 7–10, 2017,Melbourne, Australia.
 - Hong-Linh Truong, Georgiana Copil, Schahram Dustdar, Duc-Hung Le, Daniel Moldovan, Stefan Nastic, On Engineering Analytics for Elastic IoT Cloud Platforms [PDF](https://users.aalto.fi/~truongh4/publications/2016/truong-icsoc2016.pdf), (c)Springer-Verlag,14th International Conference on Service Oriented Computing (ICSOC 2016), Oct 10-13, 2016. Banff, Canada.

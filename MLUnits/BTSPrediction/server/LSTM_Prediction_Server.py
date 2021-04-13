@@ -1,35 +1,27 @@
 import argparse
 import time
 import json
+import numpy as np
 import pika
 from ML_Loader import ML_Loader
 import sys
 sys.path.append("../queue")
 from Queue_Handler import Queue_Handler
 
-
-flag = True
-
-class ML_Prediction_Server(object):
+class LSTM_Prediction_Server(object):
     def __init__(self, amqp_host):
         # Init the queue for ML request and load the ML model
-        self.queue = Queue_Handler(self, amqp_host, 'topic_bts', 'topic', 'bts_queue', 'server')
-        self.loader = ML_Loader()
+        self.queue = Queue_Handler(self, amqp_host, 'lstm_bts', 'topic', 'rpc_queue', 'server')
+        self.loader = ML_Loader()      
 
     
-    def ML_prediction(self, index, value, threshold):
+    def ML_prediction(self, pas_series):
         # Making prediciton using loader
-        svlr = self.loader.single_var_LR(index)
-        mvlr = self.loader.multi_var_LR(index, value, threshold)
-        dnnsr = self.loader.DNN_single_regression(index)
-        dnnmr = self.loader.DNN_multi_regression(index, value, threshold)
-
+        result = self.loader.LSTM_prediction(pas_series)
+        result = result.reshape(result.shape[1],result.shape[2])
         # Load the result into json format
         data_js = {
-            "SVLR": float(svlr), 
-            "MVLR": float(mvlr), 
-            "DNNSR": float(dnnsr), 
-            "DNNMR": float(dnnmr)
+            "LSTM": float(result[0]), 
         }
         self.print_result(data_js)
         return json.dumps(data_js)
@@ -39,15 +31,17 @@ class ML_Prediction_Server(object):
         start_time = time.time()
         # load json message
         predict_value = json.loads(str(body.decode("utf-8")))
-        index = float(predict_value["index"]) 
-        station_id = float(predict_value["station_id"])
-        data_point = float(predict_value["data_point"])
-        alarm_id = float(predict_value["alarm_id"])
-        value = float(predict_value["value"])
-        threshold = float(predict_value["threshold"])
+        norm_1 = float(predict_value["norm_1"])
+        norm_2 = float(predict_value["norm_2"]) 
+        norm_3 = float(predict_value["norm_3"]) 
+        norm_4 = float(predict_value["norm_4"]) 
+        norm_5 = float(predict_value["norm_5"]) 
+        norm_6 = float(predict_value["norm_6"]) 
+        pas_series =np.array([[norm_1],[norm_2],[norm_3],[norm_4],[norm_5],[norm_6]])
+        pas_series = np.array(pas_series)[np.newaxis,:,:]
 
         # Call back the ML prediction server for making prediction
-        response = self.ML_prediction(index, value, threshold)
+        response = self.ML_prediction(pas_series)
 
         # Response the request
         ch.basic_publish(exchange='',

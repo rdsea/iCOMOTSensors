@@ -4,27 +4,27 @@ import tflite_runtime.interpreter as tflite
 class ML_Loader(object):
     def __init__(self):
         # Init loader by loading model into the object
-        self.interpreter_single_var_LR = tflite.Interpreter("../exported_models/tflite_model/single_var_LR.tflite")
+        self.interpreter_single_var_LR = tflite.Interpreter("../models/single_var_LR/single_var_LR.tflite")
         self.interpreter_single_var_LR.allocate_tensors()
         self.input_details_single_var_LR = self.interpreter_single_var_LR.get_input_details()
         self.output_details_single_var_LR = self.interpreter_single_var_LR.get_output_details()
 
-        self.interpreter_multi_var_LR = tflite.Interpreter("../exported_models/tflite_model/multi_var_LR.tflite")
+        self.interpreter_multi_var_LR = tflite.Interpreter("../models/multi_var_LR/multi_var_LR.tflite")
         self.interpreter_multi_var_LR.allocate_tensors()
         self.input_details_multi_var_LR = self.interpreter_multi_var_LR.get_input_details()
         self.output_details_multi_var_LR = self.interpreter_multi_var_LR.get_output_details()
 
-        self.interpreter_DNN_single_regression = tflite.Interpreter("../exported_models/tflite_model/DNN_single_regression.tflite")
+        self.interpreter_DNN_single_regression = tflite.Interpreter("../models/DNN_single_regression/DNN_single_regression.tflite")
         self.interpreter_DNN_single_regression.allocate_tensors()
         self.input_details_DNN_single_regression = self.interpreter_DNN_single_regression.get_input_details()
         self.output_details_DNN_single_regression = self.interpreter_DNN_single_regression.get_output_details()
 
-        self.interpreter_DNN_multi_regression = tflite.Interpreter("../exported_models/tflite_model/DNN_multi_regression.tflite")
+        self.interpreter_DNN_multi_regression = tflite.Interpreter("../models/DNN_multi_regression/DNN_multi_regression.tflite")
         self.interpreter_DNN_multi_regression.allocate_tensors()
         self.input_details_DNN_multi_regression = self.interpreter_DNN_multi_regression.get_input_details()
         self.output_details_DNN_multi_regression = self.interpreter_DNN_multi_regression.get_output_details()
 
-        self.interpreter_LSTM_single_series = tflite.Interpreter("../exported_models/tflite_model/LSTM_single_series.tflite")
+        self.interpreter_LSTM_single_series = tflite.Interpreter("../models/LSTM_single_series/LSTM_single_series.tflite")
         self.interpreter_LSTM_single_series.allocate_tensors()
         self.input_details_LSTM_single_series = self.interpreter_LSTM_single_series.get_input_details()
         self.output_details_LSTM_single_series = self.interpreter_LSTM_single_series.get_output_details()

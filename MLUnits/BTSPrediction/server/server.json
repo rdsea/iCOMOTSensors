@@ -1,0 +1,31 @@
+{
+    "client_info": {
+        "id": "aaltosea1",
+        "roles": "ml_provider"
+    },
+    "service_info": {
+        "id": "request",
+        "machinetypes": "small",
+        "metric": [
+            "Accuracy",
+            "ResponseTime"
+        ]
+    },
+    "broker_service":{
+        "broker": "AMQP",
+        "url": "localhost"
+    },
+    "queue_info":{
+        "exchange_name": "lstm_bts",
+        "exchange_type": "topic",
+        "in_queue": "in_lstm",
+        "out_queue": "out_lstm",
+        "in_routing_key": "lstm.request.#",
+        "out_routing_key": "lstm.response.#",
+        "roles": "server"
+    },
+    "model": {
+        "name": "LSTM",
+        "path": "../models/LSTM_single_series/LSTM_single_series.tflite"
+    }
+}

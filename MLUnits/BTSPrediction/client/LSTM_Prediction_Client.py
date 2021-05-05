@@ -1,35 +1,44 @@
-import time
-import argparse
-import json
-import pika
-import uuid
 import sys
+import pika
+sys.path.append("../queue")
+from Sub_Queue import Sub_Queue
+from Pub_Queue import Pub_Queue
+import time
+import json
+import uuid
 import random
 import pandas as pd
-sys.path.append("../queue")
-from Queue_Handler import Queue_Handler
+import threading
 
-mean_val = 12.04030374
-max_val = 12.95969626
 
 class LSTM_Prediction_Client(object):
 
-    def __init__(self, amqp_host):
-        # Connect to RabbitMQ host
-        self.queue = Queue_Handler(self, amqp_host, 'lstm_bts', 'topic', 'result', 'client')
-          
-    # Check if the response is available
+    def __init__(self, client_info):
+        # Init object information
+        self.broker_info = client_info["broker_service"]
+        self.queue_info = client_info["queue_info"]
+        # Init subcribe and publish queue
+        self.sub_queue = Sub_Queue(self, self.broker_info, self.queue_info)
+        self.pub_queue = Pub_Queue(self, self.broker_info, self.queue_info)
+        self.sub_thread = threading.Thread(target=self.sub_queue.start)
+            
+    # Process message return from server
     def message_processing(self, ch, method, props, body):
-        if self.corr_id == props.correlation_id:
-            self.response = body
+        predict_value = json.loads(str(body.decode("utf-8")))
+        pre_val = predict_value["LSTM"]
+        dict_predicted = {
+            "LSTM": pre_val
+        }
+        self.ml_response = {"Prediction": dict_predicted}
+        self.print_result(self.ml_response)
+
 
     # Send prediction request
     def send_request(self, dict_mess):
-        self.response = None
         # init an uniques id for each request
         self.corr_id = str(uuid.uuid4())
         # set routing key when send data to the Exchange
-        routing_key = "request.lstm"
+        routing_key = self.queue_info["in_routing_key"]
         # load data to json object
         json_mess = {
             "norm_1": float(dict_mess["norm_1"]), 
@@ -40,27 +49,10 @@ class LSTM_Prediction_Client(object):
             "norm_6": float(dict_mess["norm_6"])
         }
         body_mess = json.dumps(json_mess)
-        # start calculate response time
-        start_time = time.time()
-        self.queue.send_data(routing_key, body_mess, self.corr_id)
-        # print("Data sent")
-        while self.response is None:
-            self.queue.process_data_events()
-        # calculate response time
-        response_time = time.time() - start_time
-        # read the results
-        predict_value = json.loads(str(self.response.decode("utf-8")))
-        
-        pre_val = predict_value["LSTM"]*max_val+mean_val
-        dict_predicted = {
-            "LSTM": pre_val
-        }
-        # calculate accuracy
-        accuracy =  (1 - abs((pre_val - float(dict_mess["norm_value"]))/float(dict_mess["norm_value"])))*100
-        if accuracy < 0:
-            accuracy = 0
-        # return prediction analysis
-        return {"Prediction": dict_predicted, "ResponseTime": response_time, "Accuracy": accuracy}
+        # Send request using publish queue
+        self.pub_queue.send_data(routing_key, body_mess, self.corr_id)
+        print("Data sent")
+
     
     def publish_message(self, file):
         raw_dataset = pd.read_csv(file)
@@ -71,7 +63,6 @@ class LSTM_Prediction_Client(object):
             time.sleep(random.uniform(0.2, 1))
             # Parse data
             dict_mess = {
-                "norm_value" : float(line["norm_value"])*max_val+mean_val,
                 "norm_1" : float(line["norm_1"]),
                 "norm_2" : float(line["norm_2"]),
                 "norm_3" : float(line["norm_3"]),
@@ -81,11 +72,7 @@ class LSTM_Prediction_Client(object):
             }
             # print("Sending request: {}".format(line))
             # Publish data to a specific topic
-            ml_response = self.send_request(dict_mess)
-            self.print_result(ml_response)
-
-
-        time.sleep(0.2)
+            self.send_request(dict_mess)
     
     def print_result(self, data):
         prediction = ""
@@ -94,10 +81,9 @@ class LSTM_Prediction_Client(object):
 
         prediction_to_str = f"""{'='*80}
         # Prediction Client:{prediction}
-        # ResponseTime: {data["ResponseTime"]}
-        # Accuracy: {data["Accuracy"]}
         {'='*80}"""
         print(prediction_to_str.replace('  ', ''))
 
-
+    def start(self):
+        self.sub_thread.start()
 

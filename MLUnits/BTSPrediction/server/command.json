@@ -1,0 +1,11 @@
+{
+    "client_info": {
+        "id": "aaltosea1",
+        "roles": "ml_provider"
+    },
+    "model": {
+        "name": "LSTM",
+        "path": "../models/LSTM_single_series/LSTM_single_series.tflite"
+    },
+    "command": "STOP"
+}

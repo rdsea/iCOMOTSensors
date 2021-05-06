@@ -9,15 +9,23 @@ These units are  used to predict the failure event at base transceiver stations 
 * Single Var RL
 
 ## Data
-The description of data is in [bts data](../../data/bts/README.md) and a [small data file](data/1160629000_121_308_test.csv) is within this directory.
+The description of raw data is in [bts data](../../data/bts/README.md) and a [small pre-processing data file](data/) is within this directory. The pre-processing data was transformed from the raw data for the ML.
 
-Many months of data are not shared here, available based on the discussion.
+Many months of raw data are not shared here, available based on the discussion with the author.
+
+## Models
+
+The ML unit relies on ML models trained with the data mentioned above.
+>TODO: a short info to indicate where is the code for training
+
+Further trained information can be found in [this paper](https://research.aalto.fi/files/56621517/main.pdf).
 
 ## Simple test service unit
 The test service unit includes:
-- A message queue handler manage prediction requests using RabbitMQ
-- A ML Loader loads trained models from exported format (in TensorFlowLite)
-- A Server manage the work flow
+- A message broker, using RabbitMQ,  are used for sending and receiving requests and results
+- A [client](client/) sends data for prediction and gets results
+- A [ML Unit as a service](server/) loads [trained models](models/) from exported format (in TensorFlowLite), obtains requests from the the broker, performs the prediction and returns the predicted value
+
 ### Requirements
 - Python3
 - Pika
@@ -25,7 +33,7 @@ The test service unit includes:
 - TensorFlow/TensorFlowLite
 ### Running the experiment
 - Start RabbitMQ using docker composed by running the script (run.sh) in **server** folder
-- Start ML_Prediction_Server.py
-- Send request to the queue with message is a json object including [index, stationid, datapointid, alarmid, value, threshold], or try using the example client code with our data by starting Send_request.py in the client directory
+- Start server/bts_prediction_server.py
+- Use the example client code with our data
 
 ## Authors/Contributions

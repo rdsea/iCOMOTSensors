@@ -1,7 +1,7 @@
 # Generic Alarm Data Generator
-This is a simple program that can be used to generate alarm data in a generic way. The idea is that there are many types of alarms can occur in open space environment, such as building, seaport, and streets. Normally such alarms are provided by some systems but as we do not have all possible alarm data, we can generate alarm data as input for testing how services are triggered based on such alamrs.
+This is a simple program that can be used to generate alarm data in a generic way. The idea is that there are many types of alarms can occur in open space environment, such as building, seaport, and streets. Normally such alarms are provided by some systems but as we do not have all possible real alarm data, we can generate alarm data as input for testing how services are triggered based on such alarms.
 
-Our goal is to use the alarm generator to create alarms for simulations. Based on alarms, some systems must intelligently react by creating different resource slices for triggering data exchange needed for dealing the alarms. It is not our goal to use the alarms to analyze responses (although creating resource slices would aim at providing data and services for alarm responses)
+Our goal is to use the alarm generator to create alarms for emulations. Based on alarms, some systems must intelligently react by creating different resources as services for dealing the alarms. It is not our goal to use the alarms to analyze responses (although creating resources would aim at providing data and services for alarm responses)
 
 ## Common structure
 The common structure of an alarm entry should be, in CSV:
@@ -27,12 +27,14 @@ etc. the list can be extended. In fact, it is dependent on the application using
 * WARNING
 * CRITICAL
 
-This can be extended
+This can be extended furthermore.
 
 ### location
-Can be long and lat of GPS
+Can be long and lat of GPS or geohash. It would be better to use real GPS/geohash by selecting suitable locations (e.g. using Google Map)
 
 ### type of objects
+It is up to the developer to define them. Examples are:
+
 *  container
 *  crane
 *  vessel
@@ -46,7 +48,8 @@ Can be long and lat of GPS
 *  waterpipeline
 
 ### objectid
-uuid or known names that one can use to link to other logics
+
+uuid or known identifiers that one can use to link to other logics
 
 ### other fields if required.
 We can add other fields if needed.
@@ -80,4 +83,3 @@ Initial information for object:
     }
 ]
 ```
-## Contact

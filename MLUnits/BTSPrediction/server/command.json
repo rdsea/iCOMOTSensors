@@ -5,7 +5,8 @@
     },
     "model": {
         "name": "LSTM",
-        "path": "../models/LSTM_single_series/LSTM_single_series.tflite"
+        "path": "../models/LSTM_single_series/LSTM_single_series.tflite",
+        "machinetypes":"edge"
     },
     "command": "STOP"
 }

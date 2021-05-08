@@ -25,7 +25,8 @@ class LSTM_Prediction_Server(object):
         
     def ML_prediction(self, pas_series):
         # Making prediciton
-        result = self.model.prediction(pas_series)
+        batch_size = pas_series.shape[0]
+        result = self.model.prediction(pas_series, batch_size)
         result = result.reshape(result.shape[1],result.shape[2])
         # Load the result into json format
         data_js = {

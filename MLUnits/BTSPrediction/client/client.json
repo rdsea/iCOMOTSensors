@@ -13,7 +13,7 @@
     },
     "broker_service":{
         "broker": "AMQP",
-        "url": "localhost"
+        "url": "195.148.22.62"
     },
     "queue_info":{
         "exchange_name": "lstm_bts",

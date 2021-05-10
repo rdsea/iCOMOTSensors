@@ -23,7 +23,12 @@ scenario
 └───IoTSensorBatchingBridge
 ```
 
-All these folders have the readme on the relavant configurations for these external providers and how to run them.
+All these folders have the readme on the relevant configurations for these external providers and how to run them.
+
+#### System Overview
+Using the scripts/configurations/code, the GPON monitoring scenario will be provisioned as following:
+
+![](images/netops_monitor.svg)
 
 ---
 

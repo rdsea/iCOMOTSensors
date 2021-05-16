@@ -1,4 +1,4 @@
-## Cloud broker configuration
+# Cloud broker configuration
 
 This provides a configuration for setting up a scalable cloud broker for cloud sub-system of the monitoring scenario.
 
@@ -13,8 +13,8 @@ This provides a configuration for setting up a scalable cloud broker for cloud s
 #### Usage:
 * run `docker-compose up`
 
-## Changes and Adaptation
+## Scenario changes/adaptation
 
-* Running Kafka with VMs: in practice, Kafka needs powerful resources so that one might setup Kafka with VMs. 
+* Running Kafka with VMs: in practice, Kafka needs powerful resources so that one might setup Kafka with VMs.
 
 * Different brokers can be used. For example, IoT Hub/PubSub from Azure. Google or Amazon Services can be used. In this case, [Cloud Ingestion Provider](../CloudIngestorProvider) must be changed/updated to take data from the right message broker.

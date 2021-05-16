@@ -2,7 +2,7 @@ import paho.mqtt.client as mqtt
 import json
 import sys
 from datetime import datetime, timedelta
-import time 
+import time
 from cloud_publisher import KafkaPublisher
 import logging
 import json
@@ -13,7 +13,7 @@ LOG_FORMAT_STRING = "%Y-%m-%d"
 LOG_LEVEL = "INFO"
 
 def get_formatted_datetime():
-    now = datetime.now()     
+    now = datetime.now()
     return now.strftime(LOG_FORMAT_STRING)
 
 
@@ -72,8 +72,10 @@ class MiniBatch:
     def formatter(self, msg):
         payload = str(msg.payload)
         data = payload.split(",")
-        
 
+'''
+This is for GPON specific data used in our scenario.  For other types of data the code must be changed.
+'''
         json_data = {
                 "topic": msg.topic,
                 "qos": msg.qos,
@@ -108,7 +110,7 @@ class MiniBatch:
                 self._queue = []
                 self.time_start = datetime.now()
 
-            self.time_end = datetime.now()            
+            self.time_end = datetime.now()
         except Exception as e:
             # Potential alert mechanism to put here
             print(e)
@@ -125,7 +127,7 @@ def on_message(mosq, obj, msg):
     batch.mini_cluster(msg, kafka_publisher)
 
 batch = MiniBatch()
-kafka_publisher = KafkaPublisher(kafka_broker) 
+kafka_publisher = KafkaPublisher(kafka_broker)
 client = mqtt.Client("mini-batch-converter")
 client.on_connect = on_connect
 client.on_disconnect = on_disconnect
@@ -133,4 +135,3 @@ client.on_message = on_message
 client.connect(mqtt_host, mqtt_port, 60)
 
 client.loop_forever()
-

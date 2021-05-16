@@ -1,4 +1,4 @@
-## Cloud database configuration
+# Cloud database configuration
 Cloud database provider is used to store monitoring from IoT. We ingest  incoming data from [CloudBrokerProvider](../CloudBrokerProvider) into the cloud database.
 
 ## Current deployment
@@ -13,7 +13,7 @@ Cloud database provider is used to store monitoring from IoT. We ingest  incomin
 * run `docker-compose up` to start the cassandra cluster
 * login onto the cqlsh terminal of the cluster and execute `cassandra_commands.sql` to create the GPON database.
 
-## Possible changes/adaptation
+## Scenario changes/adaptation
 
 * Databases:
   - use other databases, such as [CockroachDB](https://www.cockroachlabs.com/) or public cloud databases like [Big Query](https://cloud.google.com/bigquery), [Azure Cosmos](https://azure.microsoft.com/en-us/services/cosmos-db/)

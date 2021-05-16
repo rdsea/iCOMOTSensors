@@ -1,4 +1,4 @@
-## Cloud sub-system ingestion provider
+# Cloud sub-system ingestion provider
 
 This presents a specific ingestion provider that takes data from a messaging system service and ingests the data into a database service.
 
@@ -15,6 +15,6 @@ The current provider is built for a specific scenario with GPON monitoring data 
 #### usage
 Execute `python3 ingestor.py "kafka_broker_locations"`
 
-## Changes/Adaptation
+## Scenario changes/adaptation
 * Many different ways of ingestion can be implemented, e.g., using workflows and other techniques
-* Many different brokers and databases can be changed. For this new ingestion units must be implemented. 
+* Many different brokers and databases can be changed. For this new ingestion units must be implemented.

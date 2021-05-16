@@ -30,7 +30,9 @@ folders
 All these folders have the readme on the relevant configurations for these external providers and how to run them.
 
 #### System Overview
-Using the scripts/configurations/code, the GPON monitoring scenario will be provisioned as following:
+The following figure presents a generic view of the IoT-based monitoring scenario deplyoment in edge and cloud infrastructures.
+
+>Currently, using the scripts/configurations/code, the scenario will be deployed for GPON equipment monitoring.
 
 ![](images/netops_monitor.svg)
 

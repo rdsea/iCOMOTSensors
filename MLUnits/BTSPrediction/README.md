@@ -2,26 +2,24 @@
 
 These units are  used to predict the failure event at base transceiver stations applying 4 ML models.
 
-## Models
-* DNN Multi Regression
-* DNN Single Regression
-* Multi Var LR
-* Single Var RL
-
 ## Data
 The description of raw data is in [bts data](../../data/bts/README.md) and a [small pre-processing data file](data/) is within this directory. The pre-processing data was transformed from the raw data for the ML.
 
 Many months of raw data are not shared here, available based on the discussion with the author.
 
 ## Models
+* DNN Multi Regression
+* DNN Single Regression
+* Multi Var LR
+* Single Var RL
 
 The ML unit relies on ML models trained with the data mentioned above.
 >TODO: a short info to indicate where is the code for training
 
 Further trained information can be found in [this paper](https://research.aalto.fi/files/56621517/main.pdf).
 
-## Simple test service unit
-The test service unit includes:
+## Simple test case 
+A simple test case includes:
 - A message broker, using RabbitMQ,  are used for sending and receiving requests and results
 - A [client](client/) sends data for prediction and gets results
 - A [ML Unit as a service](server/) loads [trained models](models/) from exported format (in TensorFlowLite), obtains requests from the the broker, performs the prediction and returns the predicted value

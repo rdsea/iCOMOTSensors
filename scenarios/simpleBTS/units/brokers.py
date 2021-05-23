@@ -10,7 +10,7 @@ def get_next_port():
 def load_config(path):
     config = None
     with open(path, 'r') as config_file:
-        config = yaml.load(config_file)
+        config = yaml.load(config_file,Loader=yaml.FullLoader)
     return config
 
 # returns the docker compose services
@@ -25,5 +25,5 @@ def provision(config):
         brokerService['image'] = 'eclipse-mosquitto'
         brokerService['ports'] = ports
         services[broker] = brokerService
-       
+
     return services

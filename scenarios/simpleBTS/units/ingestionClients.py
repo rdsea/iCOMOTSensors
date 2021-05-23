@@ -5,7 +5,7 @@ import json
 def load_config(path):
     config = None
     with open(path, 'r') as config_file:
-        config = yaml.load(config_file)
+        config = yaml.load(config_file,Loader=yaml.FullLoader)
     return config
 
 def createIngestionClientConfigs(ingestionConfigs):
@@ -17,7 +17,7 @@ def createIngestionClientConfigs(ingestionConfigs):
         brokerConfig = {}
         brokerConfig['username'] = 'xxx'
         brokerConfig['password'] = 'xxx'
-        brokerConfig['clientId'] = broker['brokerId']+'_'+str(count) 
+        brokerConfig['clientId'] = broker['brokerId']+'_'+str(count)
         brokerConfig['host'] = broker['brokerId']
         brokerConfig['port'] = 1883
         brokerConfig['topics'] = broker['topics'][:]
@@ -70,7 +70,7 @@ def provision (config):
         for broker in ingestionConfigs['brokers']:
             topics.update(broker['topics'][:])
 
-    write_big_query_config(config['bigQuery'], topics)
-    
     write_config_files(ingestionClients)
+    write_big_query_config(config['bigQuery'], topics)
+        
     return write_compose(ingestionClients)

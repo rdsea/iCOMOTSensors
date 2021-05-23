@@ -6,7 +6,7 @@ import csv
 def load_config(path):
     config = None
     with open(path, 'r') as config_file:
-        config = yaml.load(config_file)
+        config = yaml.load(config_file,Loader=yaml.FullLoader)
     return config
 
 def read_csv(path, sensor_id_field):
@@ -41,5 +41,5 @@ def provision(config):
     write_data(data, sensor_names)
 
 
-config = load_config('config.sample.yml')
-provision(config)
+#config = load_config('config.sample.yml')
+#provision(config)

@@ -18,11 +18,14 @@ The ML unit relies on ML models trained with the data mentioned above.
 
 Further trained information can be found in [this paper](https://research.aalto.fi/files/56621517/main.pdf).
 
-## Simple test case 
+## Simple test case
 A simple test case includes:
 - A message broker, using RabbitMQ,  are used for sending and receiving requests and results
-- A [client](client/) sends data for prediction and gets results
-- A [ML Unit as a service](server/) loads [trained models](models/) from exported format (in TensorFlowLite), obtains requests from the the broker, performs the prediction and returns the predicted value
+- A [client-v1](client-v1/) sends normalized data for prediction and gets results
+- A [ML Unit as a service](service-v1/) loads [trained models](models/) from exported format (in TensorFlowLite), obtains requests from the the broker, performs the prediction and returns the predicted value
+
+>TODO:
+- A client-v2 just sends raw sensoring data to a ML service v2 which performs data preprocessing and other data processing tasks and serving 
 
 ### Requirements
 - Python3

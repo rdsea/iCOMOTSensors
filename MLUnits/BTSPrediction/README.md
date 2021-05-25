@@ -19,7 +19,7 @@ The ML unit relies on ML models trained with the data mentioned above.
 
 ### LSTM single series
 This model is
-* applied to a single station for a single parameter (e.g., Room Temperature)
+* applied to a single station for a single parameter (e.g., Load of Power Grid)
 
 Further trained information can be found in [this paper](https://research.aalto.fi/files/56621517/main.pdf).
 

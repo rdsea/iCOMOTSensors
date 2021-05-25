@@ -79,12 +79,16 @@ From existing units, providers and data, for specific research and development p
 - for testing uncertainty (https://github.com/rdsea/T4UME)
 - for testing incidents (https://github.com/rdsea/bigdataincidentanalytics)
 
-### BTS Monitoring Scenario 
-The [BTS monitoring scenario](scenarios/simpleBTS) illustrates monitoring and data analytics for BTS.
+#### BTS Monitoring scenario
+The [BTS monitoring scenario](scenarios/simpleBTSEdgeCloudIngestion) illustrates monitoring and data analytics for BTS.
 
-### Network Operations Monitoring Scenario
+#### Network Operations Monitoring scenario
 
 The [network operations analytics scenario](scenarios/netops) is used to study elasticity and elasticity of edge-cloud systems for network monitoring.
+
+#### IoT Machine Learning Predictive Maintenance scenario
+
+The [machine learning predictive maintenance scenario](scenarios/IoTMLPredictiveMaintenance) is used to study dynamic ML serving and IoT data inference. 
 
 ## Supporting Edge Cloud Technologies
 IoTCloudSamples utilizes different programming languages and frameworks. Generally, code can be run with
